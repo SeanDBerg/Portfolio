@@ -34,7 +34,7 @@ export default function Experience({ experience, isTransitioning }: ExperiencePr
               {/* Connecting line from timeline dot to date */}
               <div className="absolute w-4 h-0.5 bg-trust-blue left-3 top-2.5"></div>
               <div className="ml-8">
-                <span className="text-trust-blue text-[14px] font-normal">
+                <span className="text-trust-blue text-[13px] font-bold mt-[0px] mb-[0px] pl-[0px] pr-[0px] pt-[0px] pb-[0px] ml-[0px] mr-[0px]">
                   {exp.period}
                 </span>
               </div>
