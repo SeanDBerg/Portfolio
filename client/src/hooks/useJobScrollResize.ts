@@ -31,20 +31,9 @@ export function useJobScrollResize(jobIndex: number, totalJobs: number) {
             setIsEnlarged(prevCenter < navBarHeight);
           }
         } else if (jobIndex === 0) {
-          // First job section: find the previous main section (outside the Experience container)
-          const experienceContainer = ref.current.closest('section');
-          const previousMainSection = experienceContainer?.previousElementSibling as HTMLElement;
-          
-          if (previousMainSection) {
-            const prevRect = previousMainSection.getBoundingClientRect();
-            const prevCenter = prevRect.top + prevRect.height / 2;
-            
-            // Enlarge first job when the previous main section shrinks
-            setIsEnlarged(prevCenter < navBarHeight);
-          } else {
-            // If no previous section, behave like header
-            setIsEnlarged(!isShrunken);
-          }
+          // First job section should not enlarge independently - it follows the parent Experience section
+          // The parent Experience section will handle the enlargement timing with Core Competencies
+          setIsEnlarged(false);
         }
       }
     };

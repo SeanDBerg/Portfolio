@@ -1,4 +1,5 @@
 import { Experience as ExperienceType } from '@/data/resumeData';
+import { useScrollResize } from '@/hooks/useScrollResize';
 import { useJobScrollResize } from '@/hooks/useJobScrollResize';
 
 interface ExperienceProps {
@@ -62,26 +63,37 @@ function JobContent({ exp, index, isLast, isTransitioning, totalJobs }: JobConte
 }
 
 export default function Experience({ experience, isTransitioning }: ExperienceProps) {
+  const { ref, isShrunken, isEnlarged } = useScrollResize();
+
+  const getSectionClass = () => {
+    if (isShrunken) return 'section-shrunk';
+    if (isEnlarged) return 'section-enlarged';
+    return 'section-normal';
+  };
+
   return (
-    <>
-      <section className="bg-white rounded-xl shadow-lg p-4 mb-1">
-        <h3 className="text-lg font-bold text-navy mb-3">
-          Professional Experience
-        </h3>
-        
-        <div className="space-y-3">
-          {experience.map((exp, index) => (
-            <JobContent 
-              key={index}
-              exp={exp}
-              index={index}
-              isLast={index === experience.length - 1}
-              isTransitioning={isTransitioning}
-              totalJobs={experience.length}
-            />
-          ))}
-        </div>
-      </section>
-    </>
+    <section 
+      ref={ref}
+      className={`bg-white rounded-xl shadow-lg p-4 mb-1 fade-transition ${
+        isTransitioning ? 'fade-out' : 'fade-in'
+      } ${getSectionClass()}`}
+    >
+      <h3 className="text-lg font-bold text-navy mb-3">
+        Professional Experience
+      </h3>
+      
+      <div className="space-y-3">
+        {experience.map((exp, index) => (
+          <JobContent 
+            key={index}
+            exp={exp}
+            index={index}
+            isLast={index === experience.length - 1}
+            isTransitioning={isTransitioning}
+            totalJobs={experience.length}
+          />
+        ))}
+      </div>
+    </section>
   );
 }
