@@ -8,11 +8,12 @@ export function useScrollEnlarge() {
     const handleScroll = () => {
       if (ref.current) {
         const rect = ref.current.getBoundingClientRect();
+        const elementTop = rect.top;
         const elementBottom = rect.bottom;
         
-        // Section is "in view" when its bottom edge is still visible in the viewport
+        // Section is "in view" when it's visible in the viewport
         // This creates an enlargement effect as sections come into focus
-        setIsInView(elementBottom >= 100); // 100px buffer for smooth transition
+        setIsInView(elementTop < window.innerHeight && elementBottom > 0);
       }
     };
 
