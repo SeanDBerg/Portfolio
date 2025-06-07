@@ -8,15 +8,15 @@ interface CompetenciesProps {
 }
 
 export default function Competencies({ competencies, technicalSkills, isTransitioning }: CompetenciesProps) {
-  const { ref, isPassed } = useScrollShrink();
+  const { ref, isPassed } = useScrollShrink(400);
 
   return (
     <>
       <section 
         ref={ref}
-        className={`bg-white rounded-xl shadow-lg p-4 mb-1 fade-transition transition-all duration-300 ${
+        className={`bg-white rounded-xl shadow-lg p-4 mb-1 fade-transition ${
           isTransitioning ? 'fade-out' : 'fade-in'
-        } ${isPassed ? 'scale-95 opacity-80' : 'scale-100'}`}
+        } ${isPassed ? 'section-shrunk' : 'section-normal'}`}
       >
         <h3 className="text-lg font-bold text-navy mb-3">
           Core Competencies
@@ -32,9 +32,9 @@ export default function Competencies({ competencies, technicalSkills, isTransiti
       </section>
 
       {technicalSkills && (
-        <section className={`bg-white rounded-xl shadow-lg p-4 mb-1 fade-transition transition-all duration-300 ${
+        <section className={`bg-white rounded-xl shadow-lg p-4 mb-1 fade-transition ${
           isTransitioning ? 'fade-out' : 'fade-in'
-        } ${isPassed ? 'scale-95 opacity-80' : 'scale-100'}`}>
+        } ${isPassed ? 'section-shrunk' : 'section-normal'}`}>
           <h3 className="text-lg font-bold text-navy mb-3">
             Technical Skills
           </h3>
