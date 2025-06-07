@@ -23,47 +23,60 @@ function JobListing({ exp, index, isLast, isTransitioning }: JobListingProps) {
   };
 
   return (
-    <section 
-      ref={ref}
-      className={`bg-white rounded-xl shadow-lg p-4 mb-1 fade-transition ${
-        isTransitioning ? 'fade-out' : 'fade-in'
-      } ${getSectionClass()}`}
-    >
-      {index === 0 && (
-        <h3 className="text-lg font-bold text-navy mb-3">
-          Professional Experience
-        </h3>
+    <div className="relative">
+      {/* Connecting line from previous section */}
+      {index > 0 && (
+        <div className="absolute -top-1 left-4 w-0.5 h-2 bg-gray-200 z-10"></div>
       )}
-      <div className={`relative ${!isLast ? 'border-l-2 border-gray-200 pb-3 pl-6' : 'pl-6'}`}>
-        {/* Date range positioned above and aligned with timeline */}
-        <div className="relative -ml-6 mb-2">
-          <div className="absolute w-3 h-3 bg-trust-blue rounded-full left-0 top-1"></div>
-          {/* Connecting line from timeline dot to date */}
-          <div className="absolute w-4 h-0.5 bg-trust-blue left-3 top-2.5"></div>
-          <div className="ml-8">
-            <span className="text-trust-blue text-xs font-bold">
-              {exp.period}
-            </span>
+      
+      <section 
+        ref={ref}
+        className={`bg-white rounded-xl shadow-lg p-4 mb-1 fade-transition ${
+          isTransitioning ? 'fade-out' : 'fade-in'
+        } ${getSectionClass()} relative z-20`}
+      >
+        {index === 0 && (
+          <h3 className="text-lg font-bold text-navy mb-3">
+            Professional Experience
+          </h3>
+        )}
+        
+        <div className={`relative ${!isLast ? 'border-l-2 border-gray-200 pb-3 pl-6' : 'pl-6'}`}>
+          {/* Date range positioned above and aligned with timeline */}
+          <div className="relative -ml-6 mb-2">
+            <div className="absolute w-3 h-3 bg-trust-blue rounded-full left-0 top-1"></div>
+            {/* Connecting line from timeline dot to date */}
+            <div className="absolute w-4 h-0.5 bg-trust-blue left-3 top-2.5"></div>
+            <div className="ml-8">
+              <span className="text-trust-blue text-xs font-bold">
+                {exp.period}
+              </span>
+            </div>
+          </div>
+          
+          {/* Job listing content */}
+          <div className="bg-gray-50 rounded-lg p-3">
+            <div className="mb-2">
+              <h4 className="text-base font-semibold text-navy leading-tight">{exp.title}</h4>
+              <h5 className="text-sm text-trust-blue font-medium">{exp.company}</h5>
+            </div>
+            <ul className="space-y-1">
+              {exp.achievements.map((achievement, achievementIndex) => (
+                <li key={achievementIndex} className="flex items-start gap-2">
+                  <i className="fas fa-arrow-right text-trust-blue mt-0.5 flex-shrink-0 text-xs"></i>
+                  <span className="text-gray-700 text-xs leading-relaxed">{achievement}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
         
-        {/* Job listing content */}
-        <div className="bg-gray-50 rounded-lg p-3">
-          <div className="mb-2">
-            <h4 className="text-base font-semibold text-navy leading-tight">{exp.title}</h4>
-            <h5 className="text-sm text-trust-blue font-medium">{exp.company}</h5>
-          </div>
-          <ul className="space-y-1">
-            {exp.achievements.map((achievement, achievementIndex) => (
-              <li key={achievementIndex} className="flex items-start gap-2">
-                <i className="fas fa-arrow-right text-trust-blue mt-0.5 flex-shrink-0 text-xs"></i>
-                <span className="text-gray-700 text-xs leading-relaxed">{achievement}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </section>
+        {/* Connecting line to next section */}
+        {!isLast && (
+          <div className="absolute -bottom-1 left-4 w-0.5 h-2 bg-gray-200 z-10"></div>
+        )}
+      </section>
+    </div>
   );
 }
 
