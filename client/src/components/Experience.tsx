@@ -1,5 +1,5 @@
 import { Experience as ExperienceType } from '@/data/resumeData';
-import { useScrollResize } from '@/hooks/useScrollResize';
+import { useJobScrollResize } from '@/hooks/useJobScrollResize';
 
 interface ExperienceProps {
   experience: ExperienceType[];
@@ -11,10 +11,11 @@ interface JobContentProps {
   index: number;
   isLast: boolean;
   isTransitioning: boolean;
+  totalJobs: number;
 }
 
-function JobContent({ exp, index, isLast, isTransitioning }: JobContentProps) {
-  const { ref, isShrunken, isEnlarged } = useScrollResize();
+function JobContent({ exp, index, isLast, isTransitioning, totalJobs }: JobContentProps) {
+  const { ref, isShrunken, isEnlarged } = useJobScrollResize(index, totalJobs);
 
   const getSectionClass = () => {
     if (isShrunken) return 'section-shrunk';
@@ -62,22 +63,25 @@ function JobContent({ exp, index, isLast, isTransitioning }: JobContentProps) {
 
 export default function Experience({ experience, isTransitioning }: ExperienceProps) {
   return (
-    <section className="bg-white rounded-xl shadow-lg p-4 mb-1">
-      <h3 className="text-lg font-bold text-navy mb-3">
-        Professional Experience
-      </h3>
-      
-      <div className="space-y-3">
-        {experience.map((exp, index) => (
-          <JobContent 
-            key={index}
-            exp={exp}
-            index={index}
-            isLast={index === experience.length - 1}
-            isTransitioning={isTransitioning}
-          />
-        ))}
-      </div>
-    </section>
+    <>
+      <section className="bg-white rounded-xl shadow-lg p-4 mb-1">
+        <h3 className="text-lg font-bold text-navy mb-3">
+          Professional Experience
+        </h3>
+        
+        <div className="space-y-3">
+          {experience.map((exp, index) => (
+            <JobContent 
+              key={index}
+              exp={exp}
+              index={index}
+              isLast={index === experience.length - 1}
+              isTransitioning={isTransitioning}
+              totalJobs={experience.length}
+            />
+          ))}
+        </div>
+      </section>
+    </>
   );
 }
