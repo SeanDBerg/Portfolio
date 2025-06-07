@@ -1,7 +1,7 @@
-import { Experience } from '@/data/resumeData';
+import { Experience as ExperienceType } from '@/data/resumeData';
 
 interface ExperienceProps {
-  experience: Experience[];
+  experience: ExperienceType[];
   isTransitioning: boolean;
 }
 
