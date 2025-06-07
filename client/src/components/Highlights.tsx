@@ -1,5 +1,5 @@
 import { Highlight } from '@/data/resumeData';
-import { useScrollShrink } from '@/hooks/useScrollShrink';
+import { useScrollShrinkOnLeave } from '@/hooks/useScrollShrinkOnLeave';
 
 interface HighlightsProps {
   highlights: Highlight[];
@@ -7,14 +7,14 @@ interface HighlightsProps {
 }
 
 export default function Highlights({ highlights, isTransitioning }: HighlightsProps) {
-  const { ref, isPassed } = useScrollShrink(300);
+  const { ref, hasLeftView } = useScrollShrinkOnLeave();
 
   return (
     <section 
       ref={ref}
       className={`bg-white rounded-xl shadow-lg p-4 mb-1 fade-transition ${
         isTransitioning ? 'fade-out' : 'fade-in'
-      } ${isPassed ? 'section-shrunk' : 'section-normal'}`}
+      } ${hasLeftView ? 'section-shrunk' : 'section-normal'}`}
     >
       <h3 className="text-lg font-bold text-navy mb-2">
         Career Highlights
