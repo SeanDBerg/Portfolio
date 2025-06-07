@@ -11,9 +11,11 @@ export function useScrollShrink() {
         const elementHeight = rect.height;
         const elementTop = rect.top;
         const elementMidpoint = elementTop + (elementHeight / 2);
+        const viewportHeight = window.innerHeight;
         
-        // Section is "passed" when its midpoint goes above the viewport
-        setIsPassed(elementMidpoint < 0);
+        // Section is "passed" when its midpoint reaches the middle of the viewport
+        const shouldShrink = elementMidpoint < (viewportHeight / 2);
+        setIsPassed(shouldShrink);
       }
     };
 
