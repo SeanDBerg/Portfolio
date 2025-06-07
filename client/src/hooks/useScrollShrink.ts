@@ -1,30 +1,25 @@
 import { useState, useEffect, useRef } from 'react';
 
 export function useScrollShrink() {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isPassed, setIsPassed] = useState(false);
   const ref = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsVisible(entry.isIntersecting);
-      },
-      {
-        threshold: 0.3,
-        rootMargin: '-100px 0px'
-      }
-    );
-
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-
-    return () => {
+    const handleScroll = () => {
       if (ref.current) {
-        observer.unobserve(ref.current);
+        const rect = ref.current.getBoundingClientRect();
+        const elementTop = rect.top + window.scrollY;
+        const scrollPosition = window.scrollY + 100; // Account for nav height
+        
+        setIsPassed(scrollPosition > elementTop);
       }
     };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Check initial state
+    
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  return { ref, isVisible };
+  return { ref, isPassed };
 }

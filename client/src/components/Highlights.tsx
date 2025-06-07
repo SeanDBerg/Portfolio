@@ -7,23 +7,22 @@ interface HighlightsProps {
 }
 
 export default function Highlights({ highlights, isTransitioning }: HighlightsProps) {
-  const { ref, isVisible } = useScrollShrink();
+  const { ref, isPassed } = useScrollShrink();
 
   return (
     <section 
       ref={ref}
       className={`bg-white rounded-xl shadow-lg p-4 mb-1 fade-transition transition-all duration-300 ${
         isTransitioning ? 'fade-out' : 'fade-in'
-      } ${isVisible ? 'scale-100' : 'scale-95 opacity-80'}`}
+      } ${isPassed ? 'scale-95 opacity-80' : 'scale-100'}`}
     >
-      <h3 className="text-lg font-bold text-navy mb-2 flex items-center gap-2">
-        <i className="fas fa-star text-trust-blue text-sm"></i>
+      <h3 className="text-lg font-bold text-navy mb-2">
         Career Highlights
       </h3>
       <div className="space-y-0.5">
         {highlights.map((highlight, index) => (
           <div key={index} className="flex items-start gap-2">
-            <i className={`${highlight.icon} text-trust-blue mt-1 text-xs flex-shrink-0`}></i>
+            <div className="text-trust-blue text-xs mt-1 flex-shrink-0">•</div>
             <span className="text-gray-700 text-sm leading-tight">{highlight.text}</span>
           </div>
         ))}

@@ -8,18 +8,17 @@ interface CompetenciesProps {
 }
 
 export default function Competencies({ competencies, technicalSkills, isTransitioning }: CompetenciesProps) {
-  const { ref, isVisible } = useScrollShrink();
+  const { ref, isPassed } = useScrollShrink();
 
   return (
     <>
       <section 
         ref={ref}
-        className={`bg-white rounded-xl shadow-lg p-4 mb-3 fade-transition transition-all duration-300 ${
+        className={`bg-white rounded-xl shadow-lg p-4 mb-1 fade-transition transition-all duration-300 ${
           isTransitioning ? 'fade-out' : 'fade-in'
-        } ${isVisible ? 'scale-100' : 'scale-95 opacity-80'}`}
+        } ${isPassed ? 'scale-95 opacity-80' : 'scale-100'}`}
       >
-        <h3 className="text-lg font-bold text-navy mb-3 flex items-center gap-2">
-          <i className="fas fa-brain text-trust-blue text-sm"></i>
+        <h3 className="text-lg font-bold text-navy mb-3">
           Core Competencies
         </h3>
         <div className="space-y-2">
@@ -33,9 +32,10 @@ export default function Competencies({ competencies, technicalSkills, isTransiti
       </section>
 
       {technicalSkills && (
-        <section className={`bg-white rounded-xl shadow-lg p-4 mb-3 fade-transition ${isTransitioning ? 'fade-out' : 'fade-in'}`}>
-          <h3 className="text-lg font-bold text-navy mb-3 flex items-center gap-2">
-            <i className="fas fa-tools text-trust-blue text-sm"></i>
+        <section className={`bg-white rounded-xl shadow-lg p-4 mb-1 fade-transition transition-all duration-300 ${
+          isTransitioning ? 'fade-out' : 'fade-in'
+        } ${isPassed ? 'scale-95 opacity-80' : 'scale-100'}`}>
+          <h3 className="text-lg font-bold text-navy mb-3">
             Technical Skills
           </h3>
           <div className="bg-gray-50 rounded-lg p-3">

@@ -12,7 +12,7 @@ export default function Navigation({ currentRole, onRoleChange, onDownloadPDF }:
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 100);
+      setIsScrolled(window.scrollY > 50);
     };
 
     window.addEventListener('scroll', handleScroll);
