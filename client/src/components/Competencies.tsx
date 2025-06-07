@@ -1,5 +1,5 @@
 import { CompetencyCategory } from '@/data/resumeData';
-import { useScrollEnlarge } from '@/hooks/useScrollEnlarge';
+import { useScrollShrink } from '@/hooks/useScrollShrink';
 
 interface CompetenciesProps {
   competencies: CompetencyCategory[];
@@ -8,15 +8,14 @@ interface CompetenciesProps {
 }
 
 export default function Competencies({ competencies, technicalSkills, isTransitioning }: CompetenciesProps) {
-  const { ref, isInView } = useScrollEnlarge();
+  const isScrolled = useScrollShrink();
 
   return (
     <>
       <section 
-        ref={ref}
         className={`bg-white rounded-xl shadow-lg p-4 mb-1 fade-transition ${
           isTransitioning ? 'fade-out' : 'fade-in'
-        } ${isInView ? 'section-enlarged' : 'section-normal'}`}
+        } ${isScrolled ? 'section-shrunk' : 'section-normal'}`}
       >
         <h3 className="text-lg font-bold text-navy mb-3">
           Core Competencies
@@ -34,7 +33,7 @@ export default function Competencies({ competencies, technicalSkills, isTransiti
       {technicalSkills && (
         <section className={`bg-white rounded-xl shadow-lg p-4 mb-1 fade-transition ${
           isTransitioning ? 'fade-out' : 'fade-in'
-        } ${isInView ? 'section-enlarged' : 'section-normal'}`}>
+        } ${isScrolled ? 'section-shrunk' : 'section-normal'}`}>
           <h3 className="text-lg font-bold text-navy mb-3">
             Technical Skills
           </h3>
