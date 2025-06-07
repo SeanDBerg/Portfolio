@@ -1,5 +1,5 @@
 import { Experience as ExperienceType } from '@/data/resumeData';
-import { useScrollShrink } from '@/hooks/useScrollShrink';
+import { useScrollResize } from '@/hooks/useScrollResize';
 
 interface ExperienceProps {
   experience: ExperienceType[];
@@ -7,14 +7,20 @@ interface ExperienceProps {
 }
 
 export default function Experience({ experience, isTransitioning }: ExperienceProps) {
-  const { ref, isScrolled } = useScrollShrink();
+  const { ref, isShrunken, isEnlarged } = useScrollResize();
+
+  const getSectionClass = () => {
+    if (isShrunken) return 'section-shrunk';
+    if (isEnlarged) return 'section-enlarged';
+    return 'section-normal';
+  };
 
   return (
     <section 
       ref={ref}
       className={`bg-white rounded-xl shadow-lg p-4 mb-1 fade-transition ${
         isTransitioning ? 'fade-out' : 'fade-in'
-      } ${isScrolled ? 'section-shrunk' : 'section-normal'}`}
+      } ${getSectionClass()}`}
     >
       <h3 className="text-lg font-bold text-navy mb-3">
         Professional Experience

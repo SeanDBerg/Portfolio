@@ -1,4 +1,4 @@
-import { useScrollShrink } from '@/hooks/useScrollShrink';
+import { useScrollResize } from '@/hooks/useScrollResize';
 
 interface EducationProps {
   certifications: string[];
@@ -6,14 +6,20 @@ interface EducationProps {
 }
 
 export default function Education({ certifications, isTransitioning }: EducationProps) {
-  const { ref, isScrolled } = useScrollShrink();
+  const { ref, isShrunken, isEnlarged } = useScrollResize();
+
+  const getSectionClass = () => {
+    if (isShrunken) return 'section-shrunk';
+    if (isEnlarged) return 'section-enlarged';
+    return 'section-normal';
+  };
 
   return (
     <section 
       ref={ref}
       className={`bg-white rounded-xl shadow-lg p-4 mb-1 fade-transition ${
         isTransitioning ? 'fade-out' : 'fade-in'
-      } ${isScrolled ? 'section-shrunk' : 'section-normal'}`}
+      } ${getSectionClass()}`}
     >
       <h3 className="text-lg font-bold text-navy mb-3">
         Education & Certifications

@@ -119,18 +119,6 @@
   }
   
   .section-shrunk {
-    transform: scale(0.8);
-    transform-origin: center top;
-    transition: transform 0.3s ease-in-out;
-  }
-  
-  .section-normal {
-    transform: scale(1);
-    transform-origin: center top;
-    transition: transform 0.3s ease-in-out;
-  }
-
-  .section-shrunk {
     transform: scale(0.95);
     opacity: 0.8;
     transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
@@ -138,6 +126,12 @@
   
   .section-normal {
     transform: scale(1);
+    opacity: 1;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  }
+
+  .section-enlarged {
+    transform: scale(1.03);
     opacity: 1;
     transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
   }
