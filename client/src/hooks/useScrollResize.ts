@@ -27,9 +27,8 @@ export function useScrollResize() {
           // Enlarge this section when the previous section's center has passed behind the nav bar
           setIsEnlarged(prevCenter < navBarHeight);
         } else {
-          // First section (Header) enlarges when user starts scrolling but hasn't scrolled far
-          const scrollY = window.scrollY;
-          setIsEnlarged(scrollY > 20 && scrollY < 200);
+          // First section (Header) starts enlarged and only shrinks when it goes behind nav bar
+          setIsEnlarged(!isShrunken);
         }
       }
     };
