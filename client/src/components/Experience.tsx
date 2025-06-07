@@ -27,17 +27,22 @@ export default function Experience({ experience, isTransitioning }: ExperiencePr
       </h3>
       <div className="space-y-3">
         {experience.map((exp, index) => (
-          <div key={index} className={`relative pl-6 ${index !== experience.length - 1 ? 'border-l-2 border-gray-200 pb-3' : ''}`}>
-            <div className="absolute w-3 h-3 bg-trust-blue rounded-full -left-1.5 top-1"></div>
-            <div className="bg-gray-50 rounded-lg p-3">
-              <div className="flex flex-col sm:flex-row sm:items-start justify-between mb-2">
-                <div className="flex-1">
-                  <h4 className="text-base font-semibold text-navy leading-tight">{exp.title}</h4>
-                  <h5 className="text-sm text-trust-blue font-medium">{exp.company}</h5>
-                </div>
-                <span className="bg-trust-blue text-white px-2 py-1 rounded text-xs font-medium mt-1 sm:mt-0 self-start">
+          <div key={index} className={`relative ${index !== experience.length - 1 ? 'border-l-2 border-gray-200 pb-3 pl-6' : 'pl-6'}`}>
+            {/* Date range positioned above and aligned with timeline */}
+            <div className="relative -ml-6 mb-2">
+              <div className="absolute w-3 h-3 bg-trust-blue rounded-full left-0 top-1"></div>
+              <div className="ml-6">
+                <span className="bg-trust-blue text-white px-2 py-1 rounded text-xs font-medium">
                   {exp.period}
                 </span>
+              </div>
+            </div>
+            
+            {/* Job listing content */}
+            <div className="bg-gray-50 rounded-lg p-3">
+              <div className="mb-2">
+                <h4 className="text-base font-semibold text-navy leading-tight">{exp.title}</h4>
+                <h5 className="text-sm text-trust-blue font-medium">{exp.company}</h5>
               </div>
               <ul className="space-y-1">
                 {exp.achievements.map((achievement, achievementIndex) => (
