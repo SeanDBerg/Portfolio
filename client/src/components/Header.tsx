@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
 import { ResumeData } from '@/data/resumeData';
+import { useScrollShrink } from '@/hooks/useScrollShrink';
 
 interface HeaderProps {
   roleData: ResumeData;
@@ -7,19 +7,10 @@ interface HeaderProps {
 }
 
 export default function Header({ roleData, isTransitioning }: HeaderProps) {
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 100);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const { ref, isScrolled } = useScrollShrink();
 
   return (
-    <header className={`bg-white rounded-xl shadow-lg p-4 mb-1 fade-transition ${isTransitioning ? 'fade-out' : 'fade-in'} ${isScrolled ? 'section-shrunk' : 'header-normal'}`}>
+    <header ref={ref} className={`bg-white rounded-xl shadow-lg p-4 mb-1 fade-transition ${isTransitioning ? 'fade-out' : 'fade-in'} ${isScrolled ? 'header-shrunk' : 'header-normal'}`}>
       <div className="flex flex-col md:flex-row items-center gap-4">
         <div className="flex-shrink-0">
           <img 
