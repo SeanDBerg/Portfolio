@@ -10,8 +10,12 @@ export function useScrollShrink() {
         const rect = ref.current.getBoundingClientRect();
         const elementCenter = rect.top + rect.height / 2;
         
-        // Section should shrink when its center has passed completely above the viewport (off screen)
-        setIsScrolled(elementCenter < 0);
+        // Account for navigation bar height - when scrolled it's smaller (~60px), when not scrolled it's larger (~80px)
+        // Use a safe estimate of 80px to account for the navigation bar overlay
+        const navBarHeight = 80;
+        
+        // Section should shrink when its center has passed completely behind the navigation bar
+        setIsScrolled(elementCenter < navBarHeight);
       }
     };
 
