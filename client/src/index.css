@@ -1,0 +1,139 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(0, 0%, 100%);
+  --foreground: hsl(30, 17%, 11%);
+  --muted: hsl(218, 11%, 96%);
+  --muted-foreground: hsl(216, 6%, 45%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(30, 17%, 11%);
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(30, 17%, 11%);
+  --border: hsl(216, 13%, 88%);
+  --input: hsl(216, 13%, 88%);
+  --primary: hsl(213, 45%, 24%);
+  --primary-foreground: hsl(210, 40%, 98%);
+  --secondary: hsl(204, 70%, 53%);
+  --secondary-foreground: hsl(210, 40%, 98%);
+  --accent: hsl(200, 91%, 54%);
+  --accent-foreground: hsl(210, 40%, 98%);
+  --destructive: hsl(0, 84%, 60%);
+  --destructive-foreground: hsl(60, 9%, 98%);
+  --ring: hsl(213, 45%, 24%);
+  --radius: 0.5rem;
+  
+  /* Custom resume colors */
+  --navy: hsl(213, 45%, 24%);
+  --trust-blue: hsl(204, 70%, 53%);
+  --hover-blue: hsl(200, 91%, 54%);
+  --bg-main: hsl(218, 27%, 97%);
+  --text-main: hsl(215, 25%, 17%);
+  --subtle: hsl(216, 13%, 94%);
+}
+
+.dark {
+  --background: hsl(240, 10%, 4%);
+  --foreground: hsl(0, 0%, 98%);
+  --muted: hsl(240, 4%, 16%);
+  --muted-foreground: hsl(240, 5%, 65%);
+  --popover: hsl(240, 10%, 4%);
+  --popover-foreground: hsl(0, 0%, 98%);
+  --card: hsl(240, 10%, 4%);
+  --card-foreground: hsl(0, 0%, 98%);
+  --border: hsl(240, 4%, 16%);
+  --input: hsl(240, 4%, 16%);
+  --primary: hsl(213, 45%, 24%);
+  --primary-foreground: hsl(210, 40%, 98%);
+  --secondary: hsl(240, 4%, 16%);
+  --secondary-foreground: hsl(0, 0%, 98%);
+  --accent: hsl(240, 4%, 16%);
+  --accent-foreground: hsl(0, 0%, 98%);
+  --destructive: hsl(0, 63%, 31%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(240, 5%, 84%);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-inter antialiased;
+    background: linear-gradient(135deg, var(--bg-main) 0%, hsl(0, 0%, 100%) 100%);
+    color: var(--text-main);
+  }
+}
+
+@layer utilities {
+  .font-inter {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+  
+  .text-navy {
+    color: var(--navy);
+  }
+  
+  .text-trust-blue {
+    color: var(--trust-blue);
+  }
+  
+  .text-hover-blue {
+    color: var(--hover-blue);
+  }
+  
+  .bg-navy {
+    background-color: var(--navy);
+  }
+  
+  .bg-trust-blue {
+    background-color: var(--trust-blue);
+  }
+  
+  .bg-hover-blue {
+    background-color: var(--hover-blue);
+  }
+  
+  .bg-subtle {
+    background-color: var(--subtle);
+  }
+  
+  .border-subtle {
+    border-color: var(--subtle);
+  }
+  
+  .fade-transition {
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  }
+  
+  .fade-out {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  
+  .fade-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    background: white !important;
+  }
+  
+  .print-break {
+    page-break-before: always;
+  }
+  
+  * {
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+}
