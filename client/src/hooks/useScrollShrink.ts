@@ -8,10 +8,12 @@ export function useScrollShrink() {
     const handleScroll = () => {
       if (ref.current) {
         const rect = ref.current.getBoundingClientRect();
-        const elementTop = rect.top + window.scrollY;
-        const scrollPosition = window.scrollY + 100; // Account for nav height
+        const elementHeight = rect.height;
+        const elementTop = rect.top;
+        const elementMidpoint = elementTop + (elementHeight / 2);
         
-        setIsPassed(scrollPosition > elementTop);
+        // Section is "passed" when its midpoint goes above the viewport
+        setIsPassed(elementMidpoint < 0);
       }
     };
 
