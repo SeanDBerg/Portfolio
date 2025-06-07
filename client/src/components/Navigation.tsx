@@ -27,18 +27,18 @@ export default function Navigation({ currentRole, onRoleChange, onDownloadPDF }:
   ];
 
   return (
-    <nav className={`sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-subtle shadow-sm no-print transition-all duration-300 ${isScrolled ? 'py-2' : 'py-4'}`}>
-      <div className={`max-w-6xl mx-auto px-6 transition-all duration-300 ${isScrolled ? 'scale-90' : 'scale-100'}`}>
+    <nav className={`sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-subtle shadow-sm no-print transition-all duration-300 ${isScrolled ? 'py-1' : 'py-2'}`}>
+      <div className={`max-w-6xl mx-auto px-6 transition-all duration-300 ${isScrolled ? 'scale-91' : 'scale-95'}`}>
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className={`font-semibold text-navy transition-all duration-300 ${isScrolled ? 'text-lg' : 'text-xl'}`}>Sean Berg Resume</div>
+          <div className={`font-semibold text-navy transition-all duration-300 ${isScrolled ? 'text-sm' : 'text-md'}`}>Sean Berg Resume</div>
           
-          <div className="flex flex-wrap justify-center gap-2">
+          <div className="flex flex-wrap justify-center gap-1">
             {roles.map(({ key, label }) => (
               <button
                 key={key}
                 onClick={() => onRoleChange(key)}
                 className={`rounded-lg font-medium transition-all duration-300 ${
-                  isScrolled ? 'px-3 py-1 text-sm' : 'px-4 py-2'
+                  isScrolled ? 'px-2 py-1 text-sm' : 'px-3 py-1'
                 } ${
                   currentRole === key
                     ? 'bg-navy text-white shadow-lg'
@@ -52,8 +52,8 @@ export default function Navigation({ currentRole, onRoleChange, onDownloadPDF }:
           
           <button
             onClick={onDownloadPDF}
-            className={`bg-hover-blue text-white rounded-lg font-medium hover:bg-blue-600 transition-all duration-300 shadow-lg flex items-center gap-2 ${
-              isScrolled ? 'px-4 py-1 text-sm' : 'px-6 py-2'
+            className={`bg-hover-blue text-white rounded-lg font-medium hover:bg-blue-600 transition-all duration-300 shadow-lg flex items-center gap-1 ${
+              isScrolled ? 'px-2 py-1 text-sm' : 'px-3 py-1'
             }`}
           >
             <i className="fas fa-download"></i>

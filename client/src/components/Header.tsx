@@ -16,7 +16,7 @@ export default function Header({ roleData, isTransitioning }: HeaderProps) {
   };
 
   return (
-    <header ref={ref} className={`bg-white rounded-xl shadow-lg p-4 mb-1 fade-transition ${isTransitioning ? 'fade-out' : 'fade-in'} ${getSectionClass()}`}>
+    <header ref={ref} className={`bg-white rounded-xl shadow-lg p-4 fade-transition ${isTransitioning ? 'fade-out' : 'fade-in'} ${getSectionClass()}`}>
       <div className="flex flex-col md:flex-row items-center gap-4">
         <div className="flex-shrink-0">
           <img 
