@@ -32,7 +32,7 @@ export default function Experience({ experience, isTransitioning }: ExperiencePr
             <div className="relative -ml-6 mb-2">
               <div className="absolute w-3 h-3 bg-trust-blue rounded-full left-0 top-1"></div>
               <div className="ml-6">
-                <span className="bg-trust-blue text-white px-2 py-1 rounded text-xs font-medium">
+                <span className="bg-white text-trust-blue px-2 py-1 rounded text-xs font-bold border border-trust-blue">
                   {exp.period}
                 </span>
               </div>
