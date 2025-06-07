@@ -9,10 +9,9 @@ export function useScrollShrink() {
       if (ref.current) {
         const rect = ref.current.getBoundingClientRect();
         const elementCenter = rect.top + rect.height / 2;
-        const viewportCenter = window.innerHeight / 2;
         
-        // Section should shrink when its center has passed above the viewport center
-        setIsScrolled(elementCenter < viewportCenter);
+        // Section should shrink when its center has passed completely above the viewport (off screen)
+        setIsScrolled(elementCenter < 0);
       }
     };
 
