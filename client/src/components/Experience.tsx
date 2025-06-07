@@ -25,9 +25,7 @@ function JobListing({ exp, index, isLast, isTransitioning }: JobListingProps) {
   return (
     <section 
       ref={ref}
-      className={`bg-white rounded-xl shadow-lg p-4 mb-1 fade-transition ${
-        isTransitioning ? 'fade-out' : 'fade-in'
-      } ${getSectionClass()}`}
+      className="bg-white rounded-xl shadow-lg p-4 fade-transition fade-in section-enlarged mt-[0px] mb-[0px]"
     >
       {index === 0 && (
         <h3 className="text-lg font-bold text-navy mb-3">
