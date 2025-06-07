@@ -1,4 +1,5 @@
 import { CompetencyCategory } from '@/data/resumeData';
+import { useScrollShrink } from '@/hooks/useScrollShrink';
 
 interface CompetenciesProps {
   competencies: CompetencyCategory[];
@@ -7,9 +8,16 @@ interface CompetenciesProps {
 }
 
 export default function Competencies({ competencies, technicalSkills, isTransitioning }: CompetenciesProps) {
+  const { ref, isVisible } = useScrollShrink();
+
   return (
     <>
-      <section className={`bg-white rounded-xl shadow-lg p-4 mb-3 fade-transition ${isTransitioning ? 'fade-out' : 'fade-in'}`}>
+      <section 
+        ref={ref}
+        className={`bg-white rounded-xl shadow-lg p-4 mb-3 fade-transition transition-all duration-300 ${
+          isTransitioning ? 'fade-out' : 'fade-in'
+        } ${isVisible ? 'scale-100' : 'scale-95 opacity-80'}`}
+      >
         <h3 className="text-lg font-bold text-navy mb-3 flex items-center gap-2">
           <i className="fas fa-brain text-trust-blue text-sm"></i>
           Core Competencies
