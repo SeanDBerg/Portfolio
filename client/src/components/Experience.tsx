@@ -31,8 +31,10 @@ export default function Experience({ experience, isTransitioning }: ExperiencePr
             {/* Date range positioned above and aligned with timeline */}
             <div className="relative -ml-6 mb-2">
               <div className="absolute w-3 h-3 bg-trust-blue rounded-full left-0 top-1"></div>
-              <div className="ml-6">
-                <span className="bg-white text-trust-blue px-2 py-1 rounded text-xs font-bold border border-trust-blue">
+              {/* Connecting line from timeline dot to date */}
+              <div className="absolute w-4 h-0.5 bg-trust-blue left-3 top-2.5"></div>
+              <div className="ml-8">
+                <span className="text-trust-blue text-xs font-bold">
                   {exp.period}
                 </span>
               </div>
