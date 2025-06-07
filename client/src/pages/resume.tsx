@@ -39,7 +39,7 @@ export default function Resume() {
         onDownloadPDF={handleDownloadPDF}
       />
       
-      <main className="max-w-6xl mx-auto px-6 py-8">
+      <main className="max-w-4xl mx-auto px-4 py-4">
         <Header 
           roleData={roleData}
           isTransitioning={isTransitioning}
