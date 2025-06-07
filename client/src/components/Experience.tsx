@@ -1,5 +1,5 @@
 import { Experience as ExperienceType } from '@/data/resumeData';
-import { useScrollResize } from '@/hooks/useScrollResize';
+import { useExperienceScrollResize } from '@/hooks/useExperienceScrollResize';
 import { useJobScrollResize } from '@/hooks/useJobScrollResize';
 
 interface ExperienceProps {
@@ -63,7 +63,7 @@ function JobContent({ exp, index, isLast, isTransitioning, totalJobs }: JobConte
 }
 
 export default function Experience({ experience, isTransitioning }: ExperienceProps) {
-  const { ref, isShrunken, isEnlarged } = useScrollResize();
+  const { ref, isShrunken, isEnlarged } = useExperienceScrollResize(experience.length);
 
   const getSectionClass = () => {
     if (isShrunken) return 'section-shrunk';
