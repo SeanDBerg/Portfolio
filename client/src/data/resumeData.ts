@@ -108,66 +108,6 @@ export const resumeData: Record<string, ResumeData> = {
           "Built training and vendor dashboards to track adoption rates, knowledge gaps, and onboarding outcomes",
           "Fostered team culture by launching peer coaching models, improving team cohesion and promotion readiness"
         ]
-      },
-      {
-        title: "Training Manager",
-        company: "Shift4 | Allentown, PA",
-        period: "Jan 2013 - Mar 2015",
-        achievements: [
-          "Managed training program development and delivery for merchant onboarding and POS implementation",
-          "Created standardized training materials for hospitality and retail payment systems",
-          "Coordinated with sales teams to ensure proper merchant setup and system integration",
-          "Developed training metrics and reporting systems to track program effectiveness",
-          "Supported national rollouts for major franchise partners including Hilton and Marriott"
-        ]
-      },
-      {
-        title: "Senior Training Specialist",
-        company: "Harbortouch (acquired by Shift4)",
-        period: "Jun 2010 - Jan 2013",
-        achievements: [
-          "Led technical training sessions for POS system implementation across multiple verticals",
-          "Developed curriculum for restaurant and retail point-of-sale systems",
-          "Provided on-site training and support for enterprise clients",
-          "Created documentation and training guides for merchant onboarding processes",
-          "Maintained 95%+ client satisfaction scores for training delivery and support"
-        ]
-      },
-      {
-        title: "Operations Supervisor", 
-        company: "Restaurant Management Group | PA",
-        period: "Mar 2008 - Jun 2010",
-        achievements: [
-          "Supervised daily operations for multiple restaurant locations with focus on efficiency and customer service",
-          "Managed staff scheduling, inventory control, and P&L accountability across locations",
-          "Implemented operational improvements that reduced labor costs by 12%",
-          "Coordinated training programs for new hire onboarding and skills development",
-          "Ensured compliance with health, safety, and operational standards"
-        ]
-      },
-      {
-        title: "Assistant Manager",
-        company: "Dairy Queen Corporate | PA",
-        period: "Sep 2005 - Mar 2008", 
-        achievements: [
-          "Assisted in managing daily operations including staff supervision and customer service delivery",
-          "Handled inventory management, cash handling, and operational reporting",
-          "Trained new employees on company procedures and POS system operation",
-          "Maintained quality standards and ensured compliance with corporate policies",
-          "Supported special promotions and seasonal menu implementations"
-        ]
-      },
-      {
-        title: "Shift Supervisor",
-        company: "Various Retail & Hospitality | PA",
-        period: "2003 - 2005",
-        achievements: [
-          "Supervised shift operations and staff coordination in fast-paced retail environments",
-          "Handled customer service escalations and ensured service quality standards",
-          "Managed cash handling procedures and end-of-shift reporting",
-          "Trained team members on operational procedures and customer service excellence",
-          "Supported inventory management and loss prevention initiatives"
-        ]
       }
     ],
     certifications: [
