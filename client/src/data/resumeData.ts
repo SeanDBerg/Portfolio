@@ -108,6 +108,37 @@ export const resumeData: Record<string, ResumeData> = {
           "Built training and vendor dashboards to track adoption rates, knowledge gaps, and onboarding outcomes",
           "Fostered team culture by launching peer coaching models, improving team cohesion and promotion readiness"
         ]
+      },
+      {
+        title: "Manager, Sales Enablement",
+        company: "Shift4 | Allentown, PA",
+        period: "Jan 2013 - Mar 2015",
+        achievements: [
+          "Owned sales reporting tools, partner enablement, and process alignment for high-volume SaaS and payments sales",
+          "Delivered large-scale training events and sales webinars supporting partners and enterprise onboarding",
+          "Created RFPs and sales enablement kits for franchise and enterprise-level tech deployments",
+          "Partnered with marketing and analytics teams to align channel performance with campaign attribution insights"
+        ]
+      },
+      {
+        title: "Manager, Operations & Field Systems",
+        company: "Shift4 | Allentown, PA",
+        period: "Aug 2010 - Jan 2013",
+        achievements: [
+          "Oversaw multi-region performance, technical tooling, and operations team development during national expansion",
+          "Scaled operations teams from 12 to 2,000+ employees while maintaining SLA targets and cost-efficiency goals",
+          "Created automated provisioning tools and technical documentation to enable faster launches and onboarding"
+        ]
+      },
+      {
+        title: "Manager, Crisis & Recreation",
+        company: "KidsPeace | Orefield, PA",
+        period: "2008 - 2010",
+        achievements: [
+          "Managed crisis intervention and recreational programs for at-risk youth in residential care facilities",
+          "Developed behavior management protocols and therapeutic recreational activities",
+          "Collaborated with clinical staff to support individualized treatment plans and positive outcomes"
+        ]
       }
     ],
     certifications: [
@@ -202,6 +233,38 @@ export const resumeData: Record<string, ResumeData> = {
           "Built internal web tools to track to visualize training progress and certification milestones",
           "Coordinated UX-aligned rollout strategies with IT and training teams to drive tool adoption and user readiness",
           "Developed React training interfaces to simulate POS behavior and onboard staff in a sandboxed environment"
+        ]
+      },
+      {
+        title: "Manager, Sales Enablement & Frontend Tools",
+        company: "Shift4 | Allentown, PA",
+        period: "Jan 2013 - Mar 2015",
+        achievements: [
+          "Built web-based sales reporting dashboards and partner enablement interfaces using HTML, CSS, and JavaScript",
+          "Created interactive training webinar platforms and onboarding interfaces for enterprise client deployments",
+          "Developed frontend components for RFP generation tools and sales enablement kit distribution systems",
+          "Collaborated with marketing teams to build responsive campaign landing pages and analytics tracking interfaces"
+        ]
+      },
+      {
+        title: "Manager, Operations Systems & UI Development",
+        company: "Shift4 | Allentown, PA",
+        period: "Aug 2010 - Jan 2013",
+        achievements: [
+          "Built frontend interfaces for multi-region performance tracking and operations management systems",
+          "Developed web-based provisioning tools and technical documentation interfaces to streamline onboarding",
+          "Created responsive dashboards to monitor team performance and SLA metrics across 2,000+ employees",
+          "Designed user-friendly interfaces for automated deployment and system configuration tools"
+        ]
+      },
+      {
+        title: "Web Development & Digital Media Specialist",
+        company: "KidsPeace | Orefield, PA",
+        period: "2008 - 2010",
+        achievements: [
+          "Developed web-based therapeutic program interfaces and digital engagement tools for youth services",
+          "Created interactive web applications to support behavior tracking and progress visualization",
+          "Built responsive interfaces for clinical staff to access treatment plans and program data"
         ]
       }
     ],
@@ -298,6 +361,38 @@ export const resumeData: Record<string, ResumeData> = {
           "Built internal dashboards to track employee training status, completion rates, and certification progress",
           "Partnered with developers to scope, test, and validate proprietary POS software enhancements"
         ]
+      },
+      {
+        title: "Manager, Sales Enablement & IT Systems",
+        company: "Shift4 | Allentown, PA",
+        period: "Jan 2013 - Mar 2015",
+        achievements: [
+          "Built and maintained IT infrastructure supporting sales reporting tools and partner enablement platforms",
+          "Implemented technical systems for large-scale training events and webinar delivery platforms",
+          "Developed automated RFP generation systems and sales enablement kit distribution infrastructure",
+          "Managed IT integration projects aligning sales analytics with marketing campaign attribution systems"
+        ]
+      },
+      {
+        title: "Manager, Operations & IT Infrastructure",
+        company: "Shift4 | Allentown, PA",
+        period: "Aug 2010 - Jan 2013",
+        achievements: [
+          "Led IT infrastructure expansion supporting multi-region operations and system performance monitoring",
+          "Implemented automated provisioning systems and technical documentation platforms for rapid scaling",
+          "Built monitoring and alerting systems to maintain SLA targets across 2,000+ employee operations",
+          "Designed and deployed technical tools enabling faster system launches and automated onboarding processes"
+        ]
+      },
+      {
+        title: "IT Systems Coordinator",
+        company: "KidsPeace | Orefield, PA",
+        period: "2008 - 2010",
+        achievements: [
+          "Managed IT systems supporting residential care facilities and therapeutic program infrastructure",
+          "Implemented behavior tracking systems and digital record management for clinical operations",
+          "Maintained network infrastructure and user access systems for multi-facility operations"
+        ]
       }
     ],
     certifications: [
@@ -391,6 +486,38 @@ export const resumeData: Record<string, ResumeData> = {
           "Partnered with software developers to scope and validate POS product enhancements pre-release",
           "Managed testing environments using Linux-based VMs for 30+ third-party platforms",
           "Designed dashboards to monitor training progress, improving certification rates by 75%"
+        ]
+      },
+      {
+        title: "Manager, Sales Enablement & Strategic Projects",
+        company: "Shift4 | Allentown, PA",
+        period: "Jan 2013 - Mar 2015",
+        achievements: [
+          "Led strategic sales enablement projects including reporting tool development and partner onboarding systems",
+          "Managed large-scale training event projects and webinar delivery platforms for enterprise partnerships",
+          "Coordinated RFP development projects and sales enablement kit creation for franchise deployments",
+          "Led cross-functional projects aligning sales analytics with marketing campaign attribution and performance metrics"
+        ]
+      },
+      {
+        title: "Manager, Operations & Infrastructure Projects",
+        company: "Shift4 | Allentown, PA",
+        period: "Aug 2010 - Jan 2013",
+        achievements: [
+          "Managed multi-region expansion projects supporting operations scaling from 12 to 2,000+ employees",
+          "Led infrastructure modernization projects including automated provisioning and documentation systems",
+          "Coordinated technical deployment projects while maintaining SLA targets and operational efficiency",
+          "Managed cross-departmental projects for system launches and automated onboarding implementations"
+        ]
+      },
+      {
+        title: "Program Coordinator",
+        company: "KidsPeace | Orefield, PA",
+        period: "2008 - 2010",
+        achievements: [
+          "Coordinated therapeutic program initiatives and crisis intervention protocol implementations",
+          "Managed cross-functional projects involving clinical staff, administrators, and external service providers",
+          "Led behavior management program rollouts and recreational activity planning initiatives"
         ]
       }
     ],
