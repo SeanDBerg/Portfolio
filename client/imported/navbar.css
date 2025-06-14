@@ -1,0 +1,64 @@
+/* === Tailwind Directives === */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* === Theme Toggle Button === */
+.theme-toggle-button {
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+.theme-toggle-button:hover {
+  background-color: var(--light-gray); /* Fallback for light mode */
+}
+
+.dark .theme-toggle-button:hover {
+  background-color: #1e293b; /* Tailwind dark:bg-slate-800 equivalent */
+}
+
+.theme-toggle-button .icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: inherit;
+}
+
+/* === Navbar === */
+.navbar {
+  padding: 1rem;
+  background-color: #f8f9fa;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.nav-list {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-list li a {
+  text-decoration: none;
+  color: #2c3e50;
+  font-weight: 500;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.nav-list li a:hover {
+  color: #A67C52;
+  transform: scale(1.05);
+}
+
+/* === Mobile Navbar === */
+@media (max-width: 600px) {
+  .nav-list {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
