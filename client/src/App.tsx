@@ -36,13 +36,15 @@ function App() {
     <TooltipProvider>
       <Toaster />
       <div className="min-h-screen flex flex-col">
-        <Navigation activeSection={activeSection} onNavigate={setActiveSection} />
-        <Overlay 
-          currentRole={currentRole} 
-          onRoleChange={switchRole} 
-          activeSection={activeSection}
-          onDownloadPDF={handleDownloadPDF}
-        />
+        <header className="sticky top-0 z-50">
+          <Navigation activeSection={activeSection} onNavigate={setActiveSection} />
+          <Overlay 
+            currentRole={currentRole} 
+            onRoleChange={switchRole} 
+            activeSection={activeSection}
+            onDownloadPDF={handleDownloadPDF}
+          />
+        </header>
         <div className="flex-1">
           {renderContent()}
         </div>

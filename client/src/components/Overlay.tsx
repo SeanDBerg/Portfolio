@@ -20,14 +20,28 @@ export default function Overlay({ currentRole, onRoleChange, activeSection, onDo
     setIsExpanded(shouldExpand);
   }, [activeSection]);
 
-  // Handle scroll to auto-collapse
+  // Handle scroll to auto-collapse only when scrolling content, not navigation
   useEffect(() => {
     const handleScroll = () => {
-      const scrolled = window.scrollY > 10;
-      setIsScrolled(scrolled);
-      
-      if (scrolled && isExpanded) {
-        setIsExpanded(false);
+      // Get the main content scroll position, excluding navigation/overlay height
+      const mainContent = document.querySelector('main');
+      if (mainContent) {
+        const rect = mainContent.getBoundingClientRect();
+        const scrolled = rect.top < -100; // Larger threshold to prevent premature closing
+        setIsScrolled(scrolled);
+        
+        // Only auto-collapse if significantly scrolled into content
+        if (scrolled && isExpanded) {
+          setIsExpanded(false);
+        }
+      } else {
+        // Fallback with much larger threshold
+        const scrolled = window.scrollY > 150;
+        setIsScrolled(scrolled);
+        
+        if (scrolled && isExpanded) {
+          setIsExpanded(false);
+        }
       }
     };
 
@@ -43,7 +57,7 @@ export default function Overlay({ currentRole, onRoleChange, activeSection, onDo
   ];
 
   return (
-    <div className={`no-print sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-subtle shadow-sm transition-all duration-300`}>
+    <div className={`no-print bg-white/95 backdrop-blur-sm border-b border-subtle shadow-sm transition-all duration-300`}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between py-2">
           {/* Toggle Button and Current Role */}

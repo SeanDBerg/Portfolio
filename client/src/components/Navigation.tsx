@@ -11,7 +11,15 @@ export default function Navigation({ activeSection, onNavigate }: NavigationProp
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
+      // Get the main content scroll position, not including navigation height
+      const mainContent = document.querySelector('main');
+      if (mainContent) {
+        const rect = mainContent.getBoundingClientRect();
+        setIsScrolled(rect.top < 0);
+      } else {
+        // Fallback to window scroll with larger threshold to prevent jitter
+        setIsScrolled(window.scrollY > 50);
+      }
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -26,7 +34,7 @@ export default function Navigation({ activeSection, onNavigate }: NavigationProp
   };
 
   return (
-    <nav className={`sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-subtle shadow-sm no-print transition-all duration-300 ${isScrolled ? 'py-2' : 'py-3'}`}>
+    <nav className={`bg-white/95 backdrop-blur-sm border-b border-subtle shadow-sm no-print transition-all duration-300 ${isScrolled ? 'py-2' : 'py-3'}`}>
       <div className={`max-w-6xl mx-auto px-4 sm:px-6 transition-all duration-300 ${isScrolled ? 'scale-98' : 'scale-100'}`}>
         <div className="flex flex-row items-center justify-center gap-4 w-full">
           <nav className="flex gap-6">
