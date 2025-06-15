@@ -3,6 +3,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Summary from "@/pages/summary";
 import Resume from "@/pages/resume";
+import Footer from "@/components/Footer";
 
 function Router() {
   return (
@@ -20,7 +21,12 @@ function App() {
   return (
     <TooltipProvider>
       <Toaster />
-      <Router />
+      <div className="min-h-screen flex flex-col">
+        <div className="flex-1">
+          <Router />
+        </div>
+        <Footer />
+      </div>
     </TooltipProvider>
   );
 }
