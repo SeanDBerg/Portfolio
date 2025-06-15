@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 export function useProjectScrollResize(projectIndex: number, totalProjects: number) {
   const [isShrunken, setIsShrunken] = useState(false);
   const [isEnlarged, setIsEnlarged] = useState(false);
-  const ref = useRef<HTMLElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
