@@ -8,10 +8,18 @@ import Highlights from '@/components/Resume/Highlights';
 import Competencies from '@/components/Resume/Competencies';
 import Experience from '@/components/Resume/Experience';
 import Education from '@/components/Resume/Education';
+import type { NavigationSection } from '@/App';
 
-export default function Resume() {
+interface ResumeProps {
+  onNavigate: (section: NavigationSection) => void;
+}
+
+export default function Resume({ onNavigate }: ResumeProps) {
   const { currentRole, isTransitioning, switchRole, roleData } = useResumeRole();
   const { generatePDF } = usePDFGenerator();
+  
+  // Determine active section based on current location in app
+  const activeSection: NavigationSection = 'resume'; // Will be passed from App component
 
   // Load jsPDF script on component mount
   useEffect(() => {

@@ -6,8 +6,13 @@ import TurnipMascot from '@/components/Summary/TurnipMascot';
 import HeroSection from '@/components/Summary/HeroSection';
 import PortfolioSection from '@/components/Summary/PortfolioSection';
 import CTASection from '@/components/Summary/CTASection';
+import type { NavigationSection } from '@/App';
 
-export default function Summary() {
+interface SummaryProps {
+  onNavigate: (section: NavigationSection) => void;
+}
+
+export default function Summary({ onNavigate }: SummaryProps) {
   const { currentRole, switchRole } = useResumeRole();
 
   const handleDownloadPDF = () => {
@@ -17,7 +22,11 @@ export default function Summary() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-bg-main to-white">
-      <Navigation onDownloadPDF={handleDownloadPDF} />
+      <Navigation 
+        onDownloadPDF={handleDownloadPDF} 
+        activeSection="summary"
+        onNavigate={onNavigate}
+      />
       <Overlay currentRole={currentRole} onRoleChange={switchRole} />
       
       <main className="max-w-3xl lg:max-w-4xl xl:max-w-5xl mx-auto px-3 sm:px-4 lg:px-6 py-1 sm:py-2">

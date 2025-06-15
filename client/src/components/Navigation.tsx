@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'wouter';
+import type { NavigationSection } from '@/App';
 
 interface NavigationProps {
   onDownloadPDF: () => void;
+  activeSection: NavigationSection;
+  onNavigate: (section: NavigationSection) => void;
 }
 
-export default function Navigation({ onDownloadPDF }: NavigationProps) {
+export default function Navigation({ onDownloadPDF, activeSection, onNavigate }: NavigationProps) {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [location] = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,9 +19,9 @@ export default function Navigation({ onDownloadPDF }: NavigationProps) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const getLinkClass = (path: string) => {
-    const isActive = location === path || (path === '/summary' && location === '/');
-    return `font-medium transition-colors ${isScrolled ? 'text-sm' : 'text-base'} ${
+  const getButtonClass = (section: NavigationSection) => {
+    const isActive = activeSection === section;
+    return `font-medium transition-colors cursor-pointer ${isScrolled ? 'text-sm' : 'text-base'} ${
       isActive ? 'text-hover-blue' : 'text-navy hover:text-hover-blue'
     }`;
   };
@@ -30,15 +31,24 @@ export default function Navigation({ onDownloadPDF }: NavigationProps) {
       <div className={`max-w-6xl mx-auto px-4 sm:px-6 transition-all duration-300 ${isScrolled ? 'scale-98' : 'scale-100'}`}>
         <div className="flex flex-row items-center justify-between gap-4 w-full">
           <nav className="flex gap-6">
-            <Link href="/summary" className={getLinkClass('/summary')}>
+            <button 
+              onClick={() => onNavigate('summary')}
+              className={getButtonClass('summary')}
+            >
               Summary
-            </Link>
-            <Link href="/resume" className={getLinkClass('/resume')}>
+            </button>
+            <button 
+              onClick={() => onNavigate('resume')}
+              className={getButtonClass('resume')}
+            >
               Resume
-            </Link>
-            <Link href="/projects" className={getLinkClass('/projects')}>
+            </button>
+            <button 
+              onClick={() => onNavigate('projects')}
+              className={getButtonClass('projects')}
+            >
               Projects
-            </Link>
+            </button>
           </nav>
           
           <button
