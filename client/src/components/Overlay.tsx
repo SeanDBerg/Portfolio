@@ -20,7 +20,7 @@ export default function Overlay({ currentRole, onRoleChange }: OverlayProps) {
   return (
     <div className="no-print fixed top-16 right-0 z-40 flex items-start">
       <div
-        className={`flex w-2/3 transform items-center gap-2 rounded-l-lg border bg-white/95 px-3 py-2 shadow transition-transform ${
+        className={`flex w-fit transform items-center gap-2 rounded-l-lg border bg-white/95 px-3 py-2 shadow transition-transform ${
           open ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -30,7 +30,7 @@ export default function Overlay({ currentRole, onRoleChange }: OverlayProps) {
         >
           <ChevronRight className="h-4 w-4" />
         </button>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex gap-2 whitespace-nowrap">
           {roles.map(({ key, label }) => (
             <button
               key={key}
