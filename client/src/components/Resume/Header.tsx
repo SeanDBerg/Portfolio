@@ -22,7 +22,7 @@ export default function Header({ roleData, isTransitioning }: HeaderProps) {
           <img 
             src="./EggHeadMcFinnigans.jpg"
             alt="Sean Berg Professional Headshot" 
-            className="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 rounded-full object-cover shadow-lg border-2 border-subtle"
+            className="w-28 h-32 sm:w-28 sm:h-32 lg:w-28 lg:h-32 rounded-full object-cover shadow-lg border-2 border-subtle"
           />
         </div>
         

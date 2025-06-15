@@ -11,8 +11,8 @@ export default function HeroSection() {
   };
 
   return (
-    <section ref={ref} className={`bg-white rounded-xl shadow-lg p-6 sm:p-8 lg:p-12 fade-transition fade-in ${getSectionClass()}`}>
-      <div className="flex flex-col items-center gap-6 text-center">
+    <section ref={ref} className={`bg-white rounded-xl shadow-lg p-2 sm:p-2 lg:p-2 fade-transition fade-in ${getSectionClass()}`}>
+      <div className="flex flex-col items-center gap-3 text-center">
         {/* Profile image */}
         <div className="flex-shrink-0">
           <div className="relative">
@@ -21,7 +21,7 @@ export default function HeroSection() {
               <img
                 src="./EggHeadMcFinnigans.jpg"
                 alt="Sean Berg Profile"
-                className="rounded-full w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-cover"
+                className="rounded-full w-32 h-40 sm:w-32 sm:h-40 lg:w-32 lg:h-40 object-cover"
               />
             </div>
           </div>
@@ -29,27 +29,27 @@ export default function HeroSection() {
 
         <div className="flex-1">
           {/* Heading */}
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-navy tracking-tight leading-snug mb-4">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-navy tracking-tight leading-snug mb-4">
             Full-Stack Developer<br />
-            Focused on Python, Django, Flask, and JavaScript
+            Python, Django, Flask, and JavaScript
           </h1>
 
           {/* Subheading */}
-          <p className="text-base sm:text-lg text-gray-700 font-normal mb-8 max-w-4xl mx-auto">
-            I build modular backends, responsive frontends, and interactive tools, from AI job matchers to RPG-style learning games.
+          <p className="text-base sm:text-lg text-gray-700 font-normal mb-5 max-w-4xl mx-auto">
+            Modular backends, responsive frontends, and interactive tools, from AI job matchers to RPG-style learning games.
           </p>
 
           {/* Buttons */}
-          <div className="flex flex-col sm:flex-row sm:justify-center justify-center gap-4 mb-8">
+          <div className="flex flex-col sm:flex-row sm:justify-center justify-center gap-3 mb-5">
             <a
               href="#portfolio"
-              className="px-6 py-3 bg-navy text-white font-medium rounded-lg shadow-lg hover:bg-trust-blue transition-colors"
+              className="px-4 py-2 bg-navy text-white font-medium rounded-lg shadow-lg hover:bg-trust-blue transition-colors"
             >
               View My Work
             </a>
             <a
               href="mailto:SeanDBerg@gmail.com"
-              className="px-6 py-3 bg-white border border-subtle text-navy font-medium rounded-lg shadow hover:bg-gray-50 transition-colors"
+              className="px-4 py-2 bg-white border border-subtle text-navy font-medium rounded-lg shadow hover:bg-gray-50 transition-colors"
             >
               Get In Touch
             </a>
