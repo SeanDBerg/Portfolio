@@ -1,9 +1,11 @@
+// vite.config.js
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 
 export default defineConfig({
+  base: "/Portfolio/", // Required for GitHub Pages
   plugins: [
     react(),
     runtimeErrorOverlay(),
@@ -25,7 +27,7 @@ export default defineConfig({
   },
   root: path.resolve(import.meta.dirname, "client"),
   build: {
-    outDir: path.resolve(import.meta.dirname, "dist/public"),
+    outDir: path.resolve(import.meta.dirname, "docs"), // ✅ GitHub Pages reads from here
     emptyOutDir: true,
   },
   server: {
