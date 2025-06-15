@@ -1,19 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-// A cute turnip mascot with blinking eyes and animated facial expressions
+// A personified turnip mascot with blinking and emotional state animations
 interface TurnipMascotProps {
   size?: number;
 }
 
 export default function TurnipMascot({ size = 120 }: TurnipMascotProps) {
   const [hovered, setHovered] = useState(false);
-  const [selected, setSelected] = useState(false);
+  const [extraHappy, setExtraHappy] = useState(false);
 
   const handleMouseEnter = () => setHovered(true);
   const handleMouseLeave = () => setHovered(false);
-  const handleClick = () => setSelected(!selected);
+  const handleClick = () => {
+    setExtraHappy(true);
+    setTimeout(() => setExtraHappy(false), 1000);
+  };
 
-  const expression = selected ? "extra" : hovered ? "very" : "mild";
+  const expression = extraHappy ? "extra" : hovered ? "very" : "mild";
 
   return (
     <div
@@ -48,13 +51,6 @@ export default function TurnipMascot({ size = 120 }: TurnipMascotProps) {
               0%, 100% { transform: rotate(0deg); }
               50% { transform: rotate(3deg); }
             }
-            .blink {
-              animation: blink 6s infinite;
-            }
-            @keyframes blink {
-              0%, 90%, 100% { r: 5; }
-              92%, 96% { r: 1; }
-            }
           `}
         </style>
 
@@ -75,29 +71,62 @@ export default function TurnipMascot({ size = 120 }: TurnipMascotProps) {
           <path d="M28 80 Q60 85 92 80" stroke="#9333ea" strokeWidth="3" fill="none" />
           <path d="M32 95 Q60 100 88 95" stroke="#9333ea" strokeWidth="3" fill="none" />
 
-          {/* Eyes with blink */}
-          <circle cx="48" cy="65" r="5" fill="#1f2937">
+          {/* Eyes with synchronized random blinking */}
+          <g>
+          <circle id="leftEye" cx="48" cy="65" r="5" fill="#1f2937">
             <animate
               attributeName="r"
               values="5;1;5"
-              dur="6s"
-              repeatCount="indefinite"
-              begin="0s"
+              dur="0.15s"
+              begin="4s"
+              repeatCount="1"
             />
-          </circle>
-          <circle cx="72" cy="65" r="5" fill="#1f2937">
             <animate
               attributeName="r"
               values="5;1;5"
-              dur="6s"
-              repeatCount="indefinite"
-              begin="1.5s"
+              dur="0.15s"
+              begin="9s"
+              repeatCount="1"
+            />
+            <animate
+              attributeName="r"
+              values="5;1;5"
+              dur="0.15s"
+              begin="13s"
+              repeatCount="1"
             />
           </circle>
+
+          <circle id="rightEye" cx="72" cy="65" r="5" fill="#1f2937">
+            <animate
+              attributeName="r"
+              values="5;1;5"
+              dur="0.15s"
+              begin="4s"
+              repeatCount="1"
+            />
+            <animate
+              attributeName="r"
+              values="5;1;5"
+              dur="0.15s"
+              begin="9s"
+              repeatCount="1"
+            />
+            <animate
+              attributeName="r"
+              values="5;1;5"
+              dur="0.15s"
+              begin="13s"
+              repeatCount="1"
+            />
+          </circle>
+          </g>
+
+          {/* Eye highlights */}
           <circle cx="46.5" cy="63.5" r="1.8" fill="#ffffff" />
           <circle cx="70.5" cy="63.5" r="1.8" fill="#ffffff" />
 
-          {/* Mouth variants */}
+          {/* Mouths based on expression */}
           {expression === "mild" && (
             <path
               d="M55 75 Q60 78 65 75"
@@ -123,6 +152,7 @@ export default function TurnipMascot({ size = 120 }: TurnipMascotProps) {
                 stroke="#1f2937"
                 strokeWidth="2"
               />
+              {/* Raised brows for extra joy */}
               <path
                 d="M50 60 Q48 57 46 60"
                 stroke="#1f2937"
@@ -151,7 +181,7 @@ export default function TurnipMascot({ size = 120 }: TurnipMascotProps) {
           />
         </g>
 
-        {/* Leaves */}
+        {/* Leaves with bobbing animation */}
         <path
           className="leaf-bob"
           d="M45 35 Q35 20 25 25 Q30 35 45 35"
