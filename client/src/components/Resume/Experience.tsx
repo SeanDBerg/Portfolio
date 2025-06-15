@@ -52,8 +52,8 @@ function JobContent({ exp, index, isLast, isTransitioning, totalJobs }: JobConte
         <ul className="space-y-1">
           {exp.achievements.map((achievement, achievementIndex) => (
             <li key={achievementIndex} className="flex items-start gap-2">
-              <i className="fas fa-arrow-right text-trust-blue mt-0.5 flex-shrink-0 text-xs"></i>
-              <span className="text-gray-700 text-xs leading-relaxed">{achievement}</span>
+              <i className="fas fa-arrow-right text-trust-blue mt-1.5 flex-shrink-0 text-xs"></i>
+              <span className="text-base sm:text-lg text-gray-700 font-normal mb-3 max-w-4xl">{achievement}</span>
             </li>
           ))}
         </ul>

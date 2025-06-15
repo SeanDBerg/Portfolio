@@ -1,8 +1,6 @@
 import { useEffect } from 'react';
-import { useResumeRole } from '@/hooks/useResumeRole';
-import { usePDFGenerator } from '@/components/Resume/PDFGenerator';
-import Navigation from '@/components/Navigation';
-import Overlay from '@/components/Overlay';
+import { ResumeRole } from '@/hooks/useResumeRole';
+import { type ResumeData } from '@/data/resumeData';
 import AnimatedPage from '@/components/AnimatedPage';
 import Header from '@/components/Resume/Header';
 import Highlights from '@/components/Resume/Highlights';
@@ -14,12 +12,13 @@ import type { NavigationSection } from '@/App';
 interface ResumeProps {
   onNavigate: (section: NavigationSection) => void;
   activeSection: NavigationSection;
+  currentRole: ResumeRole;
+  onRoleChange: (role: ResumeRole) => void;
+  isTransitioning: boolean;
+  roleData: ResumeData;
 }
 
-export default function Resume({ onNavigate, activeSection }: ResumeProps) {
-  const { currentRole, isTransitioning, switchRole, roleData } = useResumeRole();
-  const { generatePDF } = usePDFGenerator();
-
+export default function Resume({ onNavigate, activeSection, currentRole, onRoleChange, isTransitioning, roleData }: ResumeProps) {
   // Load jsPDF script on component mount
   useEffect(() => {
     const script = document.createElement('script');
@@ -35,18 +34,8 @@ export default function Resume({ onNavigate, activeSection }: ResumeProps) {
     };
   }, []);
 
-  const handleDownloadPDF = () => {
-    generatePDF(roleData, currentRole);
-  };
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-bg-main to-white">
-      <Navigation 
-        activeSection={activeSection}
-        onNavigate={onNavigate}
-      />
-      <Overlay currentRole={currentRole} onRoleChange={switchRole} activeSection={activeSection} onDownloadPDF={handleDownloadPDF} />
-      
+    <div className="bg-gradient-to-br from-bg-main to-white">
       <main className="max-w-3xl lg:max-w-4xl xl:max-w-5xl mx-auto px-3 sm:px-4 lg:px-6 py-1 sm:py-2">
         <AnimatedPage>
           <Header 

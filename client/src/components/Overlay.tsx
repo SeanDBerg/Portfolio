@@ -43,7 +43,7 @@ export default function Overlay({ currentRole, onRoleChange, activeSection, onDo
   ];
 
   return (
-    <div className={`no-print sticky z-40 bg-white/95 backdrop-blur-sm border-b border-subtle shadow-sm transition-all duration-300 ${isScrolled ? 'top-12' : 'top-16'}`}>
+    <div className={`no-print sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-subtle shadow-sm transition-all duration-300`}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between py-2">
           {/* Toggle Button and Current Role */}

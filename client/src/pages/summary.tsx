@@ -1,6 +1,4 @@
-import { useResumeRole } from '@/hooks/useResumeRole';
-import Navigation from '@/components/Navigation';
-import Overlay from '@/components/Overlay';
+import { ResumeRole } from '@/hooks/useResumeRole';
 import AnimatedPage from '@/components/AnimatedPage';
 import TurnipMascot from '@/components/Summary/TurnipMascot';
 import HeroSection from '@/components/Summary/HeroSection';
@@ -10,25 +8,15 @@ import type { NavigationSection } from '@/App';
 
 interface SummaryProps {
   onNavigate: (section: NavigationSection) => void;
+  currentRole: ResumeRole;
+  onRoleChange: (role: ResumeRole) => void;
 }
 
-export default function Summary({ onNavigate }: SummaryProps) {
-  const { currentRole, switchRole } = useResumeRole();
-
-  const handleDownloadPDF = () => {
-    // Placeholder for PDF generation
-    console.log('PDF download from summary page');
-  };
+export default function Summary({ onNavigate, currentRole, onRoleChange }: SummaryProps) {
 // Sections hidden until ready
   //  <PortfolioSection />
   return (
-    <div className="min-h-screen bg-gradient-to-br from-bg-main to-white">
-      <Navigation 
-        activeSection="summary"
-        onNavigate={onNavigate}
-      />
-      <Overlay currentRole={currentRole} onRoleChange={switchRole} activeSection="summary" onDownloadPDF={handleDownloadPDF} />
-      
+    <div className="bg-gradient-to-br from-bg-main to-white">
       <main className="max-w-3xl lg:max-w-4xl xl:max-w-5xl mx-auto px-3 sm:px-4 lg:px-6 py-1 sm:py-2">
         <AnimatedPage>
           <HeroSection />

@@ -20,7 +20,7 @@ export default function Footer({ onNavigate }: FooterProps) {
       <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           {/* Branding & Social */}
-          <div className="md:col-span-2">
+          <div className="md:col-span-2 text-center md:text-left">
             <button
               onClick={() => onNavigate('summary')}
               className="text-lg font-bold flex items-center gap-2 mb-3 cursor-pointer hover:opacity-80 transition-opacity"

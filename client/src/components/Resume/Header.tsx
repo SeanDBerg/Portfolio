@@ -27,9 +27,9 @@ export default function Header({ roleData, isTransitioning }: HeaderProps) {
         </div>
         
         <div className="flex-1">
-          <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-navy mb-1">Sean Berg</h1>
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-navy tracking-tight leading-snug mb-4">Sean Berg</h1>
           <h2 className="text-sm sm:text-base lg:text-lg text-trust-blue font-medium mb-2">{roleData.title}</h2>
-          <p className="text-gray-700 leading-relaxed mb-3 text-xs sm:text-sm lg:text-base max-w-3xl mx-auto">{roleData.summary}</p>
+          <p className="text-base sm:text-lg text-gray-700 font-normal mb-5 max-w-4xl mx-auto">{roleData.summary}</p>
           
           <div className="flex flex-wrap justify-center gap-2 sm:gap-3 text-xs sm:text-sm lg:text-base">
             <a 

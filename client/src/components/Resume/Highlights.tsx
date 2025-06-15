@@ -29,7 +29,7 @@ export default function Highlights({ highlights, isTransitioning }: HighlightsPr
         {highlights.map((highlight, index) => (
           <div key={index} className="flex items-start gap-2">
             <i className={`${highlight.icon} text-trust-blue mt-1 text-xs flex-shrink-0`}></i>
-            <span className="text-gray-700 text-sm leading-tight">{highlight.text}</span>
+            <span className="text-base sm:text-lg text-gray-700 font-normal mb-5 max-w-4xl">{highlight.text}</span>
           </div>
         ))}
       </div>
