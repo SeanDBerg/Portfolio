@@ -21,26 +21,35 @@ export default function Overlay({ currentRole, onRoleChange }: OverlayProps) {
     <div className="no-print fixed top-40 right-0 z-40 flex items-start">
       <div className="relative">
         <div
-          className={`absolute right-0 flex w-fit transform items-center gap-3 rounded-l-lg border bg-white/95 px-4 py-2 shadow transition-transform min-w-[600px] sm:min-w-[700px] lg:min-w-[800px] xl:min-w-[900px] ${
+          className={`absolute right-0 flex transform items-center gap-2 sm:gap-3 rounded-l-lg border bg-white/95 px-3 sm:px-4 py-2 shadow transition-transform ${
             open ? "translate-x-0" : "translate-x-full"
           }`}
+          style={{
+            width: open ? '90vw' : 'auto',
+            maxWidth: open ? '90vw' : 'none'
+          }}
         >
           <button
             onClick={() => setOpen(false)}
-            className="mr-2 flex h-6 w-6 items-center justify-center rounded-full border bg-white shadow flex-shrink-0"
+            className="mr-1 sm:mr-2 flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full border bg-white shadow flex-shrink-0"
           >
-            <ChevronRight className="h-4 w-4" />
+            <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4" />
           </button>
-          <div className="flex gap-3 whitespace-nowrap flex-1 justify-center">
+          <div className="flex gap-1 sm:gap-2 lg:gap-3 whitespace-nowrap flex-1 justify-center overflow-hidden">
             {roles.map(({ key, label }) => (
               <button
                 key={key}
                 onClick={() => onRoleChange(key)}
-                className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors flex-1 min-w-0 ${
+                className={`rounded-lg px-2 sm:px-3 lg:px-4 py-1 sm:py-2 text-xs sm:text-sm lg:text-base font-medium transition-colors flex-shrink ${
                   currentRole === key
                     ? "bg-navy text-white shadow"
                     : "bg-subtle text-gray-700 hover:bg-trust-blue hover:text-white"
                 }`}
+                style={{
+                  fontSize: 'clamp(0.65rem, 1.8vw, 1rem)',
+                  minWidth: 'fit-content',
+                  flex: '1 1 auto'
+                }}
               >
                 {label}
               </button>
@@ -50,9 +59,9 @@ export default function Overlay({ currentRole, onRoleChange }: OverlayProps) {
         {!open && (
           <button
             onClick={() => setOpen(true)}
-            className="flex h-6 w-6 items-center justify-center rounded-full border bg-white shadow"
+            className="flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full border bg-white shadow"
           >
-            <ChevronLeft className="h-4 w-4" />
+            <ChevronLeft className="h-3 w-3 sm:h-4 sm:w-4" />
           </button>
         )}
       </div>

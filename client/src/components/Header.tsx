@@ -17,7 +17,7 @@ export default function Header({ roleData, isTransitioning }: HeaderProps) {
 
   return (
     <header ref={ref} className={`bg-white rounded-xl shadow-lg p-3 sm:p-4 lg:p-6 fade-transition ${isTransitioning ? 'fade-out' : 'fade-in'} ${getSectionClass()}`}>
-      <div className="flex flex-col md:flex-row items-center gap-3 sm:gap-4 lg:gap-6">
+      <div className="flex flex-col items-center gap-3 sm:gap-4 lg:gap-6 text-center">
         <div className="flex-shrink-0">
           <img 
             src="./EggHeadMcFinnigans.jpg"
@@ -26,12 +26,12 @@ export default function Header({ roleData, isTransitioning }: HeaderProps) {
           />
         </div>
         
-        <div className="flex-1 text-center md:text-left">
+        <div className="flex-1">
           <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-navy mb-1">Sean Berg</h1>
           <h2 className="text-sm sm:text-base lg:text-lg text-trust-blue font-medium mb-2">{roleData.title}</h2>
-          <p className="text-gray-700 leading-relaxed mb-3 text-xs sm:text-sm lg:text-base">{roleData.summary}</p>
+          <p className="text-gray-700 leading-relaxed mb-3 text-xs sm:text-sm lg:text-base max-w-3xl mx-auto">{roleData.summary}</p>
           
-          <div className="flex flex-wrap justify-center md:justify-start gap-2 sm:gap-3 text-xs sm:text-sm lg:text-base">
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-3 text-xs sm:text-sm lg:text-base">
             <a 
               href="mailto:SeanDBerg@gmail.com" 
               className="flex items-center gap-1 hover:text-hover-blue transition-colors"
