@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
 import { useResumeRole } from '@/hooks/useResumeRole';
-import { usePDFGenerator } from '@/components/PDFGenerator';
+import { usePDFGenerator } from '@/components/Resume/PDFGenerator';
 import Navigation from '@/components/Navigation';
 import Overlay from '@/components/Overlay';
-import Header from '@/components/Header';
-import Highlights from '@/components/Highlights';
-import Competencies from '@/components/Competencies';
-import Experience from '@/components/Experience';
-import Education from '@/components/Education';
+import Header from '@/components/Resume/Header';
+import Highlights from '@/components/Resume/Highlights';
+import Competencies from '@/components/Resume/Competencies';
+import Experience from '@/components/Resume/Experience';
+import Education from '@/components/Resume/Education';
 
 export default function Resume() {
   const { currentRole, isTransitioning, switchRole, roleData } = useResumeRole();

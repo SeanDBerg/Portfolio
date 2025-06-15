@@ -20,10 +20,18 @@ export default function Navigation({ onDownloadPDF }: NavigationProps) {
   return (
     <nav className={`sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-subtle shadow-sm no-print transition-all duration-300 ${isScrolled ? 'py-2' : 'py-3'}`}>
       <div className={`max-w-6xl mx-auto px-4 sm:px-6 transition-all duration-300 ${isScrolled ? 'scale-98' : 'scale-100'}`}>
-        <div className="flex flex-row items-center justify-between gap-4">
-          <div className={`font-semibold text-navy transition-all duration-300 ${isScrolled ? 'text-base' : 'text-lg'}`}>
-            Sean Berg Resume
-          </div>
+        <div className="flex flex-row items-center justify-between gap-4 w-full">
+          <nav className="flex gap-6">
+            <a href="/" className={`font-medium text-navy hover:text-hover-blue transition-colors ${isScrolled ? 'text-sm' : 'text-base'}`}>
+              Summary
+            </a>
+            <a href="/" className={`font-medium text-navy hover:text-hover-blue transition-colors ${isScrolled ? 'text-sm' : 'text-base'}`}>
+              Resume
+            </a>
+            <a href="/" className={`font-medium text-navy hover:text-hover-blue transition-colors ${isScrolled ? 'text-sm' : 'text-base'}`}>
+              Projects
+            </a>
+          </nav>
           
           <button
             onClick={onDownloadPDF}
