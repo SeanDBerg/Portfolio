@@ -7,9 +7,10 @@ interface OverlayProps {
   currentRole: ResumeRole;
   onRoleChange: (role: ResumeRole) => void;
   activeSection: NavigationSection;
+  onDownloadPDF: () => void;
 }
 
-export default function Overlay({ currentRole, onRoleChange, activeSection }: OverlayProps) {
+export default function Overlay({ currentRole, onRoleChange, activeSection, onDownloadPDF }: OverlayProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -45,25 +46,40 @@ export default function Overlay({ currentRole, onRoleChange, activeSection }: Ov
     <div className={`no-print sticky z-40 bg-white/95 backdrop-blur-sm border-b border-subtle shadow-sm transition-all duration-300 ${isScrolled ? 'top-12' : 'top-16'}`}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between py-2">
-          {/* Toggle Button */}
-          <button
-            onClick={() => setIsExpanded(!isExpanded)}
-            className="flex items-center gap-2 text-navy hover:text-hover-blue font-medium transition-colors"
-          >
-            <span className="text-sm">View as Role</span>
-            {isExpanded ? (
-              <ChevronUp className="h-4 w-4" />
-            ) : (
-              <ChevronDown className="h-4 w-4" />
+          {/* Toggle Button and Current Role */}
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setIsExpanded(!isExpanded)}
+              className="flex items-center gap-2 text-navy hover:text-hover-blue font-medium transition-colors"
+            >
+              <span className="text-sm">View as Role</span>
+              {isExpanded ? (
+                <ChevronUp className="h-4 w-4" />
+              ) : (
+                <ChevronDown className="h-4 w-4" />
+              )}
+            </button>
+            
+            {/* Current Role Indicator (when collapsed) - moved to right of chevron */}
+            {!isExpanded && (
+              <div className="text-sm text-gray-600 ml-2">
+                Current: <span className="font-medium text-navy">{roles.find(r => r.key === currentRole)?.label}</span>
+              </div>
             )}
-          </button>
+          </div>
 
-          {/* Current Role Indicator (when collapsed) */}
-          {!isExpanded && (
-            <div className="text-sm text-gray-600">
-              Current: <span className="font-medium text-navy">{roles.find(r => r.key === currentRole)?.label}</span>
-            </div>
-          )}
+          {/* Download PDF Button - moved from Navigation */}
+          <button
+            onClick={onDownloadPDF}
+            className={`bg-hover-blue text-white rounded-lg font-medium hover:bg-blue-600 transition-all duration-300 shadow-lg flex items-center gap-2 flex-shrink-0 ${
+              isScrolled 
+                ? 'px-3 py-1.5 text-sm' 
+                : 'px-4 py-2 text-base'
+            }`}
+          >
+            <i className="fas fa-download"></i>
+            PDF
+          </button>
         </div>
 
         {/* Expandable Role Buttons */}

@@ -42,11 +42,10 @@ export default function Resume({ onNavigate, activeSection }: ResumeProps) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-bg-main to-white">
       <Navigation 
-        onDownloadPDF={handleDownloadPDF}
         activeSection={activeSection}
         onNavigate={onNavigate}
       />
-      <Overlay currentRole={currentRole} onRoleChange={switchRole} activeSection={activeSection} />
+      <Overlay currentRole={currentRole} onRoleChange={switchRole} activeSection={activeSection} onDownloadPDF={handleDownloadPDF} />
       
       <main className="max-w-3xl lg:max-w-4xl xl:max-w-5xl mx-auto px-3 sm:px-4 lg:px-6 py-1 sm:py-2">
         <AnimatedPage>
