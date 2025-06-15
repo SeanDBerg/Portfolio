@@ -43,13 +43,13 @@ export default function HeroSection() {
           <div className="flex flex-col sm:flex-row sm:justify-center justify-center gap-3 mb-5">
             <a
               href="#portfolio"
-              className="px-4 py-2 bg-navy text-white font-medium rounded-lg shadow-lg hover:bg-trust-blue transition-colors"
+              className="px-4 py-2 bg-trust-blue text-white font-medium rounded-lg shadow-lg hover:bg-navy transition-colors"
             >
               View My Work
             </a>
             <a
               href="mailto:SeanDBerg@gmail.com"
-              className="px-4 py-2 bg-white border border-subtle text-navy font-medium rounded-lg shadow hover:bg-gray-50 transition-colors"
+              className="px-4 py-2 bg-white border border-subtle text-navy font-medium rounded-lg shadow hover:bg-gray-100 transition-colors"
             >
               Get In Touch
             </a>

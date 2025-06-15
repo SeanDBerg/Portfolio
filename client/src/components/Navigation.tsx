@@ -60,7 +60,7 @@ export default function Navigation({ onDownloadPDF, activeSection, onNavigate }:
             }`}
           >
             <i className="fas fa-download"></i>
-            Download PDF
+            PDF
           </button>
         </div>
       </div>

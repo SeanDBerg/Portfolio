@@ -14,7 +14,7 @@ export default function CTASection() {
     <section
       ref={ref}
       id="contact"
-      className={`bg-gradient-to-br from-navy to-trust-blue text-white rounded-xl shadow-lg p-6 sm:p-8 lg:p-12 fade-transition fade-in ${getSectionClass()}`}
+      className={`bg-gradient-to-br from-blue-950 via-sky-800 to-blue-950 dark:from-primary/80 dark:to-blue-900 text-white rounded-xl shadow-lg p-6 sm:p-8 lg:p-12 fade-transition fade-in ${getSectionClass()}`}
     >
       <div className="text-center">
         <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4">
@@ -27,7 +27,7 @@ export default function CTASection() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a
             href="mailto:SeanDBerg@gmail.com"
-            className="inline-block px-6 py-3 bg-white hover:bg-gray-100 text-navy font-medium rounded-lg shadow-lg hover:shadow-xl transition-all focus:ring-4 focus:ring-white/30"
+            className="inline-block px-6 py-3 bg-white hover:bg-gray-200 text-navy font-medium rounded-lg shadow-lg hover:shadow-xl transition-all focus:ring-4 focus:ring-white/30"
           >
             Get In Touch
           </a>
