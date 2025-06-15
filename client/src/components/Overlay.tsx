@@ -18,7 +18,7 @@ export default function Overlay({ currentRole, onRoleChange }: OverlayProps) {
   ];
 
   return (
-    <div className="no-print fixed top-16 right-0 z-40 flex items-start">
+    <div className="no-print fixed top-40 right-0 z-40 flex items-start">
       <div className="relative">
         <div
           className={`absolute right-0 flex w-fit transform items-center gap-2 rounded-l-lg border bg-white/95 px-3 py-2 shadow transition-transform ${
