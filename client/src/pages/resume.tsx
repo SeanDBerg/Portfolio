@@ -12,14 +12,12 @@ import type { NavigationSection } from '@/App';
 
 interface ResumeProps {
   onNavigate: (section: NavigationSection) => void;
+  activeSection: NavigationSection;
 }
 
-export default function Resume({ onNavigate }: ResumeProps) {
+export default function Resume({ onNavigate, activeSection }: ResumeProps) {
   const { currentRole, isTransitioning, switchRole, roleData } = useResumeRole();
   const { generatePDF } = usePDFGenerator();
-  
-  // Determine active section based on current location in app
-  const activeSection: NavigationSection = 'resume'; // Will be passed from App component
 
   // Load jsPDF script on component mount
   useEffect(() => {
@@ -42,7 +40,11 @@ export default function Resume({ onNavigate }: ResumeProps) {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-bg-main to-white">
-      <Navigation onDownloadPDF={handleDownloadPDF} />
+      <Navigation 
+        onDownloadPDF={handleDownloadPDF}
+        activeSection={activeSection}
+        onNavigate={onNavigate}
+      />
       <Overlay currentRole={currentRole} onRoleChange={switchRole} />
       
       <main className="max-w-3xl lg:max-w-4xl xl:max-w-5xl mx-auto px-3 sm:px-4 lg:px-6 py-1 sm:py-2">

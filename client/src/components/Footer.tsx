@@ -1,4 +1,3 @@
-import { Link } from 'wouter';
 import {
   FaGithub,
   FaLinkedinIn,
@@ -7,8 +6,13 @@ import {
   FaPhone,
   FaMapMarkerAlt,
 } from 'react-icons/fa';
+import type { NavigationSection } from '@/App';
 
-export default function Footer() {
+interface FooterProps {
+  onNavigate: (section: NavigationSection) => void;
+}
+
+export default function Footer({ onNavigate }: FooterProps) {
   const currentYear = new Date().getFullYear();
 
   return (
@@ -17,15 +21,15 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           {/* Branding & Social */}
           <div className="md:col-span-2">
-            <Link
-              href="/"
-              className="text-lg font-bold flex items-center gap-2 mb-3"
+            <button
+              onClick={() => onNavigate('summary')}
+              className="text-lg font-bold flex items-center gap-2 mb-3 cursor-pointer hover:opacity-80 transition-opacity"
             >
               <span className="bg-navy h-8 w-8 rounded-md flex items-center justify-center text-white">
                 SB
               </span>
               <span>Sean Berg</span>
-            </Link>
+            </button>
             <p className="text-slate-400 text-sm mb-4 max-w-md">
               Operations and technology leader focused on team development, process optimization, and strategic implementation across diverse industries.
             </p>
@@ -62,28 +66,28 @@ export default function Footer() {
             <h3 className="text-base font-semibold mb-3">Quick Links</h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link
-                  href="/summary"
-                  className="text-slate-400 hover:text-white transition-colors"
+                <button
+                  onClick={() => onNavigate('summary')}
+                  className="text-slate-400 hover:text-white transition-colors cursor-pointer"
                 >
                   Summary
-                </Link>
+                </button>
               </li>
               <li>
-                <Link
-                  href="/resume"
-                  className="text-slate-400 hover:text-white transition-colors"
+                <button
+                  onClick={() => onNavigate('resume')}
+                  className="text-slate-400 hover:text-white transition-colors cursor-pointer"
                 >
                   Resume
-                </Link>
+                </button>
               </li>
               <li>
-                <Link
-                  href="/projects"
-                  className="text-slate-400 hover:text-white transition-colors"
+                <button
+                  onClick={() => onNavigate('projects')}
+                  className="text-slate-400 hover:text-white transition-colors cursor-pointer"
                 >
                   Projects
-                </Link>
+                </button>
               </li>
             </ul>
           </div>

@@ -16,7 +16,7 @@ function App() {
         return <Summary onNavigate={setActiveSection} />;
       case 'resume':
       case 'projects':
-        return <Resume onNavigate={setActiveSection} />;
+        return <Resume onNavigate={setActiveSection} activeSection={activeSection} />;
       default:
         return <Summary onNavigate={setActiveSection} />;
     }
