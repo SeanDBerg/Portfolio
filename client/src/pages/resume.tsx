@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { useResumeRole } from '@/hooks/useResumeRole';
 import { usePDFGenerator } from '@/components/PDFGenerator';
 import Navigation from '@/components/Navigation';
-import Overlay from '@/components/Overlay';
 import Header from '@/components/Header';
 import Highlights from '@/components/Highlights';
 import Competencies from '@/components/Competencies';
@@ -34,8 +33,11 @@ export default function Resume() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-bg-main to-white">
-      <Navigation onDownloadPDF={handleDownloadPDF} />
-      <Overlay currentRole={currentRole} onRoleChange={switchRole} />
+      <Navigation 
+        currentRole={currentRole}
+        onRoleChange={switchRole}
+        onDownloadPDF={handleDownloadPDF}
+      />
       
       <main className="max-w-4xl mx-auto px-4 py-1">
         <Header 
