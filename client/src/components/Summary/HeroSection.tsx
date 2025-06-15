@@ -1,71 +1,79 @@
 import { FaGithub, FaLinkedin, FaCodepen } from 'react-icons/fa';
+import { useScrollResize } from '@/hooks/useScrollResize';
 
 export default function HeroSection() {
+  const { ref, isShrunken, isEnlarged } = useScrollResize();
+
+  const getSectionClass = () => {
+    if (isShrunken) return 'section-shrunk';
+    if (isEnlarged) return 'section-enlarged';
+    return 'section-normal';
+  };
+
   return (
-    <section className="pb-4 bg-gradient-to-br from-sky-50 to-white font-serif">
-      <div className="container mx-auto px-4 max-w-5xl">
-        {/* Content wrapper switches from center to left on medium+ */}
-        <div className="text-center md:text-left">
+    <section ref={ref} className={`bg-white rounded-xl shadow-lg p-6 sm:p-8 lg:p-12 fade-transition fade-in ${getSectionClass()}`}>
+      <div className="flex flex-col items-center gap-6 text-center">
+        {/* Profile image */}
+        <div className="flex-shrink-0">
+          <div className="relative">
+            <div className="absolute -inset-1 bg-gradient-to-br from-trust-blue to-hover-blue rounded-full blur-xl opacity-30"></div>
+            <div className="relative bg-white p-2 rounded-full shadow-lg">
+              <img
+                src="./EggHeadMcFinnigans.jpg"
+                alt="Sean Berg Profile"
+                className="rounded-full w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 object-cover"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="flex-1">
           {/* Heading */}
-          <h1 className="text-4xl sm:text-5xl font-semibold text-slate-900 tracking-tight leading-snug">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-navy tracking-tight leading-snug mb-4">
             Full-Stack Developer<br />
             Focused on Python, Django, Flask, and JavaScript
           </h1>
 
           {/* Subheading */}
-          <p className="mt-4 text-base sm:text-lg text-slate-600 font-normal">
+          <p className="text-base sm:text-lg text-gray-700 font-normal mb-8 max-w-4xl mx-auto">
             I build modular backends, responsive frontends, and interactive tools, from AI job matchers to RPG-style learning games.
           </p>
 
           {/* Buttons */}
-          <div className="mt-8 flex flex-col sm:flex-row sm:justify-start justify-center gap-4">
+          <div className="flex flex-col sm:flex-row sm:justify-center justify-center gap-4 mb-8">
             <a
               href="#portfolio"
-              className="px-6 py-2.5 bg-slate-900 text-white font-medium rounded-md shadow hover:bg-slate-800 transition"
+              className="px-6 py-3 bg-navy text-white font-medium rounded-lg shadow-lg hover:bg-trust-blue transition-colors"
             >
               View My Work
             </a>
             <a
-              href="#contact"
-              className="px-6 py-2.5 bg-white border border-slate-300 text-slate-800 font-medium rounded-md shadow hover:bg-slate-100 transition"
+              href="mailto:SeanDBerg@gmail.com"
+              className="px-6 py-3 bg-white border border-subtle text-navy font-medium rounded-lg shadow hover:bg-gray-50 transition-colors"
             >
               Get In Touch
             </a>
           </div>
 
           {/* Availability */}
-          <div className="mt-6 flex md:justify-start justify-center">
-            <div className="flex items-center gap-2 px-4 py-2 bg-slate-100 border border-slate-200 text-sm rounded-lg text-slate-600 shadow-sm">
+          <div className="flex justify-center mb-6">
+            <div className="flex items-center gap-2 px-4 py-2 bg-subtle border border-gray-200 text-sm rounded-lg text-gray-700 shadow-sm">
               <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
               <span>Available for freelance projects</span>
             </div>
           </div>
 
           {/* Socials */}
-          <div className="mt-6 flex md:justify-start justify-center gap-6 text-slate-500">
-            <a href="https://github.com" target="_blank" rel="noreferrer" className="hover:text-slate-900">
+          <div className="flex justify-center gap-6 text-gray-600">
+            <a href="https://github.com" target="_blank" rel="noreferrer" className="hover:text-hover-blue transition-colors">
               <FaGithub className="text-xl" />
             </a>
-            <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="hover:text-slate-900">
+            <a href="https://linkedin.com/in/seanberg" target="_blank" rel="noreferrer" className="hover:text-hover-blue transition-colors">
               <FaLinkedin className="text-xl" />
             </a>
-            <a href="https://codepen.io" target="_blank" rel="noreferrer" className="hover:text-slate-900">
+            <a href="https://codepen.io" target="_blank" rel="noreferrer" className="hover:text-hover-blue transition-colors">
               <FaCodepen className="text-xl" />
             </a>
-          </div>
-        </div>
-
-        {/* Profile image */}
-        <div className="flex justify-center md:justify-center">
-          <div className="relative">
-            <div className="absolute -inset-1 bg-gradient-to-br from-sky-300 to-indigo-400 rounded-full blur-xl opacity-30"></div>
-            <div className="relative bg-white p-2 rounded-full shadow-lg">
-              <img
-                src="./EggHeadMcFinnigans.jpg"
-                alt="Sean Berg Profile"
-                className="rounded-full w-56 h-56 sm:w-64 sm:h-64 object-cover"
-              />
-            </div>
           </div>
         </div>
       </div>
