@@ -37,7 +37,7 @@ export default function Resume() {
       <Navigation onDownloadPDF={handleDownloadPDF} />
       <Overlay currentRole={currentRole} onRoleChange={switchRole} />
       
-      <main className="max-w-4xl mx-auto px-4 py-1">
+      <main className="max-w-3xl lg:max-w-4xl xl:max-w-5xl mx-auto px-3 sm:px-4 lg:px-6 py-1 sm:py-2">
         <Header 
           roleData={roleData}
           isTransitioning={isTransitioning}
