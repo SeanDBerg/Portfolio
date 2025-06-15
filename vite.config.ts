@@ -31,9 +31,12 @@ export default defineConfig({
     emptyOutDir: true,
   },
   server: {
+    port: 5000,          // match the .replit port
+    allowedHosts: true, // permit Replit’s domain
     fs: {
       strict: true,
       deny: ["**/.*"],
     },
   },
+
 });
