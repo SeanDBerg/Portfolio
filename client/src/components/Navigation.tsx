@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link, useLocation } from 'wouter';
 
 interface NavigationProps {
   onDownloadPDF: () => void;
@@ -6,6 +7,7 @@ interface NavigationProps {
 
 export default function Navigation({ onDownloadPDF }: NavigationProps) {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [location] = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,21 +18,27 @@ export default function Navigation({ onDownloadPDF }: NavigationProps) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const getLinkClass = (path: string) => {
+    const isActive = location === path || (path === '/summary' && location === '/');
+    return `font-medium transition-colors ${isScrolled ? 'text-sm' : 'text-base'} ${
+      isActive ? 'text-hover-blue' : 'text-navy hover:text-hover-blue'
+    }`;
+  };
 
   return (
     <nav className={`sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-subtle shadow-sm no-print transition-all duration-300 ${isScrolled ? 'py-2' : 'py-3'}`}>
       <div className={`max-w-6xl mx-auto px-4 sm:px-6 transition-all duration-300 ${isScrolled ? 'scale-98' : 'scale-100'}`}>
         <div className="flex flex-row items-center justify-between gap-4 w-full">
           <nav className="flex gap-6">
-            <a href="/" className={`font-medium text-navy hover:text-hover-blue transition-colors ${isScrolled ? 'text-sm' : 'text-base'}`}>
+            <Link href="/summary" className={getLinkClass('/summary')}>
               Summary
-            </a>
-            <a href="/" className={`font-medium text-navy hover:text-hover-blue transition-colors ${isScrolled ? 'text-sm' : 'text-base'}`}>
+            </Link>
+            <Link href="/resume" className={getLinkClass('/resume')}>
               Resume
-            </a>
-            <a href="/" className={`font-medium text-navy hover:text-hover-blue transition-colors ${isScrolled ? 'text-sm' : 'text-base'}`}>
+            </Link>
+            <Link href="/projects" className={getLinkClass('/projects')}>
               Projects
-            </a>
+            </Link>
           </nav>
           
           <button
