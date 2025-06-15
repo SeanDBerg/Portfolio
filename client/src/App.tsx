@@ -20,15 +20,21 @@ function App() {
     generatePDF(roleData, currentRole);
   };
 
+  const handleNavigate = (section: NavigationSection) => {
+    setActiveSection(section);
+    // Scroll to top when navigating to a new section
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const renderContent = () => {
     switch (activeSection) {
       case 'summary':
-        return <Summary onNavigate={setActiveSection} currentRole={currentRole} onRoleChange={switchRole} />;
+        return <Summary onNavigate={handleNavigate} currentRole={currentRole} onRoleChange={switchRole} />;
       case 'resume':
       case 'projects':
-        return <Resume onNavigate={setActiveSection} activeSection={activeSection} currentRole={currentRole} onRoleChange={switchRole} isTransitioning={isTransitioning} roleData={roleData} />;
+        return <Resume onNavigate={handleNavigate} activeSection={activeSection} currentRole={currentRole} onRoleChange={switchRole} isTransitioning={isTransitioning} roleData={roleData} />;
       default:
-        return <Summary onNavigate={setActiveSection} currentRole={currentRole} onRoleChange={switchRole} />;
+        return <Summary onNavigate={handleNavigate} currentRole={currentRole} onRoleChange={switchRole} />;
     }
   };
 
@@ -37,7 +43,7 @@ function App() {
       <Toaster />
       <div className="min-h-screen flex flex-col">
         <header className="sticky top-0 z-50">
-          <Navigation activeSection={activeSection} onNavigate={setActiveSection} />
+          <Navigation activeSection={activeSection} onNavigate={handleNavigate} />
           <Overlay 
             currentRole={currentRole} 
             onRoleChange={switchRole} 
@@ -48,7 +54,7 @@ function App() {
         <div className="flex-1">
           {renderContent()}
         </div>
-        <Footer onNavigate={setActiveSection} />
+        <Footer onNavigate={handleNavigate} />
       </div>
     </TooltipProvider>
   );
