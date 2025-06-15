@@ -23,7 +23,7 @@ export default function Footer({ onNavigate }: FooterProps) {
           <div className="md:col-span-2 text-center md:text-left">
             <button
               onClick={() => onNavigate('summary')}
-              className="text-lg font-bold flex items-center gap-2 mb-3 cursor-pointer hover:opacity-80 transition-opacity"
+              className="text-lg font-bold flex items-center gap-2 mb-3 cursor-pointer hover:opacity-80 transition-opacity justify-center md:justify-start"
             >
               <span className="bg-navy h-8 w-8 rounded-md flex items-center justify-center text-white">
                 SB
@@ -33,7 +33,7 @@ export default function Footer({ onNavigate }: FooterProps) {
             <p className="text-slate-400 text-sm mb-4 max-w-md">
               Operations and technology leader focused on team development, process optimization, and strategic implementation across diverse industries.
             </p>
-            <div className="flex gap-3">
+            <div className="flex gap-3 justify-center md:justify-start">
               <a
                 href="https://github.com"
                 target="_blank"
@@ -62,7 +62,7 @@ export default function Footer({ onNavigate }: FooterProps) {
           </div>
 
           {/* Quick Links */}
-          <div>
+          <div className="text-center md:text-left">
             <h3 className="text-base font-semibold mb-3">Quick Links</h3>
             <ul className="space-y-2 text-sm">
               <li>
@@ -93,10 +93,10 @@ export default function Footer({ onNavigate }: FooterProps) {
           </div>
 
           {/* Contact Info */}
-          <div>
+          <div className="text-center md:text-left">
             <h3 className="text-base font-semibold mb-3">Contact Info</h3>
             <ul className="space-y-2 text-sm">
-              <li className="flex items-center gap-2">
+              <li className="flex items-center gap-2 justify-center md:justify-start">
                 <FaEnvelope className="text-slate-500" />
                 <a
                   href="mailto:SeanDBerg@gmail.com"
@@ -105,11 +105,11 @@ export default function Footer({ onNavigate }: FooterProps) {
                   SeanDBerg@gmail.com
                 </a>
               </li>
-              <li className="flex items-center gap-2">
+              <li className="flex items-center gap-2 justify-center md:justify-start">
                 <FaPhone className="text-slate-500" />
                 <span className="text-slate-400">(610) 730-3552</span>
               </li>
-              <li className="flex items-center gap-2">
+              <li className="flex items-center gap-2 justify-center md:justify-start">
                 <FaMapMarkerAlt className="text-slate-500" />
                 <span className="text-slate-400">Remote / Global</span>
               </li>
