@@ -3,6 +3,7 @@ import { useResumeRole } from '@/hooks/useResumeRole';
 import { usePDFGenerator } from '@/components/Resume/PDFGenerator';
 import Navigation from '@/components/Navigation';
 import Overlay from '@/components/Overlay';
+import AnimatedPage from '@/components/AnimatedPage';
 import Header from '@/components/Resume/Header';
 import Highlights from '@/components/Resume/Highlights';
 import Competencies from '@/components/Resume/Competencies';
@@ -45,34 +46,36 @@ export default function Resume({ onNavigate, activeSection }: ResumeProps) {
         activeSection={activeSection}
         onNavigate={onNavigate}
       />
-      <Overlay currentRole={currentRole} onRoleChange={switchRole} />
+      <Overlay currentRole={currentRole} onRoleChange={switchRole} activeSection={activeSection} />
       
       <main className="max-w-3xl lg:max-w-4xl xl:max-w-5xl mx-auto px-3 sm:px-4 lg:px-6 py-1 sm:py-2">
-        <Header 
-          roleData={roleData}
-          isTransitioning={isTransitioning}
-        />
-        
-        <Highlights 
-          highlights={roleData.highlights}
-          isTransitioning={isTransitioning}
-        />
-        
-        <Competencies 
-          competencies={roleData.competencies}
-          technicalSkills={roleData.technicalSkills}
-          isTransitioning={isTransitioning}
-        />
-        
-        <Experience 
-          experience={roleData.experience}
-          isTransitioning={isTransitioning}
-        />
-        
-        <Education 
-          certifications={roleData.certifications}
-          isTransitioning={isTransitioning}
-        />
+        <AnimatedPage>
+          <Header 
+            roleData={roleData}
+            isTransitioning={isTransitioning}
+          />
+          
+          <Highlights 
+            highlights={roleData.highlights}
+            isTransitioning={isTransitioning}
+          />
+          
+          <Competencies 
+            competencies={roleData.competencies}
+            technicalSkills={roleData.technicalSkills}
+            isTransitioning={isTransitioning}
+          />
+          
+          <Experience 
+            experience={roleData.experience}
+            isTransitioning={isTransitioning}
+          />
+          
+          <Education 
+            certifications={roleData.certifications}
+            isTransitioning={isTransitioning}
+          />
+        </AnimatedPage>
       </main>
 
       {/* Background decorative elements */}

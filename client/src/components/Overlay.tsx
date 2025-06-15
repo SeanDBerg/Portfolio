@@ -1,23 +1,23 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "wouter";
 import { ResumeRole } from "@/hooks/useResumeRole";
 import { ChevronDown, ChevronUp } from "lucide-react";
+import type { NavigationSection } from "@/App";
 
 interface OverlayProps {
   currentRole: ResumeRole;
   onRoleChange: (role: ResumeRole) => void;
+  activeSection: NavigationSection;
 }
 
-export default function Overlay({ currentRole, onRoleChange }: OverlayProps) {
-  const [location] = useLocation();
+export default function Overlay({ currentRole, onRoleChange, activeSection }: OverlayProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
   // Set default expanded state based on current page
   useEffect(() => {
-    const shouldExpand = location === '/resume' || location === '/projects';
+    const shouldExpand = activeSection === 'resume' || activeSection === 'projects';
     setIsExpanded(shouldExpand);
-  }, [location]);
+  }, [activeSection]);
 
   // Handle scroll to auto-collapse
   useEffect(() => {

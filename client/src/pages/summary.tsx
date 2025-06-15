@@ -1,7 +1,7 @@
 import { useResumeRole } from '@/hooks/useResumeRole';
 import Navigation from '@/components/Navigation';
 import Overlay from '@/components/Overlay';
-import AnimatedPage from '@/components/Summary/AnimatedPage';
+import AnimatedPage from '@/components/AnimatedPage';
 import TurnipMascot from '@/components/Summary/TurnipMascot';
 import HeroSection from '@/components/Summary/HeroSection';
 import PortfolioSection from '@/components/Summary/PortfolioSection';
@@ -27,7 +27,7 @@ export default function Summary({ onNavigate }: SummaryProps) {
         activeSection="summary"
         onNavigate={onNavigate}
       />
-      <Overlay currentRole={currentRole} onRoleChange={switchRole} />
+      <Overlay currentRole={currentRole} onRoleChange={switchRole} activeSection="summary" />
       
       <main className="max-w-3xl lg:max-w-4xl xl:max-w-5xl mx-auto px-3 sm:px-4 lg:px-6 py-1 sm:py-2">
         <AnimatedPage>
