@@ -3,6 +3,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { useResumeRole } from "@/hooks/useResumeRole";
 import { usePDFGenerator } from "@/components/Resume/PDFGenerator";
+import { getDefaultActiveSection } from "@/config/navigation";
 import Navigation from "@/components/Navigation";
 import Overlay from "@/components/Overlay";
 import Summary from "@/pages/summary";
@@ -12,7 +13,7 @@ import Footer from "@/components/Footer";
 export type NavigationSection = 'summary' | 'resume' | 'projects';
 
 function App() {
-  const [activeSection, setActiveSection] = useState<NavigationSection>('summary');
+  const [activeSection, setActiveSection] = useState<NavigationSection>(getDefaultActiveSection() as NavigationSection);
   const { currentRole, isTransitioning, switchRole, roleData } = useResumeRole();
   const { generatePDF } = usePDFGenerator();
 

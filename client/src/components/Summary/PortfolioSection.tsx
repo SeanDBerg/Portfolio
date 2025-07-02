@@ -59,31 +59,11 @@ function ProjectCard({ project, index, totalProjects }: ProjectCardProps) {
 
         <div className="flex justify-between items-center">
           <a
-            href={`/project/${project.slug}`}
+            href={project.demo}
             className="text-navy hover:text-hover-blue font-medium text-sm hover:underline"
           >
             View Project
           </a>
-          <div className="flex gap-2">
-            <a
-              href={project.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="h-7 w-7 flex items-center justify-center rounded-full hover:bg-gray-200 transition-colors"
-              aria-label="GitHub repository"
-            >
-              <FaGithub className="text-sm" />
-            </a>
-            <a
-              href={project.demo}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="h-7 w-7 flex items-center justify-center rounded-full hover:bg-gray-200 transition-colors"
-              aria-label="Live demo"
-            >
-              <FaExternalLinkAlt className="text-sm" />
-            </a>
-          </div>
         </div>
       </div>
     </div>

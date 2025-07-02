@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { getVisibleSections } from '@/config/navigation';
 import type { NavigationSection } from '@/App';
 
 interface NavigationProps {
@@ -8,6 +9,7 @@ interface NavigationProps {
 
 export default function Navigation({ activeSection, onNavigate }: NavigationProps) {
   const [isScrolled, setIsScrolled] = useState(false);
+  const visibleSections = getVisibleSections();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,24 +40,15 @@ export default function Navigation({ activeSection, onNavigate }: NavigationProp
       <div className={`max-w-6xl mx-auto px-4 sm:px-6 transition-all duration-300 ${isScrolled ? 'scale-98' : 'scale-100'}`}>
         <div className="flex flex-row items-center justify-center gap-4 w-full">
           <nav className="flex gap-6">
-            <button 
-              onClick={() => onNavigate('summary')}
-              className={getButtonClass('summary')}
-            >
-              Summary
-            </button>
-            <button 
-              onClick={() => onNavigate('resume')}
-              className={getButtonClass('resume')}
-            >
-              Resume
-            </button>
-            <button 
-              onClick={() => onNavigate('projects')}
-              className={getButtonClass('projects')}
-            >
-              Projects
-            </button>
+            {visibleSections.map(section => (
+              <button 
+                key={section.key}
+                onClick={() => onNavigate(section.key as NavigationSection)}
+                className={getButtonClass(section.key as NavigationSection)}
+              >
+                {section.label}
+              </button>
+            ))}
           </nav>
         </div>
       </div>

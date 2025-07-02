@@ -6,6 +6,7 @@ import {
   FaPhone,
   FaMapMarkerAlt,
 } from 'react-icons/fa';
+import { getVisibleSections } from '@/config/navigation';
 import type { NavigationSection } from '@/App';
 
 interface FooterProps {
@@ -14,6 +15,8 @@ interface FooterProps {
 
 export default function Footer({ onNavigate }: FooterProps) {
   const currentYear = new Date().getFullYear();
+  const visibleSections = getVisibleSections();
+  const defaultSection = visibleSections.length > 0 ? visibleSections[0].key : 'resume';
 
   return (
     <footer className="bg-slate-900 text-white py-8 overflow-x-hidden">
@@ -22,7 +25,7 @@ export default function Footer({ onNavigate }: FooterProps) {
           {/* Branding & Social */}
           <div className="md:col-span-2 text-center md:text-left">
             <button
-              onClick={() => onNavigate('summary')}
+              onClick={() => onNavigate(defaultSection as NavigationSection)}
               className="text-lg font-bold flex items-center gap-2 mb-3 cursor-pointer hover:opacity-80 transition-opacity justify-center md:justify-start"
             >
               <span className="bg-navy h-8 w-8 rounded-md flex items-center justify-center text-white">
@@ -61,36 +64,24 @@ export default function Footer({ onNavigate }: FooterProps) {
             </div>
           </div>
 
-          {/* Quick Links */}
-          <div className="text-center md:text-left">
-            <h3 className="text-base font-semibold mb-3">Quick Links</h3>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <button
-                  onClick={() => onNavigate('summary')}
-                  className="text-slate-400 hover:text-white transition-colors cursor-pointer"
-                >
-                  Summary
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => onNavigate('resume')}
-                  className="text-slate-400 hover:text-white transition-colors cursor-pointer"
-                >
-                  Resume
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => onNavigate('projects')}
-                  className="text-slate-400 hover:text-white transition-colors cursor-pointer"
-                >
-                  Projects
-                </button>
-              </li>
-            </ul>
-          </div>
+          {/* Quick Links - Only show visible sections */}
+          {visibleSections.length > 0 && (
+            <div className="text-center md:text-left">
+              <h3 className="text-base font-semibold mb-3">Quick Links</h3>
+              <ul className="space-y-2 text-sm">
+                {visibleSections.map(section => (
+                  <li key={section.key}>
+                    <button
+                      onClick={() => onNavigate(section.key as NavigationSection)}
+                      className="text-slate-400 hover:text-white transition-colors cursor-pointer"
+                    >
+                      {section.label}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           {/* Contact Info */}
           <div className="text-center md:text-left">
