@@ -21,17 +21,18 @@ export default function Overlay({ currentRole, onRoleChange, activeSection, onDo
   }, [activeSection]);
 
   // Handle scroll to auto-collapse/expand based on scroll position
+  // Uses same thresholds as Navigation component for consistent behavior
   useEffect(() => {
     const handleScroll = () => {
-      // Get the main content scroll position, excluding navigation/overlay height
+      // Get the main content scroll position, matching Navigation component logic
       const mainContent = document.querySelector('main');
       if (mainContent) {
         const rect = mainContent.getBoundingClientRect();
-        const scrolled = rect.top < -100; // Larger threshold to prevent premature closing
+        const scrolled = rect.top < 0; // Same threshold as Navigation component
         const atTop = rect.top >= -10; // Small threshold to detect when back at top
         setIsScrolled(scrolled);
         
-        // Auto-collapse if significantly scrolled into content
+        // Auto-collapse when scrolled (matches navigation shrink timing)
         if (scrolled && isExpanded) {
           setIsExpanded(false);
         }
@@ -41,8 +42,8 @@ export default function Overlay({ currentRole, onRoleChange, activeSection, onDo
           setIsExpanded(true);
         }
       } else {
-        // Fallback with much larger threshold
-        const scrolled = window.scrollY > 150;
+        // Fallback matching Navigation component
+        const scrolled = window.scrollY > 50;
         const atTop = window.scrollY < 20; // Detect when back at top
         setIsScrolled(scrolled);
         
