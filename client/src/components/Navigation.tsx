@@ -13,21 +13,13 @@ export default function Navigation({ activeSection, onNavigate }: NavigationProp
 
   useEffect(() => {
     const handleScroll = () => {
-      // Use hysteresis to prevent jittery behavior - different thresholds for shrinking vs expanding
-      const scrollY = window.scrollY;
-      
-      if (!isScrolled && scrollY > 25) {
-        // Shrink navigation when scrolling down past 25px
-        setIsScrolled(true);
-      } else if (isScrolled && scrollY < 10) {
-        // Expand navigation when scrolling back up to within 10px of top
-        setIsScrolled(false);
-      }
+      // Simple scroll detection since navigation is now fixed and doesn't affect layout
+      setIsScrolled(window.scrollY > 25);
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [isScrolled]);
+  }, []);
 
   const getButtonClass = (section: NavigationSection) => {
     const isActive = activeSection === section;

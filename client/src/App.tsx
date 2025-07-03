@@ -43,7 +43,8 @@ function App() {
     <TooltipProvider>
       <Toaster />
       <div className="min-h-screen flex flex-col">
-        <header className="sticky top-0 z-50">
+        {/* Fixed overlays that don't affect document flow */}
+        <div className="fixed top-0 left-0 right-0 z-50">
           <Navigation activeSection={activeSection} onNavigate={handleNavigate} />
           <Overlay 
             currentRole={currentRole} 
@@ -51,10 +52,12 @@ function App() {
             activeSection={activeSection}
             onDownloadPDF={handleDownloadPDF}
           />
-        </header>
-        <div className="flex-1">
-          {renderContent()}
         </div>
+        
+        {/* Main content with top padding to account for fixed header */}
+        <main className="flex-1 pt-20">
+          {renderContent()}
+        </main>
         <Footer onNavigate={handleNavigate} />
       </div>
     </TooltipProvider>
