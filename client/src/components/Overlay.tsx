@@ -21,21 +21,20 @@ export default function Overlay({ currentRole, onRoleChange, activeSection, onDo
   }, [activeSection]);
 
   // Handle scroll to auto-collapse/expand based on scroll position
-  // Uses same responsive thresholds as Navigation component
+  // Uses hysteresis to prevent jittery behavior caused by menu size changes
   useEffect(() => {
     const handleScroll = () => {
-      // Use window scroll for consistent, responsive detection (one mouse wheel turn)
-      const scrolled = window.scrollY > 25; // Same threshold as Navigation component
-      const atTop = window.scrollY < 15; // Detect when back near top
-      setIsScrolled(scrolled);
+      const scrollY = window.scrollY;
       
-      // Auto-collapse when scrolled (matches navigation shrink timing)
-      if (scrolled && isExpanded) {
+      // Update isScrolled for styling (matches Navigation component)
+      setIsScrolled(scrollY > 25);
+      
+      // Use hysteresis for job menu collapse/expand to prevent oscillation
+      if (isExpanded && scrollY > 25) {
+        // Collapse job menu when scrolling down past 25px
         setIsExpanded(false);
-      }
-      
-      // Auto-expand if scrolled back to top (only for resume/projects sections)
-      if (atTop && !isExpanded && (activeSection === 'resume' || activeSection === 'projects')) {
+      } else if (!isExpanded && scrollY < 10 && (activeSection === 'resume' || activeSection === 'projects')) {
+        // Expand job menu when scrolling back up to within 10px of top (only for resume/projects)
         setIsExpanded(true);
       }
     };
