@@ -21,40 +21,22 @@ export default function Overlay({ currentRole, onRoleChange, activeSection, onDo
   }, [activeSection]);
 
   // Handle scroll to auto-collapse/expand based on scroll position
-  // Uses same thresholds as Navigation component for consistent behavior
+  // Uses same responsive thresholds as Navigation component
   useEffect(() => {
     const handleScroll = () => {
-      // Get the main content scroll position, matching Navigation component logic
-      const mainContent = document.querySelector('main');
-      if (mainContent) {
-        const rect = mainContent.getBoundingClientRect();
-        const scrolled = rect.top < 0; // Same threshold as Navigation component
-        const atTop = rect.top >= -10; // Small threshold to detect when back at top
-        setIsScrolled(scrolled);
-        
-        // Auto-collapse when scrolled (matches navigation shrink timing)
-        if (scrolled && isExpanded) {
-          setIsExpanded(false);
-        }
-        
-        // Auto-expand if scrolled back to top (only for resume/projects sections)
-        if (atTop && !isExpanded && (activeSection === 'resume' || activeSection === 'projects')) {
-          setIsExpanded(true);
-        }
-      } else {
-        // Fallback matching Navigation component
-        const scrolled = window.scrollY > 50;
-        const atTop = window.scrollY < 20; // Detect when back at top
-        setIsScrolled(scrolled);
-        
-        if (scrolled && isExpanded) {
-          setIsExpanded(false);
-        }
-        
-        // Auto-expand if scrolled back to top (only for resume/projects sections)
-        if (atTop && !isExpanded && (activeSection === 'resume' || activeSection === 'projects')) {
-          setIsExpanded(true);
-        }
+      // Use window scroll for consistent, responsive detection (one mouse wheel turn)
+      const scrolled = window.scrollY > 25; // Same threshold as Navigation component
+      const atTop = window.scrollY < 15; // Detect when back near top
+      setIsScrolled(scrolled);
+      
+      // Auto-collapse when scrolled (matches navigation shrink timing)
+      if (scrolled && isExpanded) {
+        setIsExpanded(false);
+      }
+      
+      // Auto-expand if scrolled back to top (only for resume/projects sections)
+      if (atTop && !isExpanded && (activeSection === 'resume' || activeSection === 'projects')) {
+        setIsExpanded(true);
       }
     };
 

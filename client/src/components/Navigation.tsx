@@ -13,15 +13,8 @@ export default function Navigation({ activeSection, onNavigate }: NavigationProp
 
   useEffect(() => {
     const handleScroll = () => {
-      // Get the main content scroll position, not including navigation height
-      const mainContent = document.querySelector('main');
-      if (mainContent) {
-        const rect = mainContent.getBoundingClientRect();
-        setIsScrolled(rect.top < 0);
-      } else {
-        // Fallback to window scroll with larger threshold to prevent jitter
-        setIsScrolled(window.scrollY > 50);
-      }
+      // Use window scroll for more responsive detection (one mouse wheel turn)
+      setIsScrolled(window.scrollY > 25);
     };
 
     window.addEventListener('scroll', handleScroll);
