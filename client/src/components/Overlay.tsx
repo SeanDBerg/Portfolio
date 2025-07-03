@@ -20,7 +20,7 @@ export default function Overlay({ currentRole, onRoleChange, activeSection, onDo
     setIsExpanded(shouldExpand);
   }, [activeSection]);
 
-  // Handle scroll to auto-collapse only when scrolling content, not navigation
+  // Handle scroll to auto-collapse/expand based on scroll position
   useEffect(() => {
     const handleScroll = () => {
       // Get the main content scroll position, excluding navigation/overlay height
@@ -28,26 +28,38 @@ export default function Overlay({ currentRole, onRoleChange, activeSection, onDo
       if (mainContent) {
         const rect = mainContent.getBoundingClientRect();
         const scrolled = rect.top < -100; // Larger threshold to prevent premature closing
+        const atTop = rect.top >= -10; // Small threshold to detect when back at top
         setIsScrolled(scrolled);
         
-        // Only auto-collapse if significantly scrolled into content
+        // Auto-collapse if significantly scrolled into content
         if (scrolled && isExpanded) {
           setIsExpanded(false);
+        }
+        
+        // Auto-expand if scrolled back to top (only for resume/projects sections)
+        if (atTop && !isExpanded && (activeSection === 'resume' || activeSection === 'projects')) {
+          setIsExpanded(true);
         }
       } else {
         // Fallback with much larger threshold
         const scrolled = window.scrollY > 150;
+        const atTop = window.scrollY < 20; // Detect when back at top
         setIsScrolled(scrolled);
         
         if (scrolled && isExpanded) {
           setIsExpanded(false);
+        }
+        
+        // Auto-expand if scrolled back to top (only for resume/projects sections)
+        if (atTop && !isExpanded && (activeSection === 'resume' || activeSection === 'projects')) {
+          setIsExpanded(true);
         }
       }
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [isExpanded]);
+  }, [isExpanded, activeSection]);
 
   const roles: Array<{ key: ResumeRole; label: string }> = [
     { key: "general", label: "General Manager" },
