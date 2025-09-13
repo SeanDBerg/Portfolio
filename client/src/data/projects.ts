@@ -19,5 +19,15 @@ export const projects: Project[] = [
     technologies: ["TailwindCSS", "React", "Javascript", "API", "SQL"],
     github: "https://seandberg.github.io/CallCenterVision/",
     demo: "https://seandberg.github.io/CallCenterVision/",
+  },
+  {
+    id: 2,
+    title: "Order Status Report",
+    slug: "operations-management-KPIs",
+    description: "A React Based KPI dashboard tracking >200,000 accounts for deployments, installations, and support.",
+    image: "public/OrderStatusReport.png",
+    technologies: ["TailwindCSS", "React", "Javascript", "API", "SQL"],
+    github: "https://seandberg.github.io/OrderStatusReport/",
+    demo: "https://seandberg.github.io/OrderStatusReport/",
   }
 ];

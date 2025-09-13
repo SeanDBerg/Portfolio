@@ -8,7 +8,7 @@ export interface NavigationConfig {
 }
 
 export const navigationConfig: NavigationConfig = {
-  showSummary: false,    // Hidden by default
+  showSummary: true,    // Hidden by default
   showResume: true,      // Always show resume
   showProjects: false,   // Hidden by default
 };
