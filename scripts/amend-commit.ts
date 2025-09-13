@@ -15,6 +15,7 @@ interface CliArgs {
   desc?: string;
   set?: string;
   push?: boolean;
+  'no-push'?: boolean;
   help?: boolean;
 }
 
@@ -31,8 +32,11 @@ Options:
   --minor N           Minor version number  
   --desc "text"       Commit description (required)
   --set M.N           Set major.minor and reset patch to next available
-  --push              Automatically push after amending
+  --push              EXPLICITLY push after amending (default: NO PUSH)
+  --no-push           Explicitly prevent pushing (default behavior)
   --help              Show this help
+
+WARNING: By default, this tool NEVER pushes changes. Use --push only if you want to push immediately.
 
 Examples:
   tsx scripts/amend-commit.ts --major 0 --minor 9 --desc "Fix navigation bug"
@@ -158,6 +162,7 @@ function main() {
       desc: { type: 'string' },
       set: { type: 'string' },
       push: { type: 'boolean', default: false },
+      'no-push': { type: 'boolean', default: true },
       help: { type: 'boolean', default: false }
     }
   }) as { values: CliArgs };
@@ -252,12 +257,14 @@ function main() {
     console.log(`Tag v${nextVersion.major}.${nextVersion.minor}.${nextVersion.patch} already exists`);
   }
 
-  // Push if requested
-  if (args.push) {
+  // Explicit push control - NEVER push unless explicitly requested
+  if (args.push && !args['no-push']) {
+    console.log('🚨 PUSHING to GitHub as requested with --push flag...');
     pushChanges();
   } else {
-    console.log('Changes ready. Run with --push to push automatically, or use:');
-    console.log('  git push && git push --tags');
+    console.log('✅ LOCAL CHANGES ONLY - Not pushing to GitHub');
+    console.log('   To push manually run: git push && git push --tags');
+    console.log('   To auto-push next time use: --push flag');
   }
 
   console.log(`✅ Successfully amended commit to v${nextVersion.major}.${nextVersion.minor}.${nextVersion.patch}: ${args.desc}`);
