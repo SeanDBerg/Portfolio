@@ -46,12 +46,14 @@ function App() {
         {/* Fixed overlays that don't affect document flow */}
         <div className="fixed top-0 left-0 right-0 z-50">
           <Navigation activeSection={activeSection} onNavigate={handleNavigate} />
-          <Overlay 
-            currentRole={currentRole} 
-            onRoleChange={switchRole} 
-            activeSection={activeSection}
-            onDownloadPDF={handleDownloadPDF}
-          />
+          {activeSection === 'resume' && (
+            <Overlay 
+              currentRole={currentRole} 
+              onRoleChange={switchRole} 
+              activeSection={activeSection}
+              onDownloadPDF={handleDownloadPDF}
+            />
+          )}
         </div>
         
         {/* Main content with top padding to account for fixed header and overlay */}
