@@ -29,12 +29,9 @@ export default function CTASection() {
   };
 
   const onSubmit = (data: ContactFormData) => {
-    // For now, show success toast - the form will submit to external URL
-    toast({
-      title: "Message sent!",
-      description: "Thank you for your message. I'll get back to you soon.",
-    });
-    form.reset();
+    // When form validation passes, allow the form to submit to the web app URL
+    // The actual submission will be handled by the browser's form POST
+    console.log('Form validated and ready to submit:', data);
   };
 
   return (
@@ -59,6 +56,11 @@ export default function CTASection() {
           className="max-w-md mx-auto mb-8 space-y-4"
           data-testid="contact-form"
         >
+          {/* Hidden inputs for form submission to web app - these will be populated by React Hook Form */}
+          <input type="hidden" name="name" value={form.watch('name')} />
+          <input type="hidden" name="email" value={form.watch('email')} />
+          <input type="hidden" name="phone" value={form.watch('phone')} />
+          <input type="hidden" name="info" value={form.watch('info')} />
           <div className="grid grid-cols-1 gap-4">
             <FormInput
               label="Name"
