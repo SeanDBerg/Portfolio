@@ -1,6 +1,7 @@
 import { Link } from 'wouter';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useRef } from 'react';
 import { useScrollResize } from '@/hooks/useScrollResize';
 import { useToast } from '@/hooks/use-toast';
 import { contactFormSchema, type ContactFormData } from '@/types/contact';
@@ -11,6 +12,7 @@ import { Button } from '@/components/ui/button';
 export default function CTASection() {
   const { ref, isShrunken, isEnlarged } = useScrollResize();
   const { toast } = useToast();
+  const formRef = useRef<HTMLFormElement>(null);
 
   const form = useForm<ContactFormData>({
     resolver: zodResolver(contactFormSchema),
@@ -28,17 +30,14 @@ export default function CTASection() {
     return 'section-normal';
   };
 
-  const onSubmit = (data: ContactFormData, event?: React.BaseSyntheticEvent) => {
-    // Validation passed, now let the browser submit the form normally
+  const onSubmit = (data: ContactFormData) => {
+    // Validation passed, now submit the form to the web app URL
     console.log('Form validated and ready to submit:', data);
     
-    if (event) {
-      // Get the form element (currentTarget, not target)
-      const formElement = event.currentTarget as HTMLFormElement;
-      
-      // Submit the form to the web app URL after validation
+    // Use the form ref to submit the form after validation
+    if (formRef.current) {
       setTimeout(() => {
-        formElement.submit();
+        formRef.current?.submit();
       }, 0);
     }
   };
@@ -59,6 +58,7 @@ export default function CTASection() {
 
         {/* Contact Form */}
         <form 
+          ref={formRef}
           action="https://script.google.com/macros/s/AKfycbxtYmpf_k7uCNfrDCqtO4bOtH_K-Qvb3MBuUXoFptC2r2tpdLDLjPwgFxGZ1KQOsGy4kg/exec" 
           method="POST"
           onSubmit={form.handleSubmit(onSubmit)}
@@ -104,14 +104,14 @@ export default function CTASection() {
             <Button
               type="submit"
               disabled={form.formState.isSubmitting}
-              className="inline-flex items-center justify-center px-6 py-3 bg-white hover:bg-gray-200 text-navy font-medium rounded-lg shadow-lg hover:shadow-xl transition-all focus:ring-4 focus:ring-white/30 min-w-[140px]"
+              className="inline-flex items-center justify-center px-6 py-3 bg-white hover:bg-gray-200 text-navy font-medium rounded-lg shadow-lg hover:shadow-xl transition-all focus:ring-4 focus:ring-white/30 w-[160px]"
               data-testid="button-submit"
             >
               {form.formState.isSubmitting ? 'Sending...' : 'Submit'}
             </Button>
             <Link
               href="/resume"
-              className="inline-flex items-center justify-center px-6 py-3 bg-transparent hover:bg-white/10 border border-white text-white font-medium rounded-lg transition-colors min-w-[140px]"
+              className="inline-flex items-center justify-center px-6 py-3 bg-transparent hover:bg-white/10 border border-white text-white font-medium rounded-lg transition-colors w-[160px]"
               data-testid="link-view-resume"
             >
               View My Resume
