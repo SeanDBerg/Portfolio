@@ -50,7 +50,7 @@ export default function CTASection() {
 
         {/* Contact Form */}
         <form 
-          action="YOUR_WEB_APP_URL" 
+          action="https://script.google.com/macros/s/AKfycbxtYmpf_k7uCNfrDCqtO4bOtH_K-Qvb3MBuUXoFptC2r2tpdLDLjPwgFxGZ1KQOsGy4kg/exec" 
           method="POST"
           onSubmit={form.handleSubmit(onSubmit)}
           className="max-w-md mx-auto mb-8 space-y-4"
