@@ -28,10 +28,19 @@ export default function CTASection() {
     return 'section-normal';
   };
 
-  const onSubmit = (data: ContactFormData) => {
-    // When form validation passes, allow the form to submit to the web app URL
-    // The actual submission will be handled by the browser's form POST
+  const onSubmit = (data: ContactFormData, event?: React.BaseSyntheticEvent) => {
+    // Validation passed, now let the browser submit the form normally
     console.log('Form validated and ready to submit:', data);
+    
+    if (event) {
+      // Get the form element (currentTarget, not target)
+      const formElement = event.currentTarget as HTMLFormElement;
+      
+      // Submit the form to the web app URL after validation
+      setTimeout(() => {
+        formElement.submit();
+      }, 0);
+    }
   };
 
   return (
@@ -56,11 +65,6 @@ export default function CTASection() {
           className="max-w-md mx-auto mb-8 space-y-4"
           data-testid="contact-form"
         >
-          {/* Hidden inputs for form submission to web app - these will be populated by React Hook Form */}
-          <input type="hidden" name="name" value={form.watch('name')} />
-          <input type="hidden" name="email" value={form.watch('email')} />
-          <input type="hidden" name="phone" value={form.watch('phone')} />
-          <input type="hidden" name="info" value={form.watch('info')} />
           <div className="grid grid-cols-1 gap-4">
             <FormInput
               label="Name"
@@ -100,14 +104,14 @@ export default function CTASection() {
             <Button
               type="submit"
               disabled={form.formState.isSubmitting}
-              className="px-6 py-3 bg-white hover:bg-gray-200 text-navy font-medium rounded-lg shadow-lg hover:shadow-xl transition-all focus:ring-4 focus:ring-white/30"
-              data-testid="button-get-in-touch"
+              className="inline-flex items-center justify-center px-6 py-3 bg-white hover:bg-gray-200 text-navy font-medium rounded-lg shadow-lg hover:shadow-xl transition-all focus:ring-4 focus:ring-white/30 min-w-[140px]"
+              data-testid="button-submit"
             >
-              {form.formState.isSubmitting ? 'Sending...' : 'Get In Touch'}
+              {form.formState.isSubmitting ? 'Sending...' : 'Submit'}
             </Button>
             <Link
               href="/resume"
-              className="inline-block px-6 py-3 bg-transparent hover:bg-white/10 border border-white text-white font-medium rounded-lg transition-colors"
+              className="inline-flex items-center justify-center px-6 py-3 bg-transparent hover:bg-white/10 border border-white text-white font-medium rounded-lg transition-colors min-w-[140px]"
               data-testid="link-view-resume"
             >
               View My Resume
