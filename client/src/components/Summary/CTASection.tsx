@@ -1,7 +1,6 @@
 import { Link } from 'wouter';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRef } from 'react';
 import { useScrollResize } from '@/hooks/useScrollResize';
 import { useToast } from '@/hooks/use-toast';
 import { contactFormSchema, type ContactFormData } from '@/types/contact';
@@ -12,7 +11,6 @@ import { Button } from '@/components/ui/button';
 export default function CTASection() {
   const { ref, isShrunken, isEnlarged } = useScrollResize();
   const { toast } = useToast();
-  const formRef = useRef<HTMLFormElement>(null);
 
   const form = useForm<ContactFormData>({
     resolver: zodResolver(contactFormSchema),
@@ -30,15 +28,36 @@ export default function CTASection() {
     return 'section-normal';
   };
 
-  const onSubmit = (data: ContactFormData) => {
-    // Validation passed, now submit the form to the web app URL
-    console.log('Form validated and ready to submit:', data);
-    
-    // Use the form ref to submit the form after validation
-    if (formRef.current) {
-      setTimeout(() => {
-        formRef.current?.submit();
-      }, 0);
+  const onSubmit = async (data: ContactFormData) => {
+    try {
+      // Submit data via Ajax to Google Apps Script
+      const response = await fetch('https://script.google.com/macros/s/AKfycbxtYmpf_k7uCNfrDCqtO4bOtH_K-Qvb3MBuUXoFptC2r2tpdLDLjPwgFxGZ1KQOsGy4kg/exec', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams(data).toString()
+      });
+
+      if (response.ok) {
+        // Clear the form
+        form.reset();
+        
+        // Show success toast
+        toast({
+          title: "Thank you for your message!",
+          description: "I'll get back to you soon.",
+        });
+      } else {
+        throw new Error('Failed to submit form');
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      toast({
+        title: "Error sending message",
+        description: "Please try again later or contact me directly.",
+        variant: "destructive",
+      });
     }
   };
 
@@ -58,9 +77,6 @@ export default function CTASection() {
 
         {/* Contact Form */}
         <form 
-          ref={formRef}
-          action="https://script.google.com/macros/s/AKfycbxtYmpf_k7uCNfrDCqtO4bOtH_K-Qvb3MBuUXoFptC2r2tpdLDLjPwgFxGZ1KQOsGy4kg/exec" 
-          method="POST"
           onSubmit={form.handleSubmit(onSubmit)}
           className="max-w-md mx-auto mb-8 space-y-4"
           data-testid="contact-form"
@@ -104,14 +120,14 @@ export default function CTASection() {
             <Button
               type="submit"
               disabled={form.formState.isSubmitting}
-              className="inline-flex items-center justify-center px-6 py-3 bg-white hover:bg-gray-200 text-navy font-medium rounded-lg shadow-lg hover:shadow-xl transition-all focus:ring-4 focus:ring-white/30 w-[160px]"
+              className="inline-flex items-center justify-center px-8 py-3 bg-white hover:bg-gray-200 text-navy font-medium rounded-lg shadow-lg hover:shadow-xl transition-all focus:ring-4 focus:ring-white/30 min-w-[180px]"
               data-testid="button-submit"
             >
               {form.formState.isSubmitting ? 'Sending...' : 'Submit'}
             </Button>
             <Link
               href="/resume"
-              className="inline-flex items-center justify-center px-6 py-3 bg-transparent hover:bg-white/10 border border-white text-white font-medium rounded-lg transition-colors w-[160px]"
+              className="inline-flex items-center justify-center px-8 py-3 bg-transparent hover:bg-white/10 border border-white text-white font-medium rounded-lg transition-colors min-w-[180px]"
               data-testid="link-view-resume"
             >
               View My Resume
