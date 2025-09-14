@@ -31,7 +31,7 @@ export default function CTASection() {
   const onSubmit = async (data: ContactFormData) => {
     try {
       // Submit data via Ajax to Google Apps Script
-      const response = await fetch('https://script.google.com/macros/s/AKfycbxtYmpf_k7uCNfrDCqtO4bOtH_K-Qvb3MBuUXoFptC2r2tpdLDLjPwgFxGZ1KQOsGy4kg/exec', {
+      const response = await fetch('https://script.google.com/macros/s/AKfycbyuTzlDq8m0Wi29ePQepdZA3Xb27AfXHGE5HifPj46kjTmgC_HkN73L4LncSQqmXYCDnQ/exec', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
