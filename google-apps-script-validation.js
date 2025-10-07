@@ -68,7 +68,55 @@ function doPost(e) {
     
     Logger.log('✅ Valid origin: ' + requestOrigin);
     
-    // 5. Validate Honeypot Fields (must be empty)
+    // 5. Verify Cloudflare Turnstile CAPTCHA Token (if high risk)
+    const riskScore = formData.riskScore || 0;
+    const captchaToken = formData.captchaToken || '';
+    
+    // If risk score >= 50, CAPTCHA token is required
+    if (riskScore >= 50) {
+      if (!captchaToken) {
+        Logger.log('❌ High risk submission without CAPTCHA token');
+        return ContentService.createTextOutput(
+          JSON.stringify({ error: 'CAPTCHA required' })
+        ).setMimeType(ContentService.MimeType.JSON);
+      }
+      
+      // Verify CAPTCHA token with Cloudflare
+      const turnstileSecret = 'YOUR_TURNSTILE_SECRET_KEY';
+      const verifyUrl = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
+      
+      const verifyPayload = {
+        secret: turnstileSecret,
+        response: captchaToken
+      };
+      
+      try {
+        const verifyResponse = UrlFetchApp.fetch(verifyUrl, {
+          method: 'post',
+          contentType: 'application/json',
+          payload: JSON.stringify(verifyPayload),
+          muteHttpExceptions: true
+        });
+        
+        const verifyResult = JSON.parse(verifyResponse.getContentText());
+        
+        if (!verifyResult.success) {
+          Logger.log('❌ CAPTCHA verification failed: ' + JSON.stringify(verifyResult));
+          return ContentService.createTextOutput(
+            JSON.stringify({ error: 'CAPTCHA verification failed' })
+          ).setMimeType(ContentService.MimeType.JSON);
+        }
+        
+        Logger.log('✅ CAPTCHA verified successfully');
+      } catch (captchaError) {
+        Logger.log('❌ CAPTCHA verification error: ' + captchaError);
+        return ContentService.createTextOutput(
+          JSON.stringify({ error: 'CAPTCHA verification error' })
+        ).setMimeType(ContentService.MimeType.JSON);
+      }
+    }
+    
+    // 6. Validate Honeypot Fields (must be empty)
     if (formData.website || formData.subject || formData.url) {
       Logger.log('❌ Honeypot triggered - Bot detected!');
       Logger.log('website: ' + formData.website);

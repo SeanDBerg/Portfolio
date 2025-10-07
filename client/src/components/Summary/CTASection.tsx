@@ -19,9 +19,42 @@ export default function CTASection() {
   // Debug mode state
   const [debugMode, setDebugMode] = useState<boolean>(false);
   
+  // Risk scoring state
+  const [riskScore, setRiskScore] = useState<number>(0);
+  const [failedAttempts, setFailedAttempts] = useState<number>(0);
+  const [showCaptcha, setShowCaptcha] = useState<boolean>(false);
+  const [captchaToken, setCaptchaToken] = useState<string>('');
+  const [showSoftWarning, setShowSoftWarning] = useState<boolean>(false);
+  
   // Set form start time on mount
   useEffect(() => {
     setFormStartTime(Date.now());
+    
+    // Load failed attempts from localStorage
+    const attempts = localStorage.getItem('formFailedAttempts');
+    if (attempts) {
+      setFailedAttempts(parseInt(attempts, 10));
+    }
+  }, []);
+  
+  // Load Cloudflare Turnstile script and set up callback
+  useEffect(() => {
+    // Define global callback for Turnstile
+    (window as any).onTurnstileSuccess = (token: string) => {
+      setCaptchaToken(token);
+      console.log('✅ CAPTCHA completed');
+    };
+    
+    const script = document.createElement('script');
+    script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
+    script.async = true;
+    script.defer = true;
+    document.body.appendChild(script);
+    
+    return () => {
+      document.body.removeChild(script);
+      delete (window as any).onTurnstileSuccess;
+    };
   }, []);
 
   const form = useForm<ContactFormData>({
@@ -43,6 +76,26 @@ export default function CTASection() {
     return 'section-normal';
   };
   
+  // Calculate risk score
+  const calculateRiskScore = (data: ContactFormData, timeToComplete: number): number => {
+    let score = 0;
+    
+    // Honeypot filled (+50 points)
+    if (data.website) score += 50;
+    
+    // Decoy fields filled (+30 points each)
+    if (data.subject) score += 30;
+    if (data.url) score += 30;
+    
+    // Too fast (<2s) (+30 points)
+    if (timeToComplete < 2000) score += 30;
+    
+    // Failed attempts (+20 points per attempt)
+    score += failedAttempts * 20;
+    
+    return score;
+  };
+  
   // Debug function to fill honeypot
   const fillHoneypotForTesting = () => {
     form.setValue('website', 'bot-filled-this');
@@ -56,40 +109,11 @@ export default function CTASection() {
 
   const onSubmit = async (data: ContactFormData) => {
     try {
-      // Bot protection: Check honeypot field
-      if (data.website) {
-        toast({
-          title: "Error submitting form",
-          description: "Please try again.",
-          variant: "destructive",
-        });
-        return;
-      }
-      
-      // Bot protection: Check decoy fields
-      if (data.subject || data.url) {
-        toast({
-          title: "Error submitting form",
-          description: "Please try again.",
-          variant: "destructive",
-        });
-        return;
-      }
-      
-      // Bot protection: Check time-to-complete
+      // Calculate time to complete
       const timeToComplete = Date.now() - formStartTime;
-      const twoSeconds = 2000;
       const thirtyMinutes = 30 * 60 * 1000;
       
-      if (timeToComplete < twoSeconds) {
-        toast({
-          title: "Please slow down",
-          description: "Please take your time filling out the form.",
-          variant: "destructive",
-        });
-        return;
-      }
-      
+      // Check if form expired
       if (timeToComplete > thirtyMinutes) {
         toast({
           title: "Form expired",
@@ -97,6 +121,57 @@ export default function CTASection() {
           variant: "destructive",
         });
         return;
+      }
+      
+      // Calculate risk score
+      const currentRiskScore = calculateRiskScore(data, timeToComplete);
+      setRiskScore(currentRiskScore);
+      
+      console.log('🎯 Risk Score:', currentRiskScore);
+      
+      // Risk threshold for CAPTCHA (50+ is risky)
+      const RISK_THRESHOLD = 50;
+      
+      // Progressive disclosure logic
+      if (currentRiskScore >= RISK_THRESHOLD) {
+        // First risky attempt: Show soft warning
+        if (!showSoftWarning && !showCaptcha) {
+          setShowSoftWarning(true);
+          const newAttempts = failedAttempts + 1;
+          setFailedAttempts(newAttempts);
+          localStorage.setItem('formFailedAttempts', newAttempts.toString());
+          
+          toast({
+            title: "Please confirm you're human",
+            description: "Your submission seems unusual. Please try again.",
+            variant: "destructive",
+          });
+          return;
+        }
+        
+        // Second risky attempt: Show CAPTCHA
+        if (showSoftWarning && !showCaptcha) {
+          setShowCaptcha(true);
+          const newAttempts = failedAttempts + 1;
+          setFailedAttempts(newAttempts);
+          localStorage.setItem('formFailedAttempts', newAttempts.toString());
+          
+          toast({
+            title: "Security check required",
+            description: "Please complete the CAPTCHA below to continue.",
+          });
+          return;
+        }
+        
+        // CAPTCHA required but not completed
+        if (showCaptcha && !captchaToken) {
+          toast({
+            title: "CAPTCHA required",
+            description: "Please complete the security check.",
+            variant: "destructive",
+          });
+          return;
+        }
       }
       
       // Bot protection: Origin validation (strict equality)
@@ -120,7 +195,7 @@ export default function CTASection() {
         return;
       }
       
-      // Prepare data for submission (include honeypot fields and origin for server-side validation)
+      // Prepare data for submission (include honeypot fields, origin, and CAPTCHA token)
       const dataToSend = {
         name: data.name,
         email: data.email,
@@ -129,7 +204,9 @@ export default function CTASection() {
         website: data.website || '',  // Honeypot - should be empty for legitimate users
         subject: data.subject || '',  // Decoy - should be empty for legitimate users
         url: data.url || '',          // Decoy - should be empty for legitimate users
-        requestOrigin: currentOrigin  // Send origin for server-side validation
+        requestOrigin: currentOrigin, // Send origin for server-side validation
+        captchaToken: captchaToken || '', // CAPTCHA token if required
+        riskScore: currentRiskScore   // Send risk score for logging
       };
       
       // Debug logging
@@ -272,6 +349,25 @@ export default function CTASection() {
               error={form.formState.errors.info?.message}
             />
           </div>
+          
+          {/* Soft Warning */}
+          {showSoftWarning && !showCaptcha && (
+            <div className="bg-yellow-500/20 border border-yellow-500 rounded-lg p-4 mb-4">
+              <p className="text-sm text-white">⚠️ Your submission seems unusual. Please review your information and try again.</p>
+            </div>
+          )}
+          
+          {/* Cloudflare Turnstile CAPTCHA */}
+          {showCaptcha && (
+            <div className="flex justify-center mb-4">
+              <div
+                className="cf-turnstile"
+                data-sitekey="YOUR_TURNSTILE_SITE_KEY"
+                data-callback="onTurnstileSuccess"
+                data-theme="dark"
+              ></div>
+            </div>
+          )}
           
           {/* Debug Controls */}
           <div className="flex justify-center gap-2 mb-4">
