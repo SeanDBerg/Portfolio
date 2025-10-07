@@ -227,8 +227,17 @@ export default function CTASection() {
         // Clear the form
         form.reset();
         
-        // Reset form start time for next submission
+        // Reset all protection states for next submission
         setFormStartTime(Date.now());
+        setShowSoftWarning(false);
+        setShowCaptcha(false);
+        setCaptchaToken('');
+        setRiskScore(0);
+        
+        // Decay failed attempts (reduce by 1, minimum 0)
+        const newAttempts = Math.max(0, failedAttempts - 1);
+        setFailedAttempts(newAttempts);
+        localStorage.setItem('formFailedAttempts', newAttempts.toString());
         
         // Show success toast
         toast({
@@ -362,7 +371,7 @@ export default function CTASection() {
             <div className="flex justify-center mb-4">
               <div
                 className="cf-turnstile"
-                data-sitekey="YOUR_TURNSTILE_SITE_KEY"
+                data-sitekey={import.meta.env.VITE_TURNSTILE_SITE_KEY}
                 data-callback="onTurnstileSuccess"
                 data-theme="dark"
               ></div>

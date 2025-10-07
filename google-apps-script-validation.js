@@ -68,16 +68,39 @@ function doPost(e) {
     
     Logger.log('✅ Valid origin: ' + requestOrigin);
     
-    // 5. Verify Cloudflare Turnstile CAPTCHA Token (if high risk)
-    const riskScore = formData.riskScore || 0;
+    // 5. Calculate Server-Side Risk Score (NEVER trust client)
+    let serverRiskScore = 0;
+    
+    // Check honeypot field (primary)
+    if (formData.website && formData.website.trim() !== '') {
+      serverRiskScore += 50;
+      Logger.log('⚠️ Honeypot triggered: +50 risk');
+    }
+    
+    // Check decoy fields
+    if (formData.subject && formData.subject.trim() !== '') {
+      serverRiskScore += 30;
+      Logger.log('⚠️ Decoy field (subject) filled: +30 risk');
+    }
+    
+    if (formData.url && formData.url.trim() !== '') {
+      serverRiskScore += 30;
+      Logger.log('⚠️ Decoy field (url) filled: +30 risk');
+    }
+    
+    // Note: Time-to-complete cannot be validated server-side without storing form load time
+    // This is a limitation of the static site + Google Apps Script architecture
+    
+    Logger.log('🎯 Server-calculated risk score: ' + serverRiskScore);
     const captchaToken = formData.captchaToken || '';
     
-    // If risk score >= 50, CAPTCHA token is required
-    if (riskScore >= 50) {
-      if (!captchaToken) {
-        Logger.log('❌ High risk submission without CAPTCHA token');
+    // 6. Verify Cloudflare Turnstile CAPTCHA Token (if ANY risk detected)
+    // If ANY honeypot/decoy field is filled, CAPTCHA is REQUIRED
+    if (serverRiskScore > 0) {
+      if (!captchaToken || captchaToken.trim() === '') {
+        Logger.log('❌ High risk submission without CAPTCHA token (score: ' + serverRiskScore + ')');
         return ContentService.createTextOutput(
-          JSON.stringify({ error: 'CAPTCHA required' })
+          JSON.stringify({ error: 'CAPTCHA required for verification' })
         ).setMimeType(ContentService.MimeType.JSON);
       }
       
@@ -107,7 +130,7 @@ function doPost(e) {
           ).setMimeType(ContentService.MimeType.JSON);
         }
         
-        Logger.log('✅ CAPTCHA verified successfully');
+        Logger.log('✅ CAPTCHA verified successfully for high-risk submission');
       } catch (captchaError) {
         Logger.log('❌ CAPTCHA verification error: ' + captchaError);
         return ContentService.createTextOutput(
@@ -116,9 +139,10 @@ function doPost(e) {
       }
     }
     
-    // 6. Validate Honeypot Fields (must be empty)
+    // 7. Final honeypot check (redundant but kept for defense in depth)
+    // This should already be caught by serverRiskScore > 0 check above
     if (formData.website || formData.subject || formData.url) {
-      Logger.log('❌ Honeypot triggered - Bot detected!');
+      Logger.log('❌ Honeypot validation failed - Bot detected!');
       Logger.log('website: ' + formData.website);
       Logger.log('subject: ' + formData.subject);
       Logger.log('url: ' + formData.url);
@@ -129,7 +153,7 @@ function doPost(e) {
       ).setMimeType(ContentService.MimeType.JSON);
     }
     
-    // 6. Extract legitimate form fields
+    // 8. Extract legitimate form fields
     const name = formData.name || '';
     const email = formData.email || '';
     const phone = formData.phone || '';
