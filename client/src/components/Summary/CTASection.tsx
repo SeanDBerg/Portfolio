@@ -85,12 +85,15 @@ export default function CTASection() {
         return;
       }
       
-      // Prepare clean data for submission (remove bot protection fields)
-      const cleanData = {
+      // Prepare data for submission (include honeypot fields for server-side validation)
+      const dataToSend = {
         name: data.name,
         email: data.email,
         phone: data.phone || '',
-        info: data.info
+        info: data.info,
+        website: data.website || '',  // Honeypot - should be empty for legitimate users
+        subject: data.subject || '',  // Decoy - should be empty for legitimate users
+        url: data.url || ''            // Decoy - should be empty for legitimate users
       };
       
       // Submit data via Ajax to Google Apps Script
@@ -99,7 +102,7 @@ export default function CTASection() {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: new URLSearchParams(cleanData).toString()
+        body: new URLSearchParams(dataToSend).toString()
       });
 
       if (response.ok) {
