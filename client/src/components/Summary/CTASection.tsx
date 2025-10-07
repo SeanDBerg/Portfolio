@@ -7,10 +7,19 @@ import { contactFormSchema, type ContactFormData } from '@/types/contact';
 import { FormInput } from '@/components/ui/form-input';
 import { FormTextarea } from '@/components/ui/form-textarea';
 import { Button } from '@/components/ui/button';
+import { useState, useEffect } from 'react';
 
 export default function CTASection() {
   const { ref, isShrunken, isEnlarged } = useScrollResize();
   const { toast } = useToast();
+  
+  // Bot protection: Track form render timestamp
+  const [formStartTime, setFormStartTime] = useState<number>(0);
+  
+  // Set form start time on mount
+  useEffect(() => {
+    setFormStartTime(Date.now());
+  }, []);
 
   const form = useForm<ContactFormData>({
     resolver: zodResolver(contactFormSchema),
@@ -18,7 +27,10 @@ export default function CTASection() {
       name: '',
       email: '',
       phone: '',
-      info: ''
+      info: '',
+      website: '', // Honeypot
+      subject: '', // Decoy
+      url: '' // Decoy
     }
   });
 
@@ -30,18 +42,72 @@ export default function CTASection() {
 
   const onSubmit = async (data: ContactFormData) => {
     try {
+      // Bot protection: Check honeypot field
+      if (data.website) {
+        toast({
+          title: "Error submitting form",
+          description: "Please try again.",
+          variant: "destructive",
+        });
+        return;
+      }
+      
+      // Bot protection: Check decoy fields
+      if (data.subject || data.url) {
+        toast({
+          title: "Error submitting form",
+          description: "Please try again.",
+          variant: "destructive",
+        });
+        return;
+      }
+      
+      // Bot protection: Check time-to-complete
+      const timeToComplete = Date.now() - formStartTime;
+      const twoSeconds = 2000;
+      const thirtyMinutes = 30 * 60 * 1000;
+      
+      if (timeToComplete < twoSeconds) {
+        toast({
+          title: "Please slow down",
+          description: "Please take your time filling out the form.",
+          variant: "destructive",
+        });
+        return;
+      }
+      
+      if (timeToComplete > thirtyMinutes) {
+        toast({
+          title: "Form expired",
+          description: "Please refresh the page and try again.",
+          variant: "destructive",
+        });
+        return;
+      }
+      
+      // Prepare clean data for submission (remove bot protection fields)
+      const cleanData = {
+        name: data.name,
+        email: data.email,
+        phone: data.phone || '',
+        info: data.info
+      };
+      
       // Submit data via Ajax to Google Apps Script
       const response = await fetch('https://script.google.com/macros/s/AKfycbyuTzlDq8m0Wi29ePQepdZA3Xb27AfXHGE5HifPj46kjTmgC_HkN73L4LncSQqmXYCDnQ/exec', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: new URLSearchParams(data).toString()
+        body: new URLSearchParams(cleanData).toString()
       });
 
       if (response.ok) {
         // Clear the form
         form.reset();
+        
+        // Reset form start time for next submission
+        setFormStartTime(Date.now());
         
         // Show success toast
         toast({
@@ -81,6 +147,53 @@ export default function CTASection() {
           className="max-w-md mx-auto mb-8 space-y-4"
           data-testid="contact-form"
         >
+          {/* Honeypot field - hidden from users but visible to bots */}
+          <input
+            type="text"
+            {...form.register('website')}
+            tabIndex={-1}
+            autoComplete="off"
+            style={{
+              position: 'absolute',
+              left: '-9999px',
+              width: '1px',
+              height: '1px',
+              opacity: 0,
+            }}
+            aria-hidden="true"
+          />
+          
+          {/* Decoy fields - hidden from users but attractive to bots */}
+          <input
+            type="text"
+            {...form.register('subject')}
+            tabIndex={-1}
+            autoComplete="off"
+            style={{
+              position: 'absolute',
+              left: '-9999px',
+              width: '1px',
+              height: '1px',
+              opacity: 0,
+            }}
+            aria-hidden="true"
+          />
+          
+          <input
+            type="text"
+            {...form.register('url')}
+            tabIndex={-1}
+            autoComplete="off"
+            style={{
+              position: 'absolute',
+              left: '-9999px',
+              width: '1px',
+              height: '1px',
+              opacity: 0,
+            }}
+            aria-hidden="true"
+          />
+          
           <div className="grid grid-cols-1 gap-4">
             <FormInput
               label="Name"
