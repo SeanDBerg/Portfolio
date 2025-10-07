@@ -37,25 +37,68 @@ export default function CTASection() {
     }
   }, []);
   
-  // Load Cloudflare Turnstile script and set up callback
+  // Load Cloudflare Turnstile script with explicit rendering
   useEffect(() => {
-    // Define global callback for Turnstile
-    (window as any).onTurnstileSuccess = (token: string) => {
-      setCaptchaToken(token);
-      console.log('✅ CAPTCHA completed');
-    };
-    
     const script = document.createElement('script');
-    script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
+    script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
     script.async = true;
     script.defer = true;
+    script.onload = () => {
+      console.log('📦 Turnstile script loaded');
+    };
     document.body.appendChild(script);
     
     return () => {
-      document.body.removeChild(script);
-      delete (window as any).onTurnstileSuccess;
+      if (document.body.contains(script)) {
+        document.body.removeChild(script);
+      }
     };
   }, []);
+  
+  // Manually render Turnstile widget when it should appear
+  useEffect(() => {
+    if (!showCaptcha) return;
+    
+    const renderWidget = () => {
+      const container = document.getElementById('turnstile-container');
+      if (container && !container.hasChildNodes() && (window as any).turnstile) {
+        console.log('🔐 Rendering Turnstile widget');
+        try {
+          (window as any).turnstile.render('#turnstile-container', {
+            sitekey: import.meta.env.VITE_TURNSTILE_SITE_KEY,
+            callback: (token: string) => {
+              setCaptchaToken(token);
+              console.log('✅ CAPTCHA completed');
+            },
+            theme: 'dark'
+          });
+        } catch (err) {
+          console.error('Failed to render Turnstile:', err);
+        }
+      }
+    };
+    
+    // Try to render immediately
+    if ((window as any).turnstile) {
+      renderWidget();
+    } else {
+      // Wait for Turnstile to load (poll every 100ms for up to 5 seconds)
+      const maxAttempts = 50;
+      let attempts = 0;
+      const interval = setInterval(() => {
+        attempts++;
+        if ((window as any).turnstile) {
+          clearInterval(interval);
+          renderWidget();
+        } else if (attempts >= maxAttempts) {
+          clearInterval(interval);
+          console.error('Turnstile failed to load');
+        }
+      }, 100);
+      
+      return () => clearInterval(interval);
+    }
+  }, [showCaptcha]);
 
   const form = useForm<ContactFormData>({
     resolver: zodResolver(contactFormSchema),
@@ -369,12 +412,7 @@ export default function CTASection() {
           {/* Cloudflare Turnstile CAPTCHA */}
           {showCaptcha && (
             <div className="flex justify-center mb-4">
-              <div
-                className="cf-turnstile"
-                data-sitekey={import.meta.env.VITE_TURNSTILE_SITE_KEY}
-                data-callback="onTurnstileSuccess"
-                data-theme="dark"
-              ></div>
+              <div id="turnstile-container"></div>
             </div>
           )}
           
