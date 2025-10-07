@@ -99,7 +99,28 @@ export default function CTASection() {
         return;
       }
       
-      // Prepare data for submission (include honeypot fields for server-side validation)
+      // Bot protection: Origin validation (strict equality)
+      const allowedOrigins = [
+        'https://seanberg.github.io',
+        'http://localhost:5000',
+        'http://127.0.0.1:5000'
+      ];
+      
+      const currentOrigin = window.location.origin;
+      const isAllowedOrigin = allowedOrigins.includes(currentOrigin);
+      
+      if (!isAllowedOrigin) {
+        console.error('❌ Blocked - Invalid origin:', currentOrigin);
+        console.error('❌ Allowed origins:', allowedOrigins);
+        toast({
+          title: "Error submitting form",
+          description: "Please try again.",
+          variant: "destructive",
+        });
+        return;
+      }
+      
+      // Prepare data for submission (include honeypot fields and origin for server-side validation)
       const dataToSend = {
         name: data.name,
         email: data.email,
@@ -107,20 +128,22 @@ export default function CTASection() {
         info: data.info,
         website: data.website || '',  // Honeypot - should be empty for legitimate users
         subject: data.subject || '',  // Decoy - should be empty for legitimate users
-        url: data.url || ''            // Decoy - should be empty for legitimate users
+        url: data.url || '',          // Decoy - should be empty for legitimate users
+        requestOrigin: currentOrigin  // Send origin for server-side validation
       };
       
       // Debug logging
       console.log('📧 Form data being sent:', dataToSend);
-      console.log('📧 URL-encoded body:', new URLSearchParams(dataToSend).toString());
+      console.log('📧 Origin:', currentOrigin);
+      console.log('📧 JSON body:', JSON.stringify(dataToSend));
       
-      // Submit data via Ajax to Google Apps Script
+      // Submit data via Ajax to Google Apps Script (using JSON)
       const response = await fetch('https://script.google.com/macros/s/AKfycbyuTzlDq8m0Wi29ePQepdZA3Xb27AfXHGE5HifPj46kjTmgC_HkN73L4LncSQqmXYCDnQ/exec', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
+          'Content-Type': 'application/json',
         },
-        body: new URLSearchParams(dataToSend).toString()
+        body: JSON.stringify(dataToSend)
       });
 
       if (response.ok) {
