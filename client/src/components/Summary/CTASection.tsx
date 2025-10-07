@@ -16,6 +16,9 @@ export default function CTASection() {
   // Bot protection: Track form render timestamp
   const [formStartTime, setFormStartTime] = useState<number>(0);
   
+  // Debug mode state
+  const [debugMode, setDebugMode] = useState<boolean>(false);
+  
   // Set form start time on mount
   useEffect(() => {
     setFormStartTime(Date.now());
@@ -38,6 +41,17 @@ export default function CTASection() {
     if (isShrunken) return 'section-shrunk';
     if (isEnlarged) return 'section-enlarged';
     return 'section-normal';
+  };
+  
+  // Debug function to fill honeypot
+  const fillHoneypotForTesting = () => {
+    form.setValue('website', 'bot-filled-this');
+    form.setValue('subject', 'test-subject');
+    form.setValue('url', 'http://bot-url.com');
+    toast({
+      title: "Debug: Honeypot Filled",
+      description: "Now submit the form to test bot detection",
+    });
   };
 
   const onSubmit = async (data: ContactFormData) => {
@@ -95,6 +109,10 @@ export default function CTASection() {
         subject: data.subject || '',  // Decoy - should be empty for legitimate users
         url: data.url || ''            // Decoy - should be empty for legitimate users
       };
+      
+      // Debug logging
+      console.log('📧 Form data being sent:', dataToSend);
+      console.log('📧 URL-encoded body:', new URLSearchParams(dataToSend).toString());
       
       // Submit data via Ajax to Google Apps Script
       const response = await fetch('https://script.google.com/macros/s/AKfycbyuTzlDq8m0Wi29ePQepdZA3Xb27AfXHGE5HifPj46kjTmgC_HkN73L4LncSQqmXYCDnQ/exec', {
@@ -231,6 +249,31 @@ export default function CTASection() {
               error={form.formState.errors.info?.message}
             />
           </div>
+          
+          {/* Debug Controls */}
+          <div className="flex justify-center gap-2 mb-4">
+            <button
+              type="button"
+              onClick={() => setDebugMode(!debugMode)}
+              className="text-xs text-white/50 hover:text-white/80 underline"
+            >
+              {debugMode ? 'Hide Debug' : 'Show Debug'}
+            </button>
+          </div>
+          
+          {debugMode && (
+            <div className="bg-yellow-500/20 border border-yellow-500 rounded-lg p-4 mb-4">
+              <p className="text-sm text-white mb-2">🐛 Debug Mode</p>
+              <Button
+                type="button"
+                onClick={fillHoneypotForTesting}
+                className="bg-yellow-500 hover:bg-yellow-600 text-black"
+                data-testid="button-debug-honeypot"
+              >
+                Fill Honeypot (Simulate Bot)
+              </Button>
+            </div>
+          )}
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center mt-6">
             <Button
