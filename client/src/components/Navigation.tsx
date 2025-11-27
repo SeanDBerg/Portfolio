@@ -39,7 +39,7 @@ export default function Navigation({ activeSection, onNavigate }: NavigationProp
             aria-label="BergOps Home"
           >
             <img 
-              src="/HomeLogo.png" 
+              src="/BergLogo.png" 
               alt="BergOps Logo" 
               className={`transition-all duration-300 ${isScrolled ? 'h-12' : 'h-16'}`}
             />
