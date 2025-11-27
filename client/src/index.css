@@ -72,7 +72,7 @@
 
   body {
     @apply font-inter antialiased;
-    background-color: hsl(var(--background));
+    background-color: transparent;
     color: hsl(var(--foreground));
     font-size: clamp(14px, 1.2vw, 18px);
     line-height: 1.6;
@@ -80,6 +80,7 @@
 
   /* Responsive base font sizes */
   html {
+    background-color: hsl(var(--background));
     font-size: 16px;
     scroll-behavior: smooth;
   }
@@ -327,7 +328,7 @@
     inset: 0;
     pointer-events: none;
     overflow: hidden;
-    z-index: -5;
+    z-index: 1;
   }
 
   /* Individual fog bands that drift down */
@@ -373,7 +374,7 @@
     position: fixed;
     inset: 0;
     pointer-events: none;
-    z-index: -6;
+    z-index: 0;
     background: linear-gradient(180deg,
       rgba(46, 255, 123, 0.08) 0%,
       rgba(0, 195, 255, 0.06) 33%,
