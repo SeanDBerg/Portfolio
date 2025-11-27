@@ -38,13 +38,7 @@ function App() {
     <HelmetProvider>
       <TooltipProvider>
         <Toaster />
-        <div className="min-h-screen flex flex-col relative">
-          {/* Page-length aurora fog - flows down and cycles through colors */}
-          <div className="aurora-page-container">
-            <div className="aurora-fog aurora-fog-1"></div>
-            <div className="aurora-fog aurora-fog-2"></div>
-            <div className="aurora-fog aurora-fog-3"></div>
-          </div>
+        <div className="min-h-screen flex flex-col">
           {/* Fixed overlays that don't affect document flow */}
           <div className="fixed top-0 left-0 right-0 z-50">
             <Navigation activeSection={activeSection} onNavigate={handleNavigate} />
