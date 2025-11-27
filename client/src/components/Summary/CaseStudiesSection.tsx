@@ -12,9 +12,6 @@ export default function CaseStudiesSection() {
   };
   return (
     <>
-      {/* Section separator: green to blue transition */}
-      <div className="section-separator section-separator-green-to-blue mb-8"></div>
-      
       <section
         ref={ref}
         className={`aurora-blue-flow glassmorphism-aurora rounded-xl shadow-lg p-6 sm:p-8 lg:p-12 fade-transition fade-in border aurora-accent-blue ${getSectionClass()} mb-8 relative overflow-hidden`}

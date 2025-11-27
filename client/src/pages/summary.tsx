@@ -1,6 +1,5 @@
 import { ResumeRole } from '@/hooks/useResumeRole';
 import AnimatedPage from '@/components/AnimatedPage';
-import BergOpsAvatar from '@/components/Summary/BergOpsAvatar';
 import HeroSection from '@/components/Summary/HeroSection';
 import PillarsSection from '@/components/Summary/PillarsSection';
 import CaseStudiesSection from '@/components/Summary/CaseStudiesSection';
@@ -33,9 +32,6 @@ export default function Summary({ onNavigate, currentRole, onRoleChange }: Summa
           <CTASection />
         </AnimatedPage>
       </main>
-      <div className="fixed bottom-8 right-8 z-30 float-animation">
-        <BergOpsAvatar size={150} />
-      </div>
       {/* Aurora fog wave effect - slow drifting aurora bands */}
       <div className="aurora-fog-wave">
         <div className="aurora-fog-band aurora-fog-band-green"></div>

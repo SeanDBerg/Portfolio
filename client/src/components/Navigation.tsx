@@ -29,7 +29,7 @@ export default function Navigation({ activeSection, onNavigate }: NavigationProp
   };
 
   return (
-    <nav className={`bg-surface/90 backdrop-blur-md border-b border-white/10 shadow-lg no-print transition-all duration-300 ${isScrolled ? 'py-2' : 'py-3'}`}>
+    <nav className={`bg-black border-b border-white/10 shadow-lg no-print transition-all duration-300 ${isScrolled ? 'py-2' : 'py-3'}`}>
       <div className={`max-w-6xl mx-auto px-4 sm:px-6 transition-all duration-300 ${isScrolled ? 'scale-98' : 'scale-100'}`}>
         <div className="flex flex-row items-center justify-between w-full">
           {/* Logo */}
@@ -41,7 +41,7 @@ export default function Navigation({ activeSection, onNavigate }: NavigationProp
             <img 
               src="/HomeLogo.png" 
               alt="BergOps Logo" 
-              className={`logo-glow transition-all duration-300 ${isScrolled ? 'h-8' : 'h-10'}`}
+              className={`transition-all duration-300 ${isScrolled ? 'h-12' : 'h-16'}`}
             />
           </button>
           
