@@ -16,7 +16,7 @@ interface SummaryProps {
 
 export default function Summary({ onNavigate, currentRole, onRoleChange }: SummaryProps) {
   return (
-    <div className="min-h-screen text-foreground relative overflow-hidden">
+    <div className="min-h-screen text-foreground relative">
       <Helmet>
         <title>Sean Berg - Operations & IT Leader</title>
         <meta name="description" content="Sean Berg's professional summary showcasing leadership in operations, IT, and project management." />
@@ -40,9 +40,10 @@ export default function Summary({ onNavigate, currentRole, onRoleChange }: Summa
       </div>
       <div className="aurora-ambient-pulse"></div>
       {/* Background decorative elements - aurora glow accents only */}
-      <div className="fixed inset-0 -z-10 pointer-events-none">
-        <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-berg-green/10 rounded-full blur-[100px]"></div>
-        <div className="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] bg-ops-blue/10 rounded-full blur-[100px]"></div>
+      <div className="absolute top-0 left-0 right-0 h-[300%] -z-10 pointer-events-none">
+        <div className="absolute top-[5%] right-[-5%] w-[500px] h-[500px] bg-berg-green/10 rounded-full blur-[100px]"></div>
+        <div className="absolute top-[50%] left-[-5%] w-[500px] h-[500px] bg-ops-blue/10 rounded-full blur-[100px]"></div>
+        <div className="absolute top-[80%] right-[10%] w-[400px] h-[400px] bg-intel-purple/10 rounded-full blur-[100px]"></div>
       </div>
     </div>
   );
