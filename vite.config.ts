@@ -5,7 +5,7 @@ import path from "path";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 
 export default defineConfig({
-  base: "/Portfolio/", // Required for GitHub Pages
+  base: "/",
   plugins: [
     react(),
     runtimeErrorOverlay(),
@@ -27,12 +27,13 @@ export default defineConfig({
   },
   root: path.resolve(import.meta.dirname, "client"),
   build: {
-    outDir: path.resolve(import.meta.dirname, "docs"), // ✅ GitHub Pages reads from here
+    outDir: path.resolve(import.meta.dirname, "docs"),
     emptyOutDir: true,
   },
   server: {
-    port: 5000,          // match the .replit port
-    allowedHosts: true, // permit Replit’s domain
+    host: "0.0.0.0",
+    port: 5000,
+    allowedHosts: true,
     fs: {
       strict: true,
       deny: ["**/.*"],

@@ -1,6 +1,17 @@
 # Overview
 
-This is a dynamic React-based resume website for Sean Berg, featuring role-based content switching and PDF generation capabilities. The application allows users to switch between different professional roles (General Manager, Frontend Developer, IT Manager, and Project Manager) with tailored resume content for each role. The site is optimized for static hosting on GitHub Pages and includes interactive features like PDF downloads and smooth scroll animations.
+This is a dynamic React-based resume website for Sean Berg, featuring role-based content switching and PDF generation capabilities. The application allows users to switch between different professional roles (General Manager, Frontend Developer, IT Manager, and Project Manager) with tailored resume content for each role. The site is optimized for static hosting and includes interactive features like PDF downloads and smooth scroll animations.
+
+# Recent Changes
+
+**November 27, 2025** - Configured for Replit environment:
+- Updated `vite.config.ts` to use base path "/" (removed GitHub Pages `/Portfolio/` path)
+- Added `host: "0.0.0.0"` to Vite server config for Replit proxy compatibility
+- Installed all npm dependencies
+- Configured workflow "Start application" running `npm run dev` on port 5000
+- Configured static deployment with build command and docs output directory
+- Updated `.gitignore` to exclude build outputs (docs, dist) and npm logs
+- Verified application runs correctly in Replit environment
 
 # User Preferences
 
@@ -16,8 +27,8 @@ Preferred communication style: Simple, everyday language.
 - **Component-based architecture** with reusable UI components organized by feature
 
 ## Static Site Generation
-- **GitHub Pages deployment** with builds output to `/docs` directory
-- **Base path configuration** set to `/Portfolio/` for GitHub Pages compatibility
+- **Static deployment** with builds output to `/docs` directory
+- **Base path configuration** set to "/" for Replit hosting
 - **No backend dependencies** - all data is embedded in the JavaScript bundle
 - **Asset optimization** with automatic bundling and minification
 
