@@ -84,62 +84,121 @@
     min-height: 100vh;
   }
 
-  /* Aurora fog effect applied at body level - multiple layers for depth */
-  body::before,
-  body::after {
-    content: '';
-    position: fixed;
-    inset: 0;
+  /* Page-length aurora container - spans full document height */
+  .aurora-page-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    min-height: 100vh;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden;
+  }
+
+  /* Aurora fog layers that span the full page */
+  .aurora-page-layer {
+    position: absolute;
+    left: 0;
+    right: 0;
     pointer-events: none;
   }
 
-  body::before {
-    z-index: -1;
-    background: 
-      radial-gradient(ellipse 120% 60% at 50% -10%, rgba(46, 255, 123, 0.2) 0%, transparent 60%),
-      radial-gradient(ellipse 120% 60% at 50% 110%, rgba(157, 78, 221, 0.18) 0%, transparent 60%);
-    animation: aurora-fog-primary 25s ease-in-out infinite;
+  .aurora-page-layer-green {
+    top: 0;
+    height: 40%;
+    background: radial-gradient(ellipse 150% 100% at 50% 0%, rgba(46, 255, 123, 0.22) 0%, rgba(46, 255, 123, 0.08) 40%, transparent 70%);
+    animation: aurora-breathe 20s ease-in-out infinite;
   }
 
-  body::after {
-    z-index: -2;
-    background: 
-      radial-gradient(ellipse 100% 80% at 30% 30%, rgba(0, 195, 255, 0.15) 0%, transparent 50%),
-      radial-gradient(ellipse 100% 80% at 70% 70%, rgba(46, 255, 123, 0.12) 0%, transparent 50%);
-    animation: aurora-fog-secondary 30s ease-in-out infinite reverse;
+  .aurora-page-layer-blue {
+    top: 25%;
+    height: 50%;
+    background: radial-gradient(ellipse 140% 100% at 50% 50%, rgba(0, 195, 255, 0.18) 0%, rgba(0, 195, 255, 0.06) 45%, transparent 70%);
+    animation: aurora-breathe 25s ease-in-out infinite;
+    animation-delay: -8s;
   }
 
-  @keyframes aurora-fog-primary {
+  .aurora-page-layer-purple {
+    top: 55%;
+    height: 45%;
+    background: radial-gradient(ellipse 150% 100% at 50% 100%, rgba(157, 78, 221, 0.2) 0%, rgba(157, 78, 221, 0.07) 40%, transparent 70%);
+    animation: aurora-breathe 22s ease-in-out infinite;
+    animation-delay: -15s;
+  }
+
+  /* Floating accent orbs for extra depth */
+  .aurora-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    animation: aurora-orb-float 30s ease-in-out infinite;
+  }
+
+  .aurora-orb-1 {
+    width: 400px;
+    height: 400px;
+    top: 10%;
+    left: -5%;
+    background: rgba(46, 255, 123, 0.15);
+    animation-delay: 0s;
+  }
+
+  .aurora-orb-2 {
+    width: 350px;
+    height: 350px;
+    top: 35%;
+    right: -5%;
+    background: rgba(0, 195, 255, 0.12);
+    animation-delay: -10s;
+  }
+
+  .aurora-orb-3 {
+    width: 450px;
+    height: 450px;
+    top: 60%;
+    left: 10%;
+    background: rgba(157, 78, 221, 0.14);
+    animation-delay: -20s;
+  }
+
+  .aurora-orb-4 {
+    width: 300px;
+    height: 300px;
+    top: 80%;
+    right: 15%;
+    background: rgba(0, 195, 255, 0.1);
+    animation-delay: -5s;
+  }
+
+  @keyframes aurora-breathe {
     0%, 100% {
       opacity: 0.7;
-      transform: translateY(0) scale(1);
-    }
-    25% {
-      opacity: 0.9;
-      transform: translateY(-8%) scale(1.02);
+      transform: scale(1);
     }
     50% {
-      opacity: 0.75;
-      transform: translateY(5%) scale(0.98);
+      opacity: 1;
+      transform: scale(1.05);
+    }
+  }
+
+  @keyframes aurora-orb-float {
+    0%, 100% {
+      opacity: 0.6;
+      transform: translate(0, 0) scale(1);
+    }
+    25% {
+      opacity: 0.8;
+      transform: translate(20px, -30px) scale(1.1);
+    }
+    50% {
+      opacity: 0.7;
+      transform: translate(-10px, 20px) scale(0.95);
     }
     75% {
       opacity: 0.85;
-      transform: translateY(-3%) scale(1.01);
-    }
-  }
-
-  @keyframes aurora-fog-secondary {
-    0%, 100% {
-      opacity: 0.5;
-      transform: translateX(0) translateY(0);
-    }
-    33% {
-      opacity: 0.7;
-      transform: translateX(3%) translateY(-5%);
-    }
-    66% {
-      opacity: 0.6;
-      transform: translateX(-3%) translateY(5%);
+      transform: translate(15px, 10px) scale(1.05);
     }
   }
 

@@ -38,7 +38,17 @@ function App() {
     <HelmetProvider>
       <TooltipProvider>
         <Toaster />
-        <div className="min-h-screen flex flex-col">
+        <div className="min-h-screen flex flex-col relative">
+          {/* Page-length aurora effect - spans full document, stays in place as you scroll */}
+          <div className="aurora-page-container">
+            <div className="aurora-page-layer aurora-page-layer-green"></div>
+            <div className="aurora-page-layer aurora-page-layer-blue"></div>
+            <div className="aurora-page-layer aurora-page-layer-purple"></div>
+            <div className="aurora-orb aurora-orb-1"></div>
+            <div className="aurora-orb aurora-orb-2"></div>
+            <div className="aurora-orb aurora-orb-3"></div>
+            <div className="aurora-orb aurora-orb-4"></div>
+          </div>
           {/* Fixed overlays that don't affect document flow */}
           <div className="fixed top-0 left-0 right-0 z-50">
             <Navigation activeSection={activeSection} onNavigate={handleNavigate} />

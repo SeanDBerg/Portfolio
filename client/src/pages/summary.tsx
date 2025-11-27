@@ -36,11 +36,6 @@ export default function Summary({ onNavigate, currentRole, onRoleChange }: Summa
       <div className="fixed bottom-8 right-8 z-30 float-animation">
         <BergOpsAvatar size={150} />
       </div>
-      {/* Background decorative accent blurs */}
-      <div className="fixed inset-0 -z-10 pointer-events-none">
-        <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-berg-green/10 rounded-full blur-[100px]"></div>
-        <div className="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] bg-ops-blue/10 rounded-full blur-[100px]"></div>
-      </div>
     </div>
   );
 }
