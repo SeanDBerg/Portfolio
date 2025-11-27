@@ -39,17 +39,11 @@ function App() {
       <TooltipProvider>
         <Toaster />
         <div className="min-h-screen flex flex-col relative">
-          {/* Page-length aurora effect - continuous flowing wave */}
+          {/* Page-length aurora fog - flows down and cycles through colors */}
           <div className="aurora-page-container">
-            {/* Base gradient: smooth green->blue->purple transition */}
-            <div className="aurora-gradient-base"></div>
-            {/* Single flowing wave that pulses down the page */}
-            <div className="aurora-wave-flow"></div>
-            {/* Floating accent orbs */}
-            <div className="aurora-orb aurora-orb-1"></div>
-            <div className="aurora-orb aurora-orb-2"></div>
-            <div className="aurora-orb aurora-orb-3"></div>
-            <div className="aurora-orb aurora-orb-4"></div>
+            <div className="aurora-fog aurora-fog-1"></div>
+            <div className="aurora-fog aurora-fog-2"></div>
+            <div className="aurora-fog aurora-fog-3"></div>
           </div>
           {/* Fixed overlays that don't affect document flow */}
           <div className="fixed top-0 left-0 right-0 z-50">

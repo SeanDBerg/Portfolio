@@ -97,124 +97,114 @@
     overflow: hidden;
   }
 
-  /* Continuous aurora gradient that spans the full page - smooth color transition */
-  .aurora-gradient-base {
+  /* Aurora fog - single flowing element with color-shifting animation */
+  .aurora-fog {
     position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg,
-      rgba(46, 255, 123, 0.15) 0%,
-      rgba(46, 255, 123, 0.1) 15%,
-      rgba(0, 195, 255, 0.08) 35%,
-      rgba(0, 195, 255, 0.12) 50%,
-      rgba(0, 195, 255, 0.08) 65%,
-      rgba(157, 78, 221, 0.1) 80%,
-      rgba(157, 78, 221, 0.15) 100%
-    );
-    pointer-events: none;
-  }
-
-  /* Single flowing aurora wave that pulses down the page */
-  .aurora-wave-flow {
-    position: absolute;
-    left: -20%;
-    width: 140%;
-    height: 50%;
+    left: -30%;
+    width: 160%;
+    height: 60%;
     border-radius: 50%;
-    filter: blur(80px);
-    background: radial-gradient(ellipse at center,
-      rgba(46, 255, 123, 0.3) 0%,
-      rgba(0, 195, 255, 0.2) 40%,
-      rgba(157, 78, 221, 0.15) 70%,
-      transparent 100%
-    );
-    animation: aurora-flow-down 30s ease-in-out infinite;
+    filter: blur(100px);
+    animation: aurora-fog-flow 35s ease-in-out infinite;
   }
 
-  @keyframes aurora-flow-down {
-    0% {
-      top: -30%;
-      opacity: 0.4;
-      transform: scaleY(0.8);
-    }
-    15% {
-      opacity: 0.7;
-      transform: scaleY(1);
-    }
-    50% {
-      opacity: 0.8;
-      transform: scaleY(1.1);
-    }
-    85% {
-      opacity: 0.6;
-      transform: scaleY(0.9);
-    }
-    100% {
-      top: 100%;
-      opacity: 0.3;
-      transform: scaleY(0.8);
-    }
+  /* Multiple fog layers with staggered color cycling */
+  .aurora-fog-1 {
+    background: radial-gradient(ellipse at center, 
+      rgba(46, 255, 123, 0.25) 0%, 
+      transparent 70%);
+    animation: aurora-fog-flow 35s ease-in-out infinite, aurora-color-cycle-1 20s ease-in-out infinite;
   }
 
-  /* Floating accent orbs for extra depth */
-  .aurora-orb {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(60px);
-    animation: aurora-orb-float 30s ease-in-out infinite;
+  .aurora-fog-2 {
+    background: radial-gradient(ellipse at center, 
+      rgba(0, 195, 255, 0.2) 0%, 
+      transparent 70%);
+    animation: aurora-fog-flow 40s ease-in-out infinite, aurora-color-cycle-2 25s ease-in-out infinite;
+    animation-delay: -12s;
   }
 
-  .aurora-orb-1 {
-    width: 400px;
-    height: 400px;
-    top: 10%;
-    left: -5%;
-    background: rgba(46, 255, 123, 0.15);
-    animation-delay: 0s;
-  }
-
-  .aurora-orb-2 {
-    width: 350px;
-    height: 350px;
-    top: 35%;
-    right: -5%;
-    background: rgba(0, 195, 255, 0.12);
-    animation-delay: -10s;
-  }
-
-  .aurora-orb-3 {
-    width: 450px;
-    height: 450px;
-    top: 60%;
-    left: 10%;
-    background: rgba(157, 78, 221, 0.14);
+  .aurora-fog-3 {
+    background: radial-gradient(ellipse at center, 
+      rgba(157, 78, 221, 0.2) 0%, 
+      transparent 70%);
+    animation: aurora-fog-flow 30s ease-in-out infinite, aurora-color-cycle-3 22s ease-in-out infinite;
     animation-delay: -20s;
   }
 
-  .aurora-orb-4 {
-    width: 300px;
-    height: 300px;
-    top: 80%;
-    right: 15%;
-    background: rgba(0, 195, 255, 0.1);
-    animation-delay: -5s;
+  /* Flow animation - moves fog down the page with pulsing */
+  @keyframes aurora-fog-flow {
+    0% {
+      top: -40%;
+      opacity: 0.2;
+      transform: scaleY(0.7) scaleX(1);
+    }
+    20% {
+      opacity: 0.6;
+      transform: scaleY(1) scaleX(1.1);
+    }
+    40% {
+      opacity: 0.8;
+      transform: scaleY(1.2) scaleX(0.9);
+    }
+    60% {
+      opacity: 0.7;
+      transform: scaleY(1.1) scaleX(1.05);
+    }
+    80% {
+      opacity: 0.5;
+      transform: scaleY(0.9) scaleX(1);
+    }
+    100% {
+      top: 120%;
+      opacity: 0.2;
+      transform: scaleY(0.7) scaleX(1);
+    }
   }
 
-  @keyframes aurora-orb-float {
+  /* Color cycling animations - each fog layer shifts through the palette */
+  @keyframes aurora-color-cycle-1 {
     0%, 100% {
-      opacity: 0.6;
-      transform: translate(0, 0) scale(1);
+      background: radial-gradient(ellipse at center, rgba(30, 35, 40, 0.3) 0%, transparent 70%);
+    }
+    20% {
+      background: radial-gradient(ellipse at center, rgba(46, 255, 123, 0.3) 0%, transparent 70%);
+    }
+    40% {
+      background: radial-gradient(ellipse at center, rgba(0, 195, 255, 0.25) 0%, transparent 70%);
+    }
+    60% {
+      background: radial-gradient(ellipse at center, rgba(157, 78, 221, 0.25) 0%, transparent 70%);
+    }
+    80% {
+      background: radial-gradient(ellipse at center, rgba(46, 255, 123, 0.2) 0%, transparent 70%);
+    }
+  }
+
+  @keyframes aurora-color-cycle-2 {
+    0%, 100% {
+      background: radial-gradient(ellipse at center, rgba(0, 195, 255, 0.25) 0%, transparent 70%);
     }
     25% {
-      opacity: 0.8;
-      transform: translate(20px, -30px) scale(1.1);
+      background: radial-gradient(ellipse at center, rgba(157, 78, 221, 0.3) 0%, transparent 70%);
     }
     50% {
-      opacity: 0.7;
-      transform: translate(-10px, 20px) scale(0.95);
+      background: radial-gradient(ellipse at center, rgba(25, 30, 35, 0.35) 0%, transparent 70%);
     }
     75% {
-      opacity: 0.85;
-      transform: translate(15px, 10px) scale(1.05);
+      background: radial-gradient(ellipse at center, rgba(46, 255, 123, 0.25) 0%, transparent 70%);
+    }
+  }
+
+  @keyframes aurora-color-cycle-3 {
+    0%, 100% {
+      background: radial-gradient(ellipse at center, rgba(157, 78, 221, 0.25) 0%, transparent 70%);
+    }
+    33% {
+      background: radial-gradient(ellipse at center, rgba(46, 255, 123, 0.2) 0%, transparent 70%);
+    }
+    66% {
+      background: radial-gradient(ellipse at center, rgba(0, 195, 255, 0.3) 0%, transparent 70%);
     }
   }
 
