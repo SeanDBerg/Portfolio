@@ -319,9 +319,9 @@
 
   .aurora-blue-flow {
     background: linear-gradient(135deg,
-      rgba(0, 195, 255, 0.18) 0%,
-      rgba(157, 78, 221, 0.12) 50%,
-      rgba(26, 29, 35, 0.85) 100%
+      rgba(0, 195, 255, 0.2) 0%,
+      rgba(0, 195, 255, 0.08) 40%,
+      rgba(20, 25, 30, 0.95) 100%
     );
     position: relative;
   }
@@ -362,9 +362,9 @@
     width: 150%;
     height: 150%;
     background: radial-gradient(ellipse at center,
-      rgba(0, 195, 255, 0.35) 0%,
-      rgba(46, 255, 123, 0.15) 33%,
-      rgba(157, 78, 221, 0.2) 66%,
+      rgba(0, 195, 255, 0.4) 0%,
+      rgba(0, 195, 255, 0.2) 40%,
+      rgba(20, 25, 30, 0.3) 70%,
       transparent 100%
     );
     animation: aurora-wave 12s ease-in-out infinite;
@@ -456,16 +456,27 @@
 
   /* Section-specific aurora accents */
   .aurora-accent-green {
-    border-color: rgba(46, 255, 123, 0.2);
+    border: 2px solid rgba(46, 255, 123, 0.5);
+    box-shadow: 
+      0 0 8px rgba(46, 255, 123, 0.4),
+      0 0 20px rgba(46, 255, 123, 0.25),
+      inset 0 0 20px rgba(46, 255, 123, 0.06);
   }
 
   .aurora-accent-blue {
-    border-color: rgba(0, 195, 255, 0.35);
-    box-shadow: 0 0 25px rgba(0, 195, 255, 0.15), inset 0 0 30px rgba(0, 195, 255, 0.08);
+    border: 2px solid rgba(0, 195, 255, 0.5);
+    box-shadow: 
+      0 0 8px rgba(0, 195, 255, 0.4),
+      0 0 20px rgba(0, 195, 255, 0.25),
+      inset 0 0 20px rgba(0, 195, 255, 0.06);
   }
 
   .aurora-accent-purple {
-    border-color: rgba(157, 78, 221, 0.3);
+    border: 2px solid rgba(157, 78, 221, 0.5);
+    box-shadow: 
+      0 0 8px rgba(157, 78, 221, 0.4),
+      0 0 20px rgba(157, 78, 221, 0.25),
+      inset 0 0 20px rgba(157, 78, 221, 0.06);
   }
 }
 
