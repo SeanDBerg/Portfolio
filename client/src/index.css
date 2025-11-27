@@ -322,16 +322,12 @@
     }
   }
 
-  /* Page-wide aurora fog wave container - spans full page content */
+  /* Page-wide aurora fog wave container */
   .aurora-fog-wave {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 300%;
-    min-height: 100vh;
+    position: fixed;
+    inset: 0;
     pointer-events: none;
-    overflow: visible;
+    overflow: hidden;
     z-index: 1;
   }
 
@@ -373,14 +369,10 @@
     animation-delay: -16s;
   }
 
-  /* Subtle ambient pulse layer - spans full page content */
+  /* Subtle ambient pulse layer */
   .aurora-ambient-pulse {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 300%;
-    min-height: 100vh;
+    position: fixed;
+    inset: 0;
     pointer-events: none;
     z-index: 0;
     background: linear-gradient(180deg,
