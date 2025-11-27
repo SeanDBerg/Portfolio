@@ -319,9 +319,9 @@
 
   .aurora-blue-flow {
     background: linear-gradient(135deg,
-      rgba(0, 195, 255, 0.1) 0%,
-      rgba(157, 78, 221, 0.05) 50%,
-      rgba(26, 29, 35, 0.9) 100%
+      rgba(0, 195, 255, 0.18) 0%,
+      rgba(157, 78, 221, 0.12) 50%,
+      rgba(26, 29, 35, 0.85) 100%
     );
     position: relative;
   }
@@ -355,13 +355,21 @@
   }
 
   .aurora-wave-overlay-blue::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: 50%;
+    width: 150%;
+    height: 150%;
     background: radial-gradient(ellipse at center,
-      rgba(0, 195, 255, 0.2) 0%,
-      rgba(46, 255, 123, 0.1) 33%,
-      rgba(157, 78, 221, 0.15) 66%,
+      rgba(0, 195, 255, 0.35) 0%,
+      rgba(46, 255, 123, 0.15) 33%,
+      rgba(157, 78, 221, 0.2) 66%,
       transparent 100%
     );
-    animation: aurora-wave 15s ease-in-out infinite;
+    animation: aurora-wave 12s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 0;
   }
 
   .aurora-wave-overlay-purple::before {
@@ -441,8 +449,8 @@
 
   /* Enhanced glassmorphism with aurora backdrop */
   .glassmorphism-aurora {
-    background: rgba(26, 29, 35, 0.7);
-    backdrop-filter: blur(16px) saturate(180%);
+    background: rgba(26, 29, 35, 0.5);
+    backdrop-filter: blur(12px) saturate(180%);
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
@@ -452,7 +460,8 @@
   }
 
   .aurora-accent-blue {
-    border-color: rgba(0, 195, 255, 0.2);
+    border-color: rgba(0, 195, 255, 0.35);
+    box-shadow: 0 0 25px rgba(0, 195, 255, 0.15), inset 0 0 30px rgba(0, 195, 255, 0.08);
   }
 
   .aurora-accent-purple {
