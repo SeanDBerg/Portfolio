@@ -206,9 +206,6 @@ export default function CaseStudiesSection() {
         </div>
       )}
       </section>
-      
-      {/* Section separator: blue to purple transition */}
-      <div className="section-separator section-separator-blue-to-purple mb-8"></div>
     </>
   );
 }

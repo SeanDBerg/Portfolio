@@ -43,8 +43,6 @@ export default function PillarsSection() {
         {/* Aurora wave overlay */}
         <div className="absolute inset-0 aurora-wave-overlay pointer-events-none"></div>
       </section>
-      {/* Section separator: green to blue transition */}
-      <div className="section-separator section-separator-green-to-blue mb-8"></div>
     </>
   );
 }

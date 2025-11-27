@@ -98,6 +98,9 @@ export default function PortfolioSection() {
 
   return (
     <>
+      {/* Section separator: blue to purple transition */}
+      <div className="section-separator section-separator-blue-to-purple mb-8"></div>
+      
       <section ref={ref} id="portfolio" className={`aurora-blue-flow glassmorphism-aurora rounded-xl shadow-lg p-6 sm:p-8 lg:p-12 fade-transition fade-in border aurora-accent-blue ${getSectionClass()} relative overflow-hidden`}>
         {/* Aurora wave overlay */}
         <div className="absolute inset-0 aurora-wave-overlay-blue pointer-events-none"></div>
@@ -186,9 +189,6 @@ export default function PortfolioSection() {
           </button>
         </div>
       </section>
-      
-      {/* Section separator: blue to purple transition */}
-      <div className="section-separator section-separator-blue-to-purple mb-8"></div>
     </>
   );
 }
