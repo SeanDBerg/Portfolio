@@ -16,10 +16,10 @@ export const FormTextarea = forwardRef<HTMLTextAreaElement, FormTextareaProps>(
         {label && (
           <label 
             htmlFor={inputId}
-            className="block text-sm font-medium text-white/90 mb-2"
+            className="block text-sm font-medium text-foreground/90 mb-2"
           >
             {label}
-            {required && <span className="text-red-300 ml-1">*</span>}
+            {required && <span className="text-red-400 ml-1">*</span>}
           </label>
         )}
         <textarea
@@ -27,18 +27,18 @@ export const FormTextarea = forwardRef<HTMLTextAreaElement, FormTextareaProps>(
           id={inputId}
           rows={4}
           className={cn(
-            'w-full px-4 py-3 bg-white/95 backdrop-blur-sm border border-white/30 rounded-lg shadow-sm',
-            'text-gray-900 placeholder-gray-500 resize-y min-h-[120px]',
-            'focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-white/50 focus:bg-white',
+            'w-full px-4 py-3 bg-surface/50 backdrop-blur-sm border border-white/10 rounded-lg shadow-sm',
+            'text-foreground placeholder:text-muted-foreground/50 resize-y min-h-[120px]',
+            'focus:outline-none focus:ring-2 focus:ring-ops-blue/50 focus:border-ops-blue/50 focus:bg-surface',
             'transition-all duration-200 ease-in-out',
-            error && 'border-red-300 focus:ring-red-300 focus:border-red-300',
+            error && 'border-red-400 focus:ring-red-400 focus:border-red-400',
             className
           )}
           data-testid={`textarea-${label?.toLowerCase().replace(/\s+/g, '-') || 'field'}`}
           {...props}
         />
         {error && (
-          <p className="mt-1 text-sm text-red-200" data-testid={`error-${label?.toLowerCase().replace(/\s+/g, '-') || 'field'}`}>
+          <p className="mt-1 text-sm text-red-400" data-testid={`error-${label?.toLowerCase().replace(/\s+/g, '-') || 'field'}`}>
             {error}
           </p>
         )}

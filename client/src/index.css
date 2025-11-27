@@ -3,56 +3,66 @@
 @tailwind utilities;
 
 :root {
-  --background: hsl(0, 0%, 100%);
-  --foreground: hsl(30, 17%, 11%);
-  --muted: hsl(218, 11%, 96%);
-  --muted-foreground: hsl(216, 6%, 45%);
-  --popover: hsl(0, 0%, 100%);
-  --popover-foreground: hsl(30, 17%, 11%);
-  --card: hsl(0, 0%, 100%);
-  --card-foreground: hsl(30, 17%, 11%);
-  --border: hsl(216, 13%, 88%);
-  --input: hsl(216, 13%, 88%);
-  --primary: hsl(213, 45%, 24%);
-  --primary-foreground: hsl(210, 40%, 98%);
-  --secondary: hsl(204, 70%, 53%);
-  --secondary-foreground: hsl(210, 40%, 98%);
-  --accent: hsl(200, 91%, 54%);
-  --accent-foreground: hsl(210, 40%, 98%);
-  --destructive: hsl(0, 84%, 60%);
-  --destructive-foreground: hsl(60, 9%, 98%);
-  --ring: hsl(213, 45%, 24%);
+  /* Aurora Palette & Theme Variables */
+  --background: 220 17% 7%; /* Void #0F1115 */
+  --foreground: 210 40% 98%; /* Text #E2E8F0 */
+  
+  --card: 220 15% 12%; /* Surface #1A1D23 */
+  --card-foreground: 210 40% 98%;
+  
+  --popover: 220 17% 7%;
+  --popover-foreground: 210 40% 98%;
+  
+  --primary: 142 100% 59%; /* Berg Green #2EFF7B */
+  --primary-foreground: 220 17% 7%;
+  
+  --secondary: 194 100% 50%; /* Ops Blue #00C3FF */
+  --secondary-foreground: 220 17% 7%;
+  
+  --muted: 218 15% 24%; /* Steel #333945 */
+  --muted-foreground: 215 20% 65%;
+  
+  --accent: 273 67% 59%; /* Intel Purple #9D4EDD */
+  --accent-foreground: 210 40% 98%;
+  
+  --destructive: 0 62% 30%;
+  --destructive-foreground: 210 40% 98%;
+  
+  --border: 218 15% 24%;
+  --input: 218 15% 24%;
+  --ring: 142 100% 59%;
+  
   --radius: 0.5rem;
   
-  /* Custom resume colors */
-  --navy: hsl(213, 45%, 24%);
-  --trust-blue: hsl(204, 70%, 53%);
-  --hover-blue: hsl(200, 91%, 54%);
-  --bg-main: hsl(218, 27%, 97%);
-  --text-main: hsl(215, 25%, 17%);
-  --subtle: hsl(216, 13%, 94%);
+  /* Custom resume colors mapped to new palette */
+  --navy: 220 17% 7%;
+  --trust-blue: 194 100% 50%;
+  --hover-blue: 273 67% 59%;
+  --bg-main: 220 17% 7%;
+  --text-main: 210 40% 98%;
+  --subtle: 218 15% 24%;
 }
 
 .dark {
-  --background: hsl(240, 10%, 4%);
-  --foreground: hsl(0, 0%, 98%);
-  --muted: hsl(240, 4%, 16%);
-  --muted-foreground: hsl(240, 5%, 65%);
-  --popover: hsl(240, 10%, 4%);
-  --popover-foreground: hsl(0, 0%, 98%);
-  --card: hsl(240, 10%, 4%);
-  --card-foreground: hsl(0, 0%, 98%);
-  --border: hsl(240, 4%, 16%);
-  --input: hsl(240, 4%, 16%);
-  --primary: hsl(213, 45%, 24%);
-  --primary-foreground: hsl(210, 40%, 98%);
-  --secondary: hsl(240, 4%, 16%);
-  --secondary-foreground: hsl(0, 0%, 98%);
-  --accent: hsl(240, 4%, 16%);
-  --accent-foreground: hsl(0, 0%, 98%);
-  --destructive: hsl(0, 63%, 31%);
-  --destructive-foreground: hsl(0, 0%, 98%);
-  --ring: hsl(240, 5%, 84%);
+  --background: 220 17% 7%;
+  --foreground: 210 40% 98%;
+  --card: 220 15% 12%;
+  --card-foreground: 210 40% 98%;
+  --popover: 220 17% 7%;
+  --popover-foreground: 210 40% 98%;
+  --primary: 142 100% 59%;
+  --primary-foreground: 220 17% 7%;
+  --secondary: 194 100% 50%;
+  --secondary-foreground: 220 17% 7%;
+  --muted: 218 15% 24%;
+  --muted-foreground: 215 20% 65%;
+  --accent: 273 67% 59%;
+  --accent-foreground: 210 40% 98%;
+  --destructive: 0 62% 30%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 218 15% 24%;
+  --input: 218 15% 24%;
+  --ring: 142 100% 59%;
 }
 
 @layer base {
@@ -62,8 +72,8 @@
 
   body {
     @apply font-inter antialiased;
-    background: linear-gradient(135deg, var(--bg-main) 0%, hsl(0, 0%, 100%) 100%);
-    color: var(--text-main);
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
     font-size: clamp(14px, 1.2vw, 18px);
     line-height: 1.6;
   }
@@ -71,6 +81,7 @@
   /* Responsive base font sizes */
   html {
     font-size: 16px;
+    scroll-behavior: smooth;
   }
 
   @media (max-width: 640px) {
@@ -217,6 +228,235 @@
     50% {
       transform: translateY(-10px);
     }
+  }
+
+  /* Branding Utilities */
+  .glassmorphism {
+    background: rgba(26, 29, 35, 0.8);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .neon-glow {
+    box-shadow: 0 0 15px rgba(46, 255, 123, 0.3);
+    border: 1px solid rgba(46, 255, 123, 0.5);
+  }
+
+  .neon-glow:hover {
+    box-shadow: 0 0 25px rgba(46, 255, 123, 0.5);
+  }
+
+  .neon-glow-purple {
+    box-shadow: 0 0 20px rgba(157, 78, 221, 0.4);
+    border: 1px solid rgba(157, 78, 221, 0.6);
+  }
+
+  .neon-glow-purple:hover {
+    box-shadow: 0 0 35px rgba(157, 78, 221, 0.7);
+  }
+
+  .animate-pulse-slow {
+    animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 0.5;
+    }
+    50% {
+      opacity: 0.8;
+    }
+  }
+
+  /* Aurora Borealis Flow System */
+  /* Aurora Wave Animation - Creates flowing Northern Lights effect */
+  @keyframes aurora-wave {
+    0%, 100% {
+      transform: translateX(-50%) translateY(0) scaleY(1);
+      opacity: 0.3;
+    }
+    25% {
+      transform: translateX(-45%) translateY(-10px) scaleY(1.05);
+      opacity: 0.4;
+    }
+    50% {
+      transform: translateX(-50%) translateY(-15px) scaleY(1.1);
+      opacity: 0.5;
+    }
+    75% {
+      transform: translateX(-55%) translateY(-10px) scaleY(1.05);
+      opacity: 0.4;
+    }
+  }
+
+  @keyframes aurora-shimmer {
+    0%, 100% {
+      opacity: 0.4;
+    }
+    50% {
+      opacity: 0.7;
+    }
+  }
+
+  @keyframes aurora-glow {
+    0%, 100% {
+      box-shadow: 0 0 20px rgba(46, 255, 123, 0.3);
+    }
+    50% {
+      box-shadow: 0 0 35px rgba(46, 255, 123, 0.5);
+    }
+  }
+
+  /* Aurora Flow Backgrounds - Color-specific flowing gradients */
+  .aurora-green-flow {
+    background: linear-gradient(135deg, 
+      rgba(46, 255, 123, 0.1) 0%,
+      rgba(0, 195, 255, 0.05) 50%,
+      rgba(26, 29, 35, 0.9) 100%
+    );
+    position: relative;
+  }
+
+  .aurora-blue-flow {
+    background: linear-gradient(135deg,
+      rgba(0, 195, 255, 0.1) 0%,
+      rgba(157, 78, 221, 0.05) 50%,
+      rgba(26, 29, 35, 0.9) 100%
+    );
+    position: relative;
+  }
+
+  .aurora-purple-flow {
+    background: linear-gradient(135deg,
+      rgba(157, 78, 221, 0.15) 0%,
+      rgba(0, 195, 255, 0.05) 50%,
+      rgba(26, 29, 35, 0.9) 100%
+    );
+    position: relative;
+  }
+
+  /* Animated Aurora Wave Overlay */
+  .aurora-wave-overlay::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: 50%;
+    width: 150%;
+    height: 150%;
+    background: radial-gradient(ellipse at center,
+      rgba(46, 255, 123, 0.2) 0%,
+      rgba(0, 195, 255, 0.15) 33%,
+      rgba(157, 78, 221, 0.1) 66%,
+      transparent 100%
+    );
+    animation: aurora-wave 12s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .aurora-wave-overlay-blue::before {
+    background: radial-gradient(ellipse at center,
+      rgba(0, 195, 255, 0.2) 0%,
+      rgba(46, 255, 123, 0.1) 33%,
+      rgba(157, 78, 221, 0.15) 66%,
+      transparent 100%
+    );
+    animation: aurora-wave 15s ease-in-out infinite;
+  }
+
+  .aurora-wave-overlay-purple::before {
+    background: radial-gradient(ellipse at center,
+      rgba(157, 78, 221, 0.25) 0%,
+      rgba(0, 195, 255, 0.15) 33%,
+      rgba(46, 255, 123, 0.1) 66%,
+      transparent 100%
+    );
+    animation: aurora-wave 18s ease-in-out infinite;
+  }
+
+  /* Section Separators - Gradient transitions between sections */
+  .section-separator {
+    height: 4px;
+    width: 100%;
+    margin: 2rem 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .section-separator-green-to-blue {
+    background: linear-gradient(90deg,
+      rgba(46, 255, 123, 0.6) 0%,
+      rgba(0, 195, 255, 0.6) 100%
+    );
+    box-shadow: 0 0 20px rgba(46, 255, 123, 0.3), 0 0 40px rgba(0, 195, 255, 0.2);
+  }
+
+  .section-separator-blue-to-purple {
+    background: linear-gradient(90deg,
+      rgba(0, 195, 255, 0.6) 0%,
+      rgba(157, 78, 221, 0.6) 100%
+    );
+    box-shadow: 0 0 20px rgba(0, 195, 255, 0.3), 0 0 40px rgba(157, 78, 221, 0.2);
+  }
+
+  /* Animated shimmer effect on separators */
+  .section-separator::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.3) 50%,
+      transparent 100%
+    );
+    animation: separator-shimmer 3s ease-in-out infinite;
+  }
+
+  @keyframes separator-shimmer {
+    0% {
+      left: -100%;
+    }
+    100% {
+      left: 100%;
+    }
+  }
+
+  /* Logo Utilities */
+  .logo-glow {
+    filter: drop-shadow(0 0 10px rgba(46, 255, 123, 0.4));
+    transition: filter 0.3s ease;
+  }
+
+  .logo-glow:hover {
+    filter: drop-shadow(0 0 20px rgba(46, 255, 123, 0.7));
+  }
+
+  /* Aurora shimmer animation utility */
+  .animate-aurora-shimmer {
+    animation: aurora-shimmer 4s ease-in-out infinite;
+  }
+
+  /* Enhanced glassmorphism with aurora backdrop */
+  .glassmorphism-aurora {
+    background: rgba(26, 29, 35, 0.7);
+    backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Section-specific aurora accents */
+  .aurora-accent-green {
+    border-color: rgba(46, 255, 123, 0.2);
+  }
+
+  .aurora-accent-blue {
+    border-color: rgba(0, 195, 255, 0.2);
+  }
+
+  .aurora-accent-purple {
+    border-color: rgba(157, 78, 221, 0.3);
   }
 }
 

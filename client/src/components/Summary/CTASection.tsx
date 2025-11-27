@@ -8,61 +8,39 @@ import { FormInput } from '@/components/ui/form-input';
 import { FormTextarea } from '@/components/ui/form-textarea';
 import { Button } from '@/components/ui/button';
 import { useState, useEffect } from 'react';
-
 export default function CTASection() {
   const { ref, isShrunken, isEnlarged } = useScrollResize();
   const { toast } = useToast();
-  
-  // Bot protection: Track form render timestamp
   const [formStartTime, setFormStartTime] = useState<number>(0);
-  
-  // Debug mode state
   const [debugMode, setDebugMode] = useState<boolean>(false);
-  
-  // Risk scoring state
   const [riskScore, setRiskScore] = useState<number>(0);
   const [failedAttempts, setFailedAttempts] = useState<number>(0);
   const [showCaptcha, setShowCaptcha] = useState<boolean>(false);
   const [captchaToken, setCaptchaToken] = useState<string>('');
   const [showSoftWarning, setShowSoftWarning] = useState<boolean>(false);
-  
-  // Set form start time on mount
   useEffect(() => {
     setFormStartTime(Date.now());
-    
-    // Load failed attempts from localStorage
     const attempts = localStorage.getItem('formFailedAttempts');
     if (attempts) {
       setFailedAttempts(parseInt(attempts, 10));
     }
   }, []);
-  
-  // Load Cloudflare Turnstile script with explicit rendering
   useEffect(() => {
-    const script = document.createElement('script');
-    script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
-    script.async = true;
-    script.defer = true;
-    script.onload = () => {
-      console.log('📦 Turnstile script loaded');
-    };
-    document.body.appendChild(script);
-    
-    return () => {
-      if (document.body.contains(script)) {
-        document.body.removeChild(script);
-      }
-    };
+    if (!document.getElementById('turnstile-script')) {
+      const script = document.createElement('script');
+      script.id = 'turnstile-script';
+      script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
+      script.async = true;
+      script.defer = true;
+      document.head.appendChild(script);
+    }
   }, []);
-  
-  // Manually render Turnstile widget when it should appear
   useEffect(() => {
-    if (!showCaptcha) return;
-    
-    const renderWidget = () => {
-      const container = document.getElementById('turnstile-container');
-      if (container && !container.hasChildNodes() && (window as any).turnstile) {
-        console.log('🔐 Rendering Turnstile widget');
+    if (showCaptcha) {
+      const renderWidget = () => {
+        const container = document.getElementById('turnstile-container');
+        if (!container) return;
+        container.innerHTML = '';
         try {
           (window as any).turnstile.render('#turnstile-container', {
             sitekey: import.meta.env.VITE_TURNSTILE_SITE_KEY,
@@ -75,31 +53,26 @@ export default function CTASection() {
         } catch (err) {
           console.error('Failed to render Turnstile:', err);
         }
+      };
+      if ((window as any).turnstile) {
+        renderWidget();
+      } else {
+        const maxAttempts = 50;
+        let attempts = 0;
+        const interval = setInterval(() => {
+          attempts++;
+          if ((window as any).turnstile) {
+            clearInterval(interval);
+            renderWidget();
+          } else if (attempts >= maxAttempts) {
+            clearInterval(interval);
+            console.error('Turnstile failed to load');
+          }
+        }, 100);
+        return () => clearInterval(interval);
       }
-    };
-    
-    // Try to render immediately
-    if ((window as any).turnstile) {
-      renderWidget();
-    } else {
-      // Wait for Turnstile to load (poll every 100ms for up to 5 seconds)
-      const maxAttempts = 50;
-      let attempts = 0;
-      const interval = setInterval(() => {
-        attempts++;
-        if ((window as any).turnstile) {
-          clearInterval(interval);
-          renderWidget();
-        } else if (attempts >= maxAttempts) {
-          clearInterval(interval);
-          console.error('Turnstile failed to load');
-        }
-      }, 100);
-      
-      return () => clearInterval(interval);
     }
   }, [showCaptcha]);
-
   const form = useForm<ContactFormData>({
     resolver: zodResolver(contactFormSchema),
     defaultValues: {
@@ -107,39 +80,25 @@ export default function CTASection() {
       email: '',
       phone: '',
       info: '',
-      website: '', // Honeypot
-      subject: '', // Decoy
-      url: '' // Decoy
+      website: '',
+      subject: '',
+      url: ''
     }
   });
-
   const getSectionClass = () => {
     if (isShrunken) return 'section-shrunk';
     if (isEnlarged) return 'section-enlarged';
     return 'section-normal';
   };
-  
-  // Calculate risk score
   const calculateRiskScore = (data: ContactFormData, timeToComplete: number): number => {
     let score = 0;
-    
-    // Honeypot filled (+50 points)
     if (data.website) score += 50;
-    
-    // Decoy fields filled (+30 points each)
     if (data.subject) score += 30;
     if (data.url) score += 30;
-    
-    // Too fast (<2s) (+30 points)
     if (timeToComplete < 2000) score += 30;
-    
-    // Failed attempts (+20 points per attempt)
     score += failedAttempts * 20;
-    
     return score;
   };
-  
-  // Debug function to fill honeypot
   const fillHoneypotForTesting = () => {
     form.setValue('website', 'bot-filled-this');
     form.setValue('subject', 'test-subject');
@@ -149,14 +108,10 @@ export default function CTASection() {
       description: "Now submit the form to test bot detection",
     });
   };
-
   const onSubmit = async (data: ContactFormData) => {
     try {
-      // Calculate time to complete
       const timeToComplete = Date.now() - formStartTime;
       const thirtyMinutes = 30 * 60 * 1000;
-      
-      // Check if form expired
       if (timeToComplete > thirtyMinutes) {
         toast({
           title: "Form expired",
@@ -165,25 +120,16 @@ export default function CTASection() {
         });
         return;
       }
-      
-      // Calculate risk score
       const currentRiskScore = calculateRiskScore(data, timeToComplete);
       setRiskScore(currentRiskScore);
-      
       console.log('🎯 Risk Score:', currentRiskScore);
-      
-      // Risk threshold for CAPTCHA (50+ is risky)
       const RISK_THRESHOLD = 50;
-      
-      // Progressive disclosure logic
       if (currentRiskScore >= RISK_THRESHOLD) {
-        // First risky attempt: Show soft warning
         if (!showSoftWarning && !showCaptcha) {
           setShowSoftWarning(true);
           const newAttempts = failedAttempts + 1;
           setFailedAttempts(newAttempts);
           localStorage.setItem('formFailedAttempts', newAttempts.toString());
-          
           toast({
             title: "Please confirm you're human",
             description: "Your submission seems unusual. Please try again.",
@@ -191,22 +137,17 @@ export default function CTASection() {
           });
           return;
         }
-        
-        // Second risky attempt: Show CAPTCHA
         if (showSoftWarning && !showCaptcha) {
           setShowCaptcha(true);
           const newAttempts = failedAttempts + 1;
           setFailedAttempts(newAttempts);
           localStorage.setItem('formFailedAttempts', newAttempts.toString());
-          
           toast({
             title: "Security check required",
             description: "Please complete the CAPTCHA below to continue.",
           });
           return;
         }
-        
-        // CAPTCHA required but not completed
         if (showCaptcha && !captchaToken) {
           toast({
             title: "CAPTCHA required",
@@ -216,17 +157,13 @@ export default function CTASection() {
           return;
         }
       }
-      
-      // Bot protection: Origin validation (strict equality)
       const allowedOrigins = [
         'https://seanberg.github.io',
         'http://localhost:5000',
         'http://127.0.0.1:5000'
       ];
-      
       const currentOrigin = window.location.origin;
       const isAllowedOrigin = allowedOrigins.includes(currentOrigin);
-      
       if (!isAllowedOrigin) {
         console.error('❌ Blocked - Invalid origin:', currentOrigin);
         console.error('❌ Allowed origins:', allowedOrigins);
@@ -237,27 +174,21 @@ export default function CTASection() {
         });
         return;
       }
-      
-      // Prepare data for submission (include honeypot fields, origin, and CAPTCHA token)
       const dataToSend = {
         name: data.name,
         email: data.email,
         phone: data.phone || '',
         info: data.info,
-        website: data.website || '',  // Honeypot - should be empty for legitimate users
-        subject: data.subject || '',  // Decoy - should be empty for legitimate users
-        url: data.url || '',          // Decoy - should be empty for legitimate users
-        requestOrigin: currentOrigin, // Send origin for server-side validation
-        captchaToken: captchaToken || '', // CAPTCHA token if required
-        riskScore: currentRiskScore   // Send risk score for logging
+        website: data.website || '',
+        subject: data.subject || '',
+        url: data.url || '',
+        requestOrigin: currentOrigin,
+        captchaToken: captchaToken || '',
+        riskScore: currentRiskScore
       };
-      
-      // Debug logging
       console.log('📧 Form data being sent:', dataToSend);
       console.log('📧 Origin:', currentOrigin);
       console.log('📧 JSON body:', JSON.stringify(dataToSend));
-      
-      // Submit data via Ajax to Google Apps Script (using JSON)
       const response = await fetch('https://script.google.com/macros/s/AKfycbyuTzlDq8m0Wi29ePQepdZA3Xb27AfXHGE5HifPj46kjTmgC_HkN73L4LncSQqmXYCDnQ/exec', {
         method: 'POST',
         headers: {
@@ -265,24 +196,16 @@ export default function CTASection() {
         },
         body: JSON.stringify(dataToSend)
       });
-
       if (response.ok) {
-        // Clear the form
         form.reset();
-        
-        // Reset all protection states for next submission
         setFormStartTime(Date.now());
         setShowSoftWarning(false);
         setShowCaptcha(false);
         setCaptchaToken('');
         setRiskScore(0);
-        
-        // Decay failed attempts (reduce by 1, minimum 0)
         const newAttempts = Math.max(0, failedAttempts - 1);
         setFailedAttempts(newAttempts);
         localStorage.setItem('formFailedAttempts', newAttempts.toString());
-        
-        // Show success toast
         toast({
           title: "Thank you for your message!",
           description: "I'll get back to you soon.",
@@ -299,28 +222,41 @@ export default function CTASection() {
       });
     }
   };
-
   return (
-    <section
-      ref={ref}
-      id="contact"
-      className={`bg-gradient-to-br from-blue-950 via-sky-800 to-blue-950 dark:from-primary/80 dark:to-blue-900 text-white rounded-xl shadow-lg p-6 sm:p-8 lg:p-12 fade-transition fade-in ${getSectionClass()}`}
-    >
-      <div className="text-center">
-        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4">
-          Ready to transform your operations?
-        </h2>
-        <p className="text-base sm:text-lg text-white/90 mb-8 max-w-2xl mx-auto">
-          Let's collaborate on optimizing your business processes and building high-performing teams.
+    <>
+      {/* Section separator: blue to purple transition */}
+      <div className="section-separator section-separator-blue-to-purple mb-8"></div>
+      
+      <section
+        ref={ref}
+        id="contact"
+        className={`relative overflow-hidden aurora-purple-flow rounded-xl shadow-2xl shadow-intel-purple/20 p-6 sm:p-8 lg:p-12 fade-transition fade-in border aurora-accent-purple ${getSectionClass()}`}
+      >
+        {/* Aurora wave overlay */}
+        <div className="absolute inset-0 aurora-wave-overlay-purple pointer-events-none"></div>
+        
+      <div className="text-center relative z-10">
+        <div className="relative z-10 inline-block">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 tracking-tight drop-shadow-md">
+            Ready to transform your operations?
+          </h2>
+          <div className="absolute -inset-1 bg-intel-purple/20 blur-xl -z-10 rounded-full"></div>
+        </div>
+        <p className="text-lg sm:text-xl text-gray-200 mb-10 max-w-2xl mx-auto relative z-10 font-medium leading-relaxed">
+          I embed with your existing team and tools, improving efficiency while your staff keep working as usual.
         </p>
-
-        {/* Contact Form */}
+        
+        <div className="absolute top-[-20%] right-[-10%] w-[500px] h-[500px] bg-intel-purple/20 rounded-full blur-[120px] pointer-events-none animate-pulse-slow"></div>
+        <div className="absolute bottom-[-20%] left-[-10%] w-[500px] h-[500px] bg-berg-green/10 rounded-full blur-[120px] pointer-events-none animate-pulse-slow" style={{ animationDelay: '2s' }}></div>
+        
+        <div className="absolute top-10 left-10 w-2 h-2 bg-intel-purple rounded-full blur-[1px] animate-pulse"></div>
+        <div className="absolute top-20 right-20 w-3 h-3 bg-berg-green rounded-full blur-[2px] animate-pulse" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute bottom-10 left-1/4 w-2 h-2 bg-ops-blue rounded-full blur-[1px] animate-pulse" style={{ animationDelay: '3s' }}></div>
         <form 
           onSubmit={form.handleSubmit(onSubmit)}
-          className="max-w-md mx-auto mb-8 space-y-4"
+          className="max-w-md mx-auto mb-8 space-y-4 relative z-10"
           data-testid="contact-form"
         >
-          {/* Honeypot field - hidden from users but visible to bots */}
           <input
             type="text"
             {...form.register('website')}
@@ -335,8 +271,6 @@ export default function CTASection() {
             }}
             aria-hidden="true"
           />
-          
-          {/* Decoy fields - hidden from users but attractive to bots */}
           <input
             type="text"
             {...form.register('subject')}
@@ -351,7 +285,6 @@ export default function CTASection() {
             }}
             aria-hidden="true"
           />
-          
           <input
             type="text"
             {...form.register('url')}
@@ -366,7 +299,6 @@ export default function CTASection() {
             }}
             aria-hidden="true"
           />
-          
           <div className="grid grid-cols-1 gap-4">
             <FormInput
               label="Name"
@@ -375,7 +307,6 @@ export default function CTASection() {
               {...form.register('name')}
               error={form.formState.errors.name?.message}
             />
-            
             <FormInput
               label="Email"
               type="email"
@@ -383,8 +314,7 @@ export default function CTASection() {
               required
               {...form.register('email')}
               error={form.formState.errors.email?.message}
-            />
-            
+            />            
             <FormInput
               label="Phone"
               type="tel"
@@ -392,7 +322,6 @@ export default function CTASection() {
               {...form.register('phone')}
               error={form.formState.errors.phone?.message}
             />
-            
             <FormTextarea
               label="Info"
               placeholder="Tell me about your project, goals, or how I can help you..."
@@ -401,22 +330,16 @@ export default function CTASection() {
               error={form.formState.errors.info?.message}
             />
           </div>
-          
-          {/* Soft Warning */}
           {showSoftWarning && !showCaptcha && (
             <div className="bg-yellow-500/20 border border-yellow-500 rounded-lg p-4 mb-4">
               <p className="text-sm text-white">⚠️ Your submission seems unusual. Please review your information and try again.</p>
             </div>
           )}
-          
-          {/* Cloudflare Turnstile CAPTCHA */}
           {showCaptcha && (
             <div className="flex justify-center mb-4">
               <div id="turnstile-container"></div>
             </div>
           )}
-          
-          {/* Debug Controls */}
           <div className="flex justify-center gap-2 mb-4">
             <button
               type="button"
@@ -426,7 +349,6 @@ export default function CTASection() {
               {debugMode ? 'Hide Debug' : 'Show Debug'}
             </button>
           </div>
-          
           {debugMode && (
             <div className="bg-yellow-500/20 border border-yellow-500 rounded-lg p-4 mb-4">
               <p className="text-sm text-white mb-2">🐛 Debug Mode</p>
@@ -440,19 +362,18 @@ export default function CTASection() {
               </Button>
             </div>
           )}
-          
           <div className="flex flex-col sm:flex-row gap-4 justify-center mt-6">
             <Button
               type="submit"
               disabled={form.formState.isSubmitting}
-              className="inline-flex items-center justify-center px-8 py-3 bg-white hover:bg-gray-200 text-navy font-medium rounded-lg shadow-lg hover:shadow-xl transition-all focus:ring-4 focus:ring-white/30 min-w-[180px]"
+              className="inline-flex items-center justify-center px-8 py-4 bg-intel-purple hover:bg-intel-purple/90 text-white font-bold text-lg rounded-lg shadow-lg hover:shadow-intel-purple/50 transition-all focus:ring-4 focus:ring-intel-purple/30 min-w-[200px] neon-glow-purple transform hover:-translate-y-1"
               data-testid="button-submit"
             >
               {form.formState.isSubmitting ? 'Sending...' : 'Submit'}
             </Button>
             <Link
               href="/resume"
-              className="inline-flex items-center justify-center px-8 py-3 bg-transparent hover:bg-white/10 border border-white text-white font-medium rounded-lg transition-colors min-w-[180px]"
+              className="inline-flex items-center justify-center px-8 py-4 bg-transparent hover:bg-white/10 border-2 border-white/20 text-white font-bold text-lg rounded-lg transition-colors min-w-[200px] hover:border-white/40"
               data-testid="link-view-resume"
             >
               View My Resume
@@ -460,6 +381,7 @@ export default function CTASection() {
           </div>
         </form>
       </div>
-    </section>
+      </section>
+    </>
   );
 }

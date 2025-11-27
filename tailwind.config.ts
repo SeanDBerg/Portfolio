@@ -61,6 +61,17 @@ export default {
           border: "var(--sidebar-border)",
           ring: "var(--sidebar-ring)",
         },
+        // Aurora Palette
+        "berg-green": "#2EFF7B",
+        "ops-blue": "#00C3FF",
+        "intel-purple": "#9D4EDD",
+        "void": "#0F1115",
+        "surface": "#1A1D23",
+        "steel": "#333945",
+        "text-primary": "#E2E8F0",
+      },
+      fontFamily: {
+        mono: ["JetBrains Mono", "monospace"],
       },
       keyframes: {
         "accordion-down": {

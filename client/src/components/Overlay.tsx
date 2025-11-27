@@ -52,14 +52,14 @@ export default function Overlay({ currentRole, onRoleChange, activeSection, onDo
   ];
 
   return (
-    <div className={`no-print bg-white/95 backdrop-blur-sm border-b border-subtle shadow-sm transition-all duration-300`}>
+    <div className={`no-print bg-surface/95 backdrop-blur-sm border-b border-white/10 shadow-sm transition-all duration-300`}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between py-2">
           {/* Toggle Button and Current Role */}
           <div className="flex items-center gap-2">
             <button
               onClick={() => setIsExpanded(!isExpanded)}
-              className="flex items-center gap-2 text-navy hover:text-hover-blue font-medium transition-colors"
+              className="flex items-center gap-2 text-muted-foreground hover:text-ops-blue font-medium transition-colors"
             >
               <span className="text-sm">View as Role</span>
               {isExpanded ? (
@@ -72,7 +72,7 @@ export default function Overlay({ currentRole, onRoleChange, activeSection, onDo
             {/* Current Role Indicator (when collapsed) - moved to right of chevron */}
             {!isExpanded && (
               <div className="text-sm text-gray-600 ml-2">
-                Current: <span className="font-medium text-navy">{roles.find(r => r.key === currentRole)?.label}</span>
+                Current: <span className="font-medium text-berg-green neon-text">{roles.find(r => r.key === currentRole)?.label}</span>
               </div>
             )}
           </div>
@@ -101,7 +101,7 @@ export default function Overlay({ currentRole, onRoleChange, activeSection, onDo
                 className={`rounded-lg px-3 sm:px-4 py-2 font-medium transition-colors text-sm sm:text-base flex-shrink-0 ${
                   currentRole === key
                     ? "bg-navy text-white shadow"
-                    : "bg-subtle text-gray-700 hover:bg-trust-blue hover:text-white"
+                    : "bg-surface border border-white/10 text-muted-foreground hover:bg-ops-blue/10 hover:text-ops-blue hover:border-ops-blue"
                 }`}
                 style={{
                   fontSize: 'clamp(0.75rem, 2vw, 0.875rem)',

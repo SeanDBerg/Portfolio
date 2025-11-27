@@ -148,7 +148,7 @@ export const resumeData: Record<string, ResumeData> = {
   },
   frontend: {
     title: "Frontend Developer | React Interface Systems Engineer",
-    summary: "Versatile Frontend Developer with a strong foundation in JavaScript, React, and web UI engineering. 10+ years of technical leadership experience delivering user-centered web solutions across SaaS, enterprise, and SMB environments. Proven ability to translate complex business needs into responsive, performant, and maintainable interfaces. Focused on building fast, modern applications that enhance user experience and operational efficiency.",
+    summary: "I modernize complex frontend systems. I stabilize legacy codebases, then automate workflows and extend functionality without disrupting daily user experience. I embed with your existing team and tools, improving stability and efficiency while your staff keep working as usual.",
     highlights: [
       {
         icon: "fas fa-code",
@@ -277,7 +277,7 @@ export const resumeData: Record<string, ResumeData> = {
   },
   it: {
     title: "IT Manager | Infrastructure & Automation Leader | Technical Project Consultant",
-    summary: "Multidisciplinary IT leader with 10+ years managing operations and delivering IT-driven business outcomes. Extensive experience in planning, deploying, and optimizing technical solutions across enterprise, retail, and SMB environments. Adept at leading cross-functional teams, supporting infrastructure rollouts, and aligning IT with business objectives. Known for bridging technical and non-technical teams through clear documentation and scalable systems.",
+    summary: "I modernize complex IT infrastructure. I stabilize critical systems, then automate maintenance and extend capabilities without disrupting daily operations. I embed with your existing team and tools, improving stability and efficiency while your staff keep working as usual.",
     highlights: [
       {
         icon: "fas fa-server",
@@ -404,7 +404,7 @@ export const resumeData: Record<string, ResumeData> = {
   },
   pm: {
     title: "Technical Project Manager | CSM | Infrastructure & Operations Strategist",
-    summary: "Results-driven project leader with over a decade of experience managing cross-functional initiatives spanning IT infrastructure, software deployment, and enterprise operations. Certified Scrum Master (CSM) with a proven record of delivering complex, high-impact technical solutions across enterprise, retail, and SMB environments. Known for bridging technical and business teams, aligning stakeholders, and driving scalable project outcomes with precision.",
+    summary: "I modernize complex project workflows. I stabilize chaotic processes, then automate reporting and extend team capabilities without disrupting daily delivery. I embed with your existing team and tools, improving stability and efficiency while your staff keep working as usual.",
     highlights: [
       {
         icon: "fas fa-project-diagram",

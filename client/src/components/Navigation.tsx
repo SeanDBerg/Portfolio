@@ -24,14 +24,28 @@ export default function Navigation({ activeSection, onNavigate }: NavigationProp
   const getButtonClass = (section: NavigationSection) => {
     const isActive = activeSection === section;
     return `font-medium transition-colors cursor-pointer ${isScrolled ? 'text-sm' : 'text-base'} ${
-      isActive ? 'text-hover-blue' : 'text-navy hover:text-hover-blue'
+      isActive ? 'text-berg-green neon-text' : 'text-muted-foreground hover:text-ops-blue'
     }`;
   };
 
   return (
-    <nav className={`bg-white/95 backdrop-blur-sm border-b border-subtle shadow-sm no-print transition-all duration-300 ${isScrolled ? 'py-2' : 'py-3'}`}>
+    <nav className={`bg-surface/90 backdrop-blur-md border-b border-white/10 shadow-lg no-print transition-all duration-300 ${isScrolled ? 'py-2' : 'py-3'}`}>
       <div className={`max-w-6xl mx-auto px-4 sm:px-6 transition-all duration-300 ${isScrolled ? 'scale-98' : 'scale-100'}`}>
-        <div className="flex flex-row items-center justify-center gap-4 w-full">
+        <div className="flex flex-row items-center justify-between w-full">
+          {/* Logo */}
+          <button 
+            onClick={() => onNavigate('summary')}
+            className="flex items-center gap-2 cursor-pointer group"
+            aria-label="BergOps Home"
+          >
+            <img 
+              src="/HomeLogo.png" 
+              alt="BergOps Logo" 
+              className={`logo-glow transition-all duration-300 ${isScrolled ? 'h-8' : 'h-10'}`}
+            />
+          </button>
+          
+          {/* Navigation Links */}
           <nav className="flex gap-6">
             {visibleSections.map(section => (
               <button 

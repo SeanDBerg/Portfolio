@@ -18,18 +18,18 @@ export default function Highlights({ highlights, isTransitioning }: HighlightsPr
   return (
     <section 
       ref={ref}
-      className={`bg-white rounded-xl shadow-lg p-4 mb-1 fade-transition ${
+      className={`bg-surface glassmorphism border border-white/5 rounded-xl shadow-lg p-4 mb-1 fade-transition ${
         isTransitioning ? 'fade-out' : 'fade-in'
       } ${getSectionClass()}`}
     >
-      <h3 className="text-lg font-bold text-navy mb-2">
+      <h3 className="text-lg font-bold text-foreground mb-2">
         Career Highlights
       </h3>
       <div className="space-y-0.5">
         {highlights.map((highlight, index) => (
           <div key={index} className="flex items-start gap-2">
-            <i className={`${highlight.icon} text-trust-blue mt-1 text-xs flex-shrink-0`}></i>
-            <span className="text-base sm:text-lg text-gray-700 font-normal mb-5 max-w-4xl">{highlight.text}</span>
+            <i className={`${highlight.icon} text-ops-blue mt-1 text-xs flex-shrink-0`}></i>
+            <span className="text-base sm:text-lg text-muted-foreground font-normal mb-5 max-w-4xl">{highlight.text}</span>
           </div>
         ))}
       </div>
