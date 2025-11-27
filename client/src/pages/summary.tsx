@@ -17,7 +17,7 @@ interface SummaryProps {
 
 export default function Summary({ onNavigate, currentRole, onRoleChange }: SummaryProps) {
   return (
-    <div className="bg-void min-h-screen text-foreground relative overflow-hidden">
+    <div className="min-h-screen text-foreground relative overflow-hidden">
       <Helmet>
         <title>Sean Berg - Operations & IT Leader</title>
         <meta name="description" content="Sean Berg's professional summary showcasing leadership in operations, IT, and project management." />
@@ -36,16 +36,8 @@ export default function Summary({ onNavigate, currentRole, onRoleChange }: Summa
       <div className="fixed bottom-8 right-8 z-30 float-animation">
         <BergOpsAvatar size={150} />
       </div>
-      {/* Aurora fog wave effect - slow drifting aurora bands */}
-      <div className="aurora-fog-wave">
-        <div className="aurora-fog-band aurora-fog-band-green"></div>
-        <div className="aurora-fog-band aurora-fog-band-blue"></div>
-        <div className="aurora-fog-band aurora-fog-band-purple"></div>
-      </div>
-      <div className="aurora-ambient-pulse"></div>
-      {/* Background decorative elements */}
+      {/* Background decorative accent blurs */}
       <div className="fixed inset-0 -z-10 pointer-events-none">
-        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-surface via-void to-void opacity-80"></div>
         <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-berg-green/10 rounded-full blur-[100px]"></div>
         <div className="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] bg-ops-blue/10 rounded-full blur-[100px]"></div>
       </div>
