@@ -289,6 +289,100 @@
     }
   }
 
+  /* Slow-moving aurora fog that migrates down the page */
+  @keyframes aurora-fog-drift {
+    0% {
+      transform: translateY(-100%) scaleY(1.5);
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.4;
+    }
+    50% {
+      opacity: 0.6;
+    }
+    90% {
+      opacity: 0.4;
+    }
+    100% {
+      transform: translateY(100%) scaleY(1.5);
+      opacity: 0;
+    }
+  }
+
+  @keyframes aurora-fog-pulse {
+    0%, 100% {
+      opacity: 0.15;
+      filter: blur(80px);
+    }
+    50% {
+      opacity: 0.35;
+      filter: blur(100px);
+    }
+  }
+
+  /* Page-wide aurora fog wave container */
+  .aurora-fog-wave {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: -5;
+  }
+
+  /* Individual fog bands that drift down */
+  .aurora-fog-band {
+    position: absolute;
+    left: -20%;
+    width: 140%;
+    height: 60vh;
+    border-radius: 50%;
+    filter: blur(80px);
+    animation: aurora-fog-drift 25s ease-in-out infinite;
+  }
+
+  .aurora-fog-band-green {
+    background: radial-gradient(ellipse at center,
+      rgba(46, 255, 123, 0.25) 0%,
+      rgba(46, 255, 123, 0.1) 40%,
+      transparent 70%
+    );
+    animation-delay: 0s;
+  }
+
+  .aurora-fog-band-blue {
+    background: radial-gradient(ellipse at center,
+      rgba(0, 195, 255, 0.25) 0%,
+      rgba(0, 195, 255, 0.1) 40%,
+      transparent 70%
+    );
+    animation-delay: -8s;
+  }
+
+  .aurora-fog-band-purple {
+    background: radial-gradient(ellipse at center,
+      rgba(157, 78, 221, 0.25) 0%,
+      rgba(157, 78, 221, 0.1) 40%,
+      transparent 70%
+    );
+    animation-delay: -16s;
+  }
+
+  /* Subtle ambient pulse layer */
+  .aurora-ambient-pulse {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -6;
+    background: linear-gradient(180deg,
+      rgba(46, 255, 123, 0.08) 0%,
+      rgba(0, 195, 255, 0.06) 33%,
+      rgba(157, 78, 221, 0.08) 66%,
+      rgba(20, 25, 30, 0) 100%
+    );
+    animation: aurora-fog-pulse 12s ease-in-out infinite;
+  }
+
   @keyframes aurora-shimmer {
     0%, 100% {
       opacity: 0.4;

@@ -36,6 +36,13 @@ export default function Summary({ onNavigate, currentRole, onRoleChange }: Summa
       <div className="fixed bottom-8 right-8 z-30 float-animation">
         <BergOpsAvatar size={150} />
       </div>
+      {/* Aurora fog wave effect - slow drifting aurora bands */}
+      <div className="aurora-fog-wave">
+        <div className="aurora-fog-band aurora-fog-band-green"></div>
+        <div className="aurora-fog-band aurora-fog-band-blue"></div>
+        <div className="aurora-fog-band aurora-fog-band-purple"></div>
+      </div>
+      <div className="aurora-ambient-pulse"></div>
       {/* Background decorative elements */}
       <div className="fixed inset-0 -z-10 pointer-events-none">
         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-surface via-void to-void opacity-80"></div>
