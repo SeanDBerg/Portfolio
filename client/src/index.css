@@ -541,10 +541,10 @@
     animation: aurora-shimmer 4s ease-in-out infinite;
   }
 
-  /* Enhanced glassmorphism with aurora backdrop */
+  /* Enhanced glassmorphism with aurora backdrop - transparent to let aurora show */
   .glassmorphism-aurora {
-    background: rgba(26, 29, 35, 0.5);
-    backdrop-filter: blur(12px) saturate(180%);
+    background: rgba(26, 29, 35, 0.15);
+    backdrop-filter: blur(8px) saturate(150%);
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
