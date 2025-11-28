@@ -40,9 +40,9 @@ export default function Summary({ onNavigate, currentRole, onRoleChange }: Summa
       </div>
       <div className="aurora-ambient-pulse"></div>
       {/* Background decorative elements - aurora glow accents only */}
-      <div className="fixed inset-0 -z-10 pointer-events-none">
-        <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-berg-green/10 rounded-full blur-[100px]"></div>
-        <div className="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] bg-ops-blue/10 rounded-full blur-[100px]"></div>
+      <div className="aurora-orbs-container">
+        <div className="aurora-orb aurora-orb-1"></div>
+        <div className="aurora-orb aurora-orb-2"></div>
       </div>
     </div>
   );

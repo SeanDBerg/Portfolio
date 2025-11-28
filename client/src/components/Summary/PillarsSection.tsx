@@ -34,7 +34,7 @@ export default function PillarsSection() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
           {pillars.map((pillar, index) => (
             <div key={index} className="flex flex-col items-center text-center p-4">
-              <div className="animate-aurora-shimmer">{pillar.icon}</div>
+              <div className="animate-icon-shimmer">{pillar.icon}</div>
               <h3 className="text-xl font-bold text-foreground mb-2">{pillar.title}</h3>
               <p className="text-muted-foreground">{pillar.description}</p>
             </div>

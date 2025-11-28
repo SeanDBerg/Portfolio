@@ -293,7 +293,8 @@
   /* Slow-moving aurora fog that migrates down the page */
   @keyframes aurora-fog-drift {
     0% {
-      transform: translateY(-100%) scaleY(1.5);
+      top: -60vh;
+      transform: scaleY(1.5);
       opacity: 0;
     }
     10% {
@@ -306,7 +307,8 @@
       opacity: 0.4;
     }
     100% {
-      transform: translateY(100%) scaleY(1.5);
+      top: 100%;
+      transform: scaleY(1.5);
       opacity: 0;
     }
   }
@@ -324,7 +326,7 @@
 
   /* Page-wide aurora fog wave container */
   .aurora-fog-wave {
-    position: fixed;
+    position: absolute;
     inset: 0;
     pointer-events: none;
     overflow: hidden;
@@ -386,10 +388,19 @@
 
   @keyframes aurora-shimmer {
     0%, 100% {
-      opacity: 0.4;
+      opacity: 0.1;
     }
     50% {
-      opacity: 0.7;
+      opacity: 0.4;
+    }
+  }
+
+  @keyframes icon-shimmer {
+    0%, 100% {
+      opacity: 0.6;
+    }
+    50% {
+      opacity: 0.9;
     }
   }
 
@@ -537,9 +548,24 @@
     filter: drop-shadow(0 0 20px rgba(46, 255, 123, 0.7));
   }
 
+  /* Text outline for improved readability */
+  .text-outline-black {
+    text-shadow: 
+      -1px -1px 0 #000,
+      1px -1px 0 #000,
+      -1px 1px 0 #000,
+      1px 1px 0 #000,
+      0 0 8px rgba(46, 255, 123, 0.5);
+  }
+
   /* Aurora shimmer animation utility */
   .animate-aurora-shimmer {
-    animation: aurora-shimmer 4s ease-in-out infinite;
+    animation: aurora-shimmer 6s ease-in-out infinite;
+  }
+
+  /* Icon shimmer animation utility - higher opacity for better visibility */
+  .animate-icon-shimmer {
+    animation: icon-shimmer 6s ease-in-out infinite;
   }
 
   /* Enhanced glassmorphism with aurora backdrop - transparent to let aurora show */
@@ -551,11 +577,11 @@
 
   /* Section-specific aurora accents */
   .aurora-accent-green {
-    border: 2px solid rgba(46, 255, 123, 0.5);
+    border: 1px solid rgba(46, 255, 123, 0.3);
     box-shadow: 
-      0 0 8px rgba(46, 255, 123, 0.4),
-      0 0 20px rgba(46, 255, 123, 0.25),
-      inset 0 0 20px rgba(46, 255, 123, 0.06);
+      0 0 4px rgba(46, 255, 123, 0.2),
+      0 0 12px rgba(46, 255, 123, 0.1),
+      inset 0 0 12px rgba(46, 255, 123, 0.03);
   }
 
   .aurora-accent-blue {
@@ -591,5 +617,56 @@
   * {
     -webkit-print-color-adjust: exact !important;
     color-adjust: exact !important;
+  }
+}
+
+/* Aurora Orbs Animation */
+.aurora-orbs-container {
+  position: absolute;
+  inset: 0;
+  z-index: -10;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.aurora-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  animation: orb-drift 60s linear infinite;
+}
+
+.aurora-orb-1 {
+  top: -20%;
+  right: -5%;
+  width: 500px;
+  height: 500px;
+  background-color: hsla(142, 100%, 59%, 0.1); /* Berg Green */
+  animation-delay: 0s;
+}
+
+.aurora-orb-2 {
+  top: -20%;
+  left: -5%;
+  width: 500px;
+  height: 500px;
+  background-color: hsla(194, 100%, 50%, 0.1); /* Ops Blue */
+  animation-delay: -30s;
+}
+
+@keyframes orb-drift {
+  0% {
+    top: -20%;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
   }
 }

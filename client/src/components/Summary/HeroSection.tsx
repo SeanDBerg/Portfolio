@@ -30,7 +30,7 @@ export default function HeroSection() {
           {/* Heading */}
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-foreground tracking-tight leading-snug mb-4">
             Full-Stack Developer<br />
-            <span className="text-berg-green font-mono text-xl sm:text-2xl mt-2 block drop-shadow-[0_0_8px_rgba(46,255,123,0.5)]">Google App Script, JavaScript, Python, and React</span>
+            <span className="text-berg-green font-mono text-xl sm:text-2xl mt-2 block text-outline-black">Google App Script, JavaScript, Python, and React</span>
           </h1>
           {/* Subheading */}
           <p className="text-base sm:text-lg text-muted-foreground font-normal mb-5 max-w-4xl mx-auto">
