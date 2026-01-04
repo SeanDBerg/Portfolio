@@ -29,7 +29,7 @@ export default function Navigation({ activeSection, onNavigate }: NavigationProp
   };
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+    <nav className={`w-full z-50 transition-all duration-300 ${
       isScrolled 
         ? 'py-2 glassmorphism-aurora shadow-lg' 
         : 'py-3 bg-transparent'

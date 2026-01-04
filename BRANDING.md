@@ -86,12 +86,3 @@ Used to highlight primary actions (buttons) or active cards.
 * **Shadow:** Drop shadow with the matching accent color.
     * *Rest State:* Spread 15px, Opacity 30%
     * *Hover State:* Spread 25px, Opacity 50%
-
----
-
-## 5. Visual Rules (Do's & Don'ts)
-
-* ✅ **DO use the "Aurora" colors sparingly.** A dashboard should be mostly dark grey (Void / Surface), with small pops of Green/Blue to guide the eye.
-* ✅ **DO use "Glassmorphism."** A slight transparency on your cards (Opacity 80% + Background Blur) looks incredible with these colors.
-* ❌ **DON'T use these colors on a white background.** They are too bright and will vibrate against white. This is a dark-mode-only brand.
-* ❌ **DON'T use gradients on body text.** It makes paragraphs hard to read. Keep the gradient for the Logo and massive Headlines only.

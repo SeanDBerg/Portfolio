@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { ResumeRole } from '@/hooks/useResumeRole';
 import { type ResumeData } from '@/data/resumeData';
 import AnimatedPage from '@/components/AnimatedPage';
+import Header from '@/components/Resume/Header';
 import Highlights from '@/components/Resume/Highlights';
 import Competencies from '@/components/Resume/Competencies';
 import Experience from '@/components/Resume/Experience';
@@ -40,6 +41,7 @@ export default function Resume({ onNavigate, activeSection, currentRole, onRoleC
       </Helmet>
       <main className="max-w-3xl lg:max-w-4xl xl:max-w-5xl mx-auto px-3 sm:px-4 lg:px-6 py-1 sm:py-2">
         <AnimatedPage>
+          <Header roleData={roleData} isTransitioning={isTransitioning} />
           <Highlights 
             highlights={roleData.highlights}
             isTransitioning={isTransitioning}

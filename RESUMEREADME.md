@@ -2,21 +2,6 @@
 
 This is a dynamic React-based resume website for Sean Berg, featuring role-based content switching and PDF generation capabilities. The application allows users to switch between different professional roles (General Manager, Frontend Developer, IT Manager, and Project Manager) with tailored resume content for each role. The site is optimized for static hosting and includes interactive features like PDF downloads and smooth scroll animations.
 
-# Recent Changes
-
-**November 27, 2025** - Configured for Replit environment:
-- Updated `vite.config.ts` to use base path "/" (removed GitHub Pages `/Portfolio/` path)
-- Added `host: "0.0.0.0"` to Vite server config for Replit proxy compatibility
-- Installed all npm dependencies
-- Configured workflow "Start application" running `npm run dev` on port 5000
-- Configured static deployment with build command and docs output directory
-- Updated `.gitignore` to exclude build outputs (docs, dist) and npm logs
-- Verified application runs correctly in Replit environment
-
-# User Preferences
-
-Preferred communication style: Simple, everyday language.
-
 # System Architecture
 
 ## Frontend Architecture
@@ -28,7 +13,6 @@ Preferred communication style: Simple, everyday language.
 
 ## Static Site Generation
 - **Static deployment** with builds output to `/docs` directory
-- **Base path configuration** set to "/" for Replit hosting
 - **No backend dependencies** - all data is embedded in the JavaScript bundle
 - **Asset optimization** with automatic bundling and minification
 
@@ -75,7 +59,6 @@ Preferred communication style: Simple, everyday language.
 ## Development Tools
 - **Vite** - Build tool and development server
 - **TypeScript** - Type checking and enhanced developer experience
-- **@replit/vite-plugins** - Replit-specific development enhancements
 
 ## PDF Generation
 - **jsPDF** - Client-side PDF generation library loaded via CDN

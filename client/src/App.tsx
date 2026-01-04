@@ -52,7 +52,7 @@ function App() {
             )}
           </div>
           {/* Main content with top padding to account for fixed header and overlay */}
-          <main className="flex-1 pt-36">
+          <main className="flex-1 pt-48">
             {renderContent()}
           </main>
           <Footer onNavigate={handleNavigate} />

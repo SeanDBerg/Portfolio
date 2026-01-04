@@ -63,10 +63,10 @@ score += failedAttempts * 20;
 ```
 
 #### Progressive Response
-- **Risk Score < 50**: Form submits normally ✅
-- **Risk Score ≥ 50 (First attempt)**: Soft warning, +1 failed attempt ⚠️
-- **Risk Score ≥ 50 (Second attempt)**: CAPTCHA challenge required 🔒
-- **CAPTCHA not completed**: Submission blocked ❌
+- **Risk Score < 50**: Form submits normally
+- **Risk Score ≥ 50 (First attempt)**: Soft warning, +1 failed attempt
+- **Risk Score ≥ 50 (Second attempt)**: CAPTCHA challenge required
+- **CAPTCHA not completed**: Submission blocked
 
 #### Cloudflare Turnstile Integration
 ```javascript
@@ -166,7 +166,7 @@ if (serverRiskScore > 0) {
 }
 ```
 
-## Replit Secrets Configuration
+## Secrets Configuration
 
 Two secrets are required:
 
@@ -186,30 +186,29 @@ Two secrets are required:
 4. Click "Add Site"
 5. Enter your domain (e.g., `seanberg.github.io`)
 6. Copy both Site Key and Secret Key
-7. Add them to Replit Secrets
 
 ## Security Features
 
-### ✅ What This Protects Against
+### What This Protects Against
 - Simple bots that fill all form fields
 - Speed bots that submit forms instantly (client-side only)
 - Automated scripts from unauthorized domains (limited protection)
 - Repeated spam attempts (progressive difficulty)
 - **Direct API attacks**: Server calculates risk independently, cannot be bypassed by spoofing client risk score
 
-### ✅ Security Improvements (Post-Architect Review)
+### Security Improvements (Post-Architect Review)
 1. **Server-side risk calculation**: Server never trusts client's riskScore - calculates independently
 2. **CAPTCHA enforcement**: ANY honeypot/decoy field trigger requires CAPTCHA verification
 3. **State reset after success**: UI properly resets warning/CAPTCHA states for next submission
 4. **Failed attempt decay**: Successful submissions reduce failed attempt count to prevent permanent lockout
 
-### ❌ Limitations
+### Limitations
 - **CSRF Protection**: Google Apps Script cannot access real HTTP Origin/Referer headers, so origin validation can be spoofed
 - **Time-to-complete validation**: Cannot be enforced server-side without storing form load timestamps
 - **Sophisticated Bots**: Advanced bots that mimic human behavior may bypass initial checks
 - **No Rate Limiting**: Google Apps Script has limited rate limiting capabilities
 
-### 🔒 Future Improvements (with Backend Server)
+### Future Improvements (with Backend Server)
 - True CSRF protection with real HTTP header validation
 - Server-side time-to-complete validation with session tokens
 - Rate limiting by IP address
@@ -228,9 +227,9 @@ The form includes a debug mode for testing:
 
 ### Debug Console Output
 ```javascript
-console.log('🎯 Risk Score:', currentRiskScore);
-console.log('📧 Form data being sent:', dataToSend);
-console.log('✅ CAPTCHA completed');
+console.log('Risk Score:', currentRiskScore);
+console.log('Form data being sent:', dataToSend);
+console.log('CAPTCHA completed');
 ```
 
 ## Testing Scenarios
@@ -239,24 +238,24 @@ console.log('✅ CAPTCHA completed');
 - Fill form normally
 - Wait >2 seconds before submit
 - Don't touch honeypot fields
-- ✅ Submits immediately
+- Submits immediately
 
 ### Suspicious User (Risk Score: 50-69)
 - Trigger one protection (e.g., submit too fast)
-- ⚠️ Receives soft warning
+- Receives soft warning
 - Can retry submission
 
 ### High Risk User (Risk Score: 70+)
 - Trigger multiple protections
 - Multiple failed attempts
-- 🔒 CAPTCHA challenge appears
+- CAPTCHA challenge appears
 - Must complete CAPTCHA to submit
 
 ### Bot Behavior (Risk Score: 50+)
 - Fills honeypot field
 - Fills decoy fields
 - Submits instantly (<2s)
-- ❌ Blocked or challenged
+- Blocked or challenged
 
 ## File Structure
 
@@ -270,7 +269,7 @@ google-apps-script-validation.js               # Server-side validation
 
 - [ ] Set up Cloudflare Turnstile account
 - [ ] Get Site Key and Secret Key
-- [ ] Add Site Key to Replit Secrets as `VITE_TURNSTILE_SITE_KEY`
+- [ ] Add Site Key to Secrets as `VITE_TURNSTILE_SITE_KEY`
 - [ ] Add Secret Key to Google Apps Script (replace `YOUR_TURNSTILE_SECRET_KEY`)
 - [ ] Update allowed origins in both client and server code
 - [ ] Deploy Google Apps Script as web app
@@ -302,6 +301,7 @@ failed attempts: +20 each
 // Client-side (CTASection.tsx)
 const allowedOrigins = [
   'https://seanberg.github.io',
+  '127.0.0.1:5000',
   'http://localhost:5000'  // Remove in production
 ];
 
